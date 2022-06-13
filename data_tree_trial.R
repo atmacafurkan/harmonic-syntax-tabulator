@@ -8,7 +8,7 @@ library(data.tree)
 # an initial numeration from which the merge operator draws futures as attributes
 df_numeration <- tibble(it=c("DP", "V","v","T","C"), 
                         mc = c(NA, "DP", "VP","vP","TP"),
-                        ac=c("case",NA,NA,NA,NA),
+                        ac=c("case",NA,"wh",NA,NA),
                         ft=c("wh",NA,"case",NA,NA),
                         lb=c("D","V","v","T","C"),
                         is_copy = rep(F,5),
@@ -29,7 +29,8 @@ mergeMC <- function(right_arg, left_arg){
       ac = df_numeration$ac[field_left],
       lb = df_numeration$lb[field_left],
       ft = df_numeration$ft[field_left],
-      is_copy = df_numeration$is_copy[field_left]
+      is_copy = df_numeration$is_copy[field_left],
+      is_head = df_numeration$is_head[field_left]
     )
   }else{new_node$AddChildNode(left_arg)}
   # set attributes of the node if the input is a character
@@ -41,7 +42,8 @@ mergeMC <- function(right_arg, left_arg){
       ac = df_numeration$ac[field_right],
       lb = df_numeration$lb[field_right],
       ft = df_numeration$ft[field_right],
-      is_copy = df_numeration$is_copy[field_right]
+      is_copy = df_numeration$is_copy[field_right],
+      is_head = df_numeration$is_head[field_right]
     )
   }else{
     # check if it is internal move, turn on is_copy for the moved item and remove other attributes
@@ -79,6 +81,7 @@ labelMC <- function(my_tree){
       my_tree$Set(name = paste0(new_label,"P"),
                   lb = new_label, 
                   it = new_label,
+                  is_head = F,
                   filterFun = isRoot)}
     # add domination information to the children once a  label is formed 
     my_tree$Set(dominated_by = paste(as.vector(my_tree$Get("dominated_by", filterFun = isLeaf)), new_label) %>% str_remove("NA "),
@@ -96,25 +99,45 @@ labelMC <- function(my_tree){
   return(my_tree)
 }
 
-# AGREE FUNCTION, only handles single agreement features per item you can agree before or after merge.
+# AGREE FUNCTION, only handles single agreement features per item you can agree before or after merge. Can only handle
+# a single specifier for agreement. 
 agreeMC <- function(my_tree){
+  # get agreement conditions
   goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
-  probe_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), 
+  
+  # get features for specifiers to agree with
+  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), 
                    head(my_tree$Get("ft", filterFun = isLeaf),1))
-  goal_feats[which(goal_feats == probe_feats)] <- NA
-  my_tree$Set(ac = goal_feats, filterFun = isLeaf)
+  
+  # get features for heads to agree with
+  sp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),1), 
+                        head(my_tree$Get("ft", filterFun = isLeaf),-1))
+  # get is_head info about leaves
+  head_spec <- my_tree$Get("is_head", filterFun = isLeaf)
+  
+  # use a data frame to calculate agreement
+  outlook <- tibble(goal_feats, hp_feats, sp_feats, head_spec)
+  outlook %<>% mutate(new_goals = case_when(
+    # agreement for heads with specifiers
+    head_spec ~ ifelse(goal_feats == sp_feats,"", goal_feats),
+    # agreement for heads
+    T ~ ifelse(goal_feats == hp_feats,"", goal_feats)
+  ))
+  # set agreement on leaves
+  my_tree$Set(ac = outlook$new_goals, filterFun = isLeaf)
+  
   return(my_tree)
 }
 
 
 dt_trial <- mergeMC("DP","V") %>% labelMC() %>%
   mergeMC("v") %>% labelMC() %>%
-  mergeMC("DP") %>% agreeMC() %>% labelMC() 
-
+  mergeMC("DP") %>% labelMC() # %>% agreeMC()
+my_tree <- Clone(dt_trial)
 
 print(dt_trial, "ac","ft")
 dt_trial %<>% agreeMC()
-print(dt_trial, "ac","ft", "dominator_count")
+print(dt_trial, "ac","ft")
 
 
 
