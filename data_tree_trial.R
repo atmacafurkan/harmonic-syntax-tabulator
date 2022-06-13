@@ -99,8 +99,7 @@ labelMC <- function(my_tree){
   return(my_tree)
 }
 
-# AGREE FUNCTION, only handles single agreement features per item you can agree before or after merge. Can only handle
-# a single specifier for agreement. 
+# AGREE FUNCTION, handles single specifiers and heads with single agreement conditions
 agreeMC <- function(my_tree){
   # get agreement conditions
   goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
@@ -117,12 +116,13 @@ agreeMC <- function(my_tree){
   
   # use a data frame to calculate agreement
   outlook <- tibble(goal_feats, hp_feats, sp_feats, head_spec)
+  outlook[is.na(outlook)] <- "0"
   outlook %<>% mutate(new_goals = case_when(
     # agreement for heads with specifiers
     head_spec ~ ifelse(goal_feats == sp_feats,"", goal_feats),
     # agreement for heads
     T ~ ifelse(goal_feats == hp_feats,"", goal_feats)
-  ))
+  )) %>% mutate(new_goals = replace(new_goals, new_goals == "0", NA))
   # set agreement on leaves
   my_tree$Set(ac = outlook$new_goals, filterFun = isLeaf)
   
@@ -130,13 +130,8 @@ agreeMC <- function(my_tree){
 }
 
 
-dt_trial <- mergeMC("DP","V") %>% labelMC() %>%
-  mergeMC("v") %>% labelMC() %>%
-  mergeMC("DP") %>% labelMC() # %>% agreeMC()
-my_tree <- Clone(dt_trial)
+dt_trial <- mergeMC("DP","V") %>% labelMC() %>% agreeMC()
 
-print(dt_trial, "ac","ft")
-dt_trial %<>% agreeMC()
 print(dt_trial, "ac","ft")
 
 
