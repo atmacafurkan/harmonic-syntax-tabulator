@@ -1,61 +1,49 @@
 library(tidyverse)
 library(magrittr)
 
-source("data_tree_trial.R")
-
-dt_trial <- mergeMC("DP","V") %>% labelMC() %>% mergeMC("v") %>% labelMC() %>% mergeMC("DP") %>% labelMC()
-
-print(dt_trial, "n_dominator","lb","ac","ft")
-cons_lab(dt_trial)
-plot(dt_trial)
 
 # Recursive functions to write trees
 ## draw simple linear tree with only labels
-linear_tree <- function(x){
-  if (length(x$children)>1){
+linear_tree <- function(my_tree){
+  if (length(my_tree$children)>1){
 
-  written <- paste0(ifelse(x$name==0,"",x$name),
-                    "[",x$children[[1]]$name,ifelse(is.na(x$children[[1]]$ft),"", paste0("(",x$children[[1]]$ft,")"))," ",linear_tree(x$children[[2]]),"]")
+  written <- paste0(ifelse(my_tree$name==0,"",my_tree$name),
+                    "[",my_tree$children[[1]]$name,ifelse(is.na(my_tree$children[[1]]$ft),"", paste0("(",my_tree$children[[1]]$ft,")"))," ",linear_tree(my_tree$children[[2]]),"]")
   }else{
-  written <- paste0(x$name,ifelse(is.na(x$ft),"", paste0("(",x$ft,")")))
+  written <- paste0(my_tree$name,ifelse(is.na(my_tree$ft),"", paste0("(",my_tree$ft,")")))
   }
   return(written)
 }
 
-## draw latex trees for represntation
-latex_tree <- function(x){
-  if (length(x$children)>1){
-    written <- paste0("[",ifelse(x$name==0,"",paste0(x$name)),
+## draw latemy_tree trees for represntation
+latemy_tree_tree <- function(my_tree){
+  if (length(my_tree$children)>1){
+    written <- paste0("[",ifelse(my_tree$name==0,"",paste0(my_tree$name)),
                       
-                      "[", x$children[[1]]$name,ifelse(is.na(x$children[[1]]$ft),"",
-                                                      paste0("$_{",x$children[[1]]$ft,"}$")),"]"," ",latex_tree(x$children[[2]]),"]")
+                      "[", my_tree$children[[1]]$name,ifelse(is.na(my_tree$children[[1]]$ft),"",
+                                                      paste0("$_{",my_tree$children[[1]]$ft,"}$")),"]"," ",latemy_tree_tree(my_tree$children[[2]]),"]")
   }else{
     written <- paste0("[",
-                      ifelse(x$is_copy,paste0(x$name,"$_{copy}$"),x$name),
-                      ifelse(is.na(x$ft),"", paste0("$_{",x$ft,"}$")),
-                      ifelse(is.na(x$ac),"", paste0("$_{A:",x$ac,"}$")),
+                      ifelse(my_tree$is_copy,paste0(my_tree$name,"$_{copy}$"),my_tree$name),
+                      ifelse(is.na(my_tree$ft),"", paste0("$_{",my_tree$ft,"}$")),
+                      ifelse(is.na(my_tree$ac),"", paste0("$_{A:",my_tree$ac,"}$")),
                       "]")
   }
   return(written)
 }
 
-## draw latex trees linearly
-latex_linear_tree <- function(x){
-  if (length(x$children)>1){
-    written <- paste0(ifelse(x$name==0,"",paste0("$_{",x$name,"}$")),
+## draw latemy_tree trees linearly
+latemy_tree_linear_tree <- function(my_tree){
+  if (length(my_tree$children)>1){
+    written <- paste0(ifelse(my_tree$name==0,"",paste0("$_{",my_tree$name,"}$")),
                       
-                      "[", x$children[[1]]$name,ifelse(is.na(x$children[[1]]$ft),"",
-                                                       paste0("$_{",x$children[[1]]$ft,"}$"))," ",latex_linear_tree(x$children[[2]]),"]")
+                      "[", my_tree$children[[1]]$name,ifelse(is.na(my_tree$children[[1]]$ft),"",
+                                                       paste0("$_{",my_tree$children[[1]]$ft,"}$"))," ",latemy_tree_linear_tree(my_tree$children[[2]]),"]")
   }else{
-    written <- paste0(ifelse(x$is_copy,paste0(x$name,"$_{copy}$"),x$name),
-                      ifelse(is.na(x$ft),"", paste0("$_{",x$ft,"}$")),
-                      ifelse(is.na(x$ac),"", paste0("$_{A:",x$ac,"}$")))
+    written <- paste0(ifelse(my_tree$is_copy,paste0(my_tree$name,"$_{copy}$"),my_tree$name),
+                      ifelse(is.na(my_tree$ft),"", paste0("$_{",my_tree$ft,"}$")),
+                      ifelse(is.na(my_tree$ac),"", paste0("$_{A:",my_tree$ac,"}$")))
   }
   return(written)
 }
-
-# try out the funcitons
-linear_tree(dt_trial)
-latex_tree(dt_trial)
-latex_linear_tree(dt_trial)
 
