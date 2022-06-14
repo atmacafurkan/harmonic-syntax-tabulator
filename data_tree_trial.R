@@ -8,9 +8,9 @@ library(data.tree)
 # an initial numeration from which the merge operator draws futures as attributes
 df_numeration <- tibble(it=c("DP", "V","v","T","C"), 
                         mc = c(NA, "DP", "VP","vP","TP"),
-                        ac=c("case",NA,"wh",NA,NA),
+                        ac=c("case",NA,NA,NA,NA),
                         ft=c("wh",NA,"case",NA,NA),
-                        lb=c("D","V","v","T","C"),
+                        lb=c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5), # label order with names
                         is_copy = rep(F,5),
                         is_head = ifelse(nchar(it) ==1, T,F))
 
@@ -50,11 +50,11 @@ mergeMC <- function(right_arg, left_arg){
     if(any(str_detect(right_arg$Get("it"), left_arg))){
       
       right_arg$Set(is_copy = T,
-                    it=NA,
+                    it="copy",
                     mc=NA,
                     ac=NA,
                     ft=NA,
-                    lb=NA, filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
+                    lb="", filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
       new_node$left_arg$is_moved <- T
     }
     new_node$AddChildNode(right_arg)} 
@@ -62,6 +62,7 @@ mergeMC <- function(right_arg, left_arg){
   new_node$Set(mc = NA,
                ac = NA,
                ft = NA,
+               it = "",
                is_copy = F, filterFun = isNotLeaf)
   
   # rename the nodes with their item names 
@@ -70,32 +71,26 @@ mergeMC <- function(right_arg, left_arg){
   return(new_node)
 }
 
-# LABELLING FUNCTION, creates the list of dominators per leaf, removes the count for moved items
+# LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
+# It also works additively, and you can call it whenever you want.
 labelMC <- function(my_tree){
-  label_order <- c("0",NA,"D","V","v","T","C")
-  if(any(class(my_tree) == "Node")){
-    if(my_tree$root$name == "0"){
-      my_labels <- my_tree$Get("lb") %>% as.vector() %>% unlist() %>% .[2:3]
-      new_label <-ifelse(max(which(label_order %in% my_labels))>2 ,
-                         label_order[max(which(label_order %in% my_labels))], "0")
-      my_tree$Set(name = paste0(new_label,"P"),
-                  lb = new_label, 
-                  it = new_label,
-                  is_head = F,
-                  filterFun = isRoot)}
-    # add domination information to the children once a  label is formed 
-    my_tree$Set(dominated_by = paste(as.vector(my_tree$Get("dominated_by", filterFun = isLeaf)), new_label) %>% str_remove("NA "),
-                filterFun = isLeaf)
-    dominators <- as.vector(my_tree$Get("dominated_by", filterFun = isLeaf))
-    dom_count <- integer()
-    for (each in 1:length(dominators)){
-      # take the number of unique labels into account
-      add_count <- dominators[[each]] %>% str_split(" ") %>% unlist() %>% unique() %>% length()
-      dom_count %<>% append(add_count)}
-    my_tree$Set(dominator_count = dom_count, filterFun = isLeaf) 
-    # remove dominator count for copies
-    my_tree$Set(dominator_count = 0, filterFun = function(x) isLeaf(x) & x$is_copy)
- }
+  master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
+  x <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x))
+  y <- my_tree$Get("lb", filterFun = function(x) x$position == 2 & isNotRoot(x))
+  z <- ifelse(x>y,x,y) %>% as.integer()
+  my_tree$Set(lb=z, name=str_replace_all(paste0(names(master_lb[z]),"P"),"NAP","0"),filterFun = isNotLeaf)
+  
+  # add dominating domain numbers
+  my_levels <- my_tree$Get("level", filterFun = isLeaf)
+  my_position <- my_tree$Get("position", filterFun = isLeaf)
+  for (each in 1:length(my_levels)){
+    domin <- my_tree$Get("lb", filterFun = function(x) isNotLeaf(x) & x$level < my_levels[each])
+    my_tree$Set(n_dominator = length(domin[!is.na(domin)]),
+                filterFun = function(x) 
+                  x$level == my_levels[each] &
+                  x$position == my_position[each])
+  }
+  my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
   return(my_tree)
 }
 
@@ -105,12 +100,10 @@ agreeMC <- function(my_tree){
   goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
   
   # get features for specifiers to agree with
-  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), 
-                   head(my_tree$Get("ft", filterFun = isLeaf),1))
+  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), "")
   
   # get features for heads to agree with
-  sp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),1), 
-                        head(my_tree$Get("ft", filterFun = isLeaf),-1))
+  sp_feats <- c("", head(my_tree$Get("ft", filterFun = isLeaf),-1))
   # get is_head info about leaves
   head_spec <- my_tree$Get("is_head", filterFun = isLeaf)
   
@@ -129,10 +122,9 @@ agreeMC <- function(my_tree){
   return(my_tree)
 }
 
-
-dt_trial <- mergeMC("DP","V") %>% labelMC() %>% agreeMC()
-
-print(dt_trial, "ac","ft")
-
-
+# LABELLING CONSTRAINT, counts unlabelled phrases
+cons_lab <- function(my_tree){
+  violation <- length(is.na(my_tree$Get("lb",filterFun = isNotLeaf)) %>% .[. ==T])
+  return(violation)
+}
 
