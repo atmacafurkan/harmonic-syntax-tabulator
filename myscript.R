@@ -1,0 +1,1 @@
+writeLines(text, "output.txt")
