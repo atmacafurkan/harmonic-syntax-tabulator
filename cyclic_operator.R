@@ -5,15 +5,7 @@ source("gen_functions.R")
 source("eval_functions.R")
 source("draw_trees.R")
 
-# an initial numeration from which the merge operator draws futures as attributes
-df_numeration <- tibble(it=c("DP", "V","v","T","C"), 
-                        mc = c(NA, "DP", "VP","vP","TP"),
-                        ac=c("case",NA,NA,NA,NA),
-                        ft=c("wh",NA,"case",NA,NA),
-                        lb=c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5),
-                        is_copy = c(F,F,F,F,F),
-                        is_head = c(F,T,T,T,T))
-outputs <- list()
+
 
 
 count_prev <- nrow(df_numeration)

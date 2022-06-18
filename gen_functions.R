@@ -4,9 +4,22 @@ library(data.tree)
 
 # Use Clone() function if you want to save the version of a tree before an operation.
 # For some reason R thinks assigning trees to different objects links them instead of creating a new one.
+df_numeration <- readRDS("basic_numeration.rds")
 
 # MERGE FUNCTION, can handle internal and external merge, marks moved items and copies 
-mergeMC <- function(right_arg, left_arg){
+mergeMC <- function(right_arg, left_arg = NA){
+  if (is.na(left_arg)){
+  new_node <- Node$new(right_arg)
+  field_node <- which(df_numeration$it == right_arg)
+  new_node$Set(
+    it = df_numeration$it[field_node],
+    mc = df_numeration$mc[field_node],
+    ac = df_numeration$ac[field_node],
+    lb = df_numeration$lb[field_node],
+    ft = df_numeration$ft[field_node],
+    is_copy = df_numeration$is_copy[field_node],
+    is_head = df_numeration$is_head[field_node])
+  }else{
   # right_arg <- dt_trial
   # left_arg <- "DP"
   # start a new node
@@ -59,8 +72,11 @@ mergeMC <- function(right_arg, left_arg){
   # rename the nodes with their item names 
   if(is.character(left_arg)){new_node$left_arg$Set(name = new_node$left_arg$it)}
   if(is.character(right_arg)){new_node$right_arg$Set(name = new_node$right_arg$it)}
+  }
   return(new_node)
-}
+  }
+
+
 
 # LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
 # It also works additively, and you can call it whenever you want.

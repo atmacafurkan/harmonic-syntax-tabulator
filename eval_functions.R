@@ -58,8 +58,8 @@ cons_merge <- function(my_tree){
 
 # EVAL FUNCTION, combines all constraint evaluations
 cons_profile <- function(my_tree){
-  
 eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree), 
-                        cons_agree(my_tree), cons_marked(my_tree))
+                        cons_agree(my_tree), cons_marked(my_tree)) %>% 
+  mutate(input = my_tree$Get("name", filterFun = isRoot))
 return(eval_table)
 }
