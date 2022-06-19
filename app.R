@@ -16,7 +16,8 @@ df_numeration <- readRDS("basic_numeration.rds")
 ui <- fluidPage(
   textInput("text1", "First head", value = ""),
   textInput("text2", "First phrase", value = ""),
-  actionButton("runScript", "Run")
+  actionButton("runScript", "Run"),
+  actionButton("my_button", "Add UI")
   
 )
 
@@ -29,6 +30,18 @@ server <- function(input, output, session) {
     mylist(list(
       text1 = input$text1,
       text2 = input$text2))
+  })
+  
+  observeEvent(input$my_button, {
+      removeUI(
+        selector = "div:has(> #text2)"
+      )
+    insertUI(
+      selector = "#my_button",
+      where = "afterEnd",
+      ui = textInput(paste0("txt", input$my_button),
+                     "Insert some text")
+    )
   })
   
   observeEvent(input$runScript, { # "runScript" is an action button

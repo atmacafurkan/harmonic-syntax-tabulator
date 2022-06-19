@@ -4,21 +4,20 @@ library(data.tree)
 
 # Use Clone() function if you want to save the version of a tree before an operation.
 # For some reason R thinks assigning trees to different objects links them instead of creating a new one.
-df_numeration <- readRDS("basic_numeration.rds")
 
 # MERGE FUNCTION, can handle internal and external merge, marks moved items and copies 
-mergeMC <- function(right_arg, left_arg = NA){
+mergeMC <- function(right_arg, left_arg = NA, numeration){
   if (is.na(left_arg)){
   new_node <- Node$new(right_arg)
-  field_node <- which(df_numeration$it == right_arg)
+  field_node <- which(numeration$it == right_arg)
   new_node$Set(
-    it = df_numeration$it[field_node],
-    mc = df_numeration$mc[field_node],
-    ac = df_numeration$ac[field_node],
-    lb = df_numeration$lb[field_node],
-    ft = df_numeration$ft[field_node],
-    is_copy = df_numeration$is_copy[field_node],
-    is_head = df_numeration$is_head[field_node])
+    it = numeration$it[field_node],
+    mc = numeration$mc[field_node],
+    ac = numeration$ac[field_node],
+    lb = numeration$lb[field_node],
+    ft = numeration$ft[field_node],
+    is_copy = numeration$is_copy[field_node],
+    is_head = numeration$is_head[field_node])
   }else{
   # right_arg <- dt_trial
   # left_arg <- "DP"
@@ -26,39 +25,40 @@ mergeMC <- function(right_arg, left_arg = NA){
   new_node <- Node$new("0")
   # set attributes of the node if the input is a character
   if (is.character(left_arg)){new_node$AddChild("left_arg")
-    field_left <- which(df_numeration$it == left_arg)
+    field_left <- which(numeration$it == left_arg)
     new_node$left_arg$Set(
-      it = df_numeration$it[field_left],
-      mc = df_numeration$mc[field_left],
-      ac = df_numeration$ac[field_left],
-      lb = df_numeration$lb[field_left],
-      ft = df_numeration$ft[field_left],
-      is_copy = df_numeration$is_copy[field_left],
-      is_head = df_numeration$is_head[field_left]
+      it = numeration$it[field_left],
+      mc = numeration$mc[field_left],
+      ac = numeration$ac[field_left],
+      lb = numeration$lb[field_left],
+      ft = numeration$ft[field_left],
+      is_copy = numeration$is_copy[field_left],
+      is_head = numeration$is_head[field_left]
     )
   }else{new_node$AddChildNode(left_arg)}
   # set attributes of the node if the input is a character
   if (is.character(right_arg)){new_node$AddChild("right_arg")
-    field_right <- which(df_numeration$it == right_arg)
+    field_right <- which(numeration$it == right_arg)
     new_node$right_arg$Set(
-      it = df_numeration$it[field_right],
-      mc = df_numeration$mc[field_right],
-      ac = df_numeration$ac[field_right],
-      lb = df_numeration$lb[field_right],
-      ft = df_numeration$ft[field_right],
-      is_copy = df_numeration$is_copy[field_right],
-      is_head = df_numeration$is_head[field_right]
+      it = numeration$it[field_right],
+      mc = numeration$mc[field_right],
+      ac = numeration$ac[field_right],
+      lb = numeration$lb[field_right],
+      ft = numeration$ft[field_right],
+      is_copy = numeration$is_copy[field_right],
+      is_head = numeration$is_head[field_right]
     )
   }else{
     # check if it is internal move, turn on is_copy for the moved item and remove other attributes
     if(any(str_detect(right_arg$Get("it"), left_arg))){
-      
       right_arg$Set(is_copy = T,
                     it="copy",
                     mc=NA,
                     ac=NA,
                     ft=NA,
-                    lb="", filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
+                    lb="", 
+                    name= "DP_copy",
+                    filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
       new_node$left_arg$is_moved <- T
     }
     new_node$AddChildNode(right_arg)} 
@@ -76,7 +76,7 @@ mergeMC <- function(right_arg, left_arg = NA){
   return(new_node)
   }
 
-
+right_arg <- "DP"
 
 # LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
 # It also works additively, and you can call it whenever you want.

@@ -50,9 +50,12 @@ cons_agree <- function(my_tree){
 
 
 cons_merge <- function(my_tree){
+  if (length(my_tree$Get("it", filterFun = isLeaf)) == 1){
+  violations <- tibble(mc = length(which(!is.na(my_tree$Get("mc", filterFun = isLeaf) %>% as.vector()))))  
+  }else{
   subcat <- my_tree$Get("mc", filterFun = function(x) x$position == 1 & isNotRoot(x))
   merging <- my_tree$Get("name", filterFun = function(x) x$position == 2)
-  violations <- tibble(mc = length(which(merging != subcat)))
+  violations <- tibble(mc = length(which(merging != subcat)))}
   return(violations)
 }
 
