@@ -7,12 +7,11 @@ source("draw_trees.R")
 
 df_numeration <- readRDS("basic_numeration.rds") 
 
-
 dt_trial <- mergeMC("DP", numeration = df_numeration)
-
 
 # you feed the step an initial tree and a numeration to use it with
 # it returns a list of all possible Merge operations together with an Agree and Label operations, it returns itself last.
+# each cycle is a list that contains all relevant information for all the possible outputs given the input
 cycle_step <- function(my_tree, cycle_numeration){
   
 outputs <- list()
@@ -105,7 +104,6 @@ outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                             numeration = cycle_numeration)}
 return(outputs)
 }
-
 
 cycle_2 <- cycle_step(dt_trial, df_numeration)
 cycle_2_winner <- 2
