@@ -1,11 +1,12 @@
 library(tidyverse)
 library(magrittr)
-library(data.tree)
 
-# Use Clone() function if you want to save the version of a tree before an operation.
-# For some reason R thinks assigning trees to different objects links them instead of creating a new one.
 
-# MERGE FUNCTION, can handle internal and external merge, marks moved items and copies 
+source("eval_functions.R")
+source("gen_functions.R")
+
+df <- read_csv("basic_numeration.csv")
+
 mergeMC <- function(right_arg, left_arg = NA, numeration){
   if (is.na(left_arg)){
     new_node <- Node$new(right_arg)
@@ -80,54 +81,39 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
 }
 
 
-# LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
-# It also works additively, and you can call it whenever you want.
-labelMC <- function(my_tree){
-  master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
-  x <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x))
-  y <- my_tree$Get("lb", filterFun = function(x) x$position == 2 & isNotRoot(x))
-  z <- ifelse(x>y,x,y) %>% as.integer()
-  my_tree$Set(lb=z, name=str_replace_all(paste0(names(master_lb[z]),"P"),"NAP","0"),filterFun = isNotLeaf)
+# MERGE CONDITION CONSTRAINT, count the number of remaining merge conditions in the structure
+cons_merge <- function(my_tree,numeration){
+  # check complement merge conditions
+    subcat_r <- my_tree$Get("mr", filterFun = function(x) x$position == 1 & isNotRoot(x))
+    merging_r <- my_tree$Get("lb", filterFun = function(x) x$position == 2)
+    subcat_r[which(merging_r == subcat_r)] <- NA
+    my_tree$Set(mr = subcat_r, filterFun = function(x) x$position == 1 & isNotRoot(x))
+    
+  # check specifier merge conditions  
+    subcat_l <- my_tree$Get("ml", filterFun = function(x) x$position == 1 & isNotRoot(x))
+    to_check_l <- subcat_l %>% is.na() %>% !.
+    merging_l <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x)) %>% 
+      append(NA,.) %>% head(-1)
+    subcat_l[which(merging_l == subcat_l)] <- NA
+    my_tree$Set(ml = subcat_l, filterFun = function(x) x$position == 1 & isNotRoot(x))
   
-  # add dominating domain numbers
-  my_levels <- my_tree$Get("level", filterFun = isLeaf)
-  my_position <- my_tree$Get("position", filterFun = isLeaf)
-  for (each in 1:length(my_levels)){
-    domin <- my_tree$Get("lb", filterFun = function(x) isNotLeaf(x) & x$level < my_levels[each])
-    my_tree$Set(n_dominator = length(domin[!is.na(domin)]),
-                filterFun = function(x) 
-                  x$level == my_levels[each] &
-                  x$position == my_position[each])
-  }
-  my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
-  return(my_tree)
+  # combine number of violations  
+    vio <- length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))) + 
+      length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf))))
+    length(which(!is.na(numeration$mc_left))) + length(which(!is.na(numeration$mc_right)))
+    
+    violations <- tibble(mc = vio)
+
+  return(violations)
 }
 
-# AGREE FUNCTION, handles single specifiers and heads with single agreement conditions
-agreeMC <- function(my_tree){
-  # get agreement conditions
-  goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
-  
-  # get features for specifiers to agree with
-  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), "")
-  
-  # get features for heads to agree with
-  sp_feats <- c("", head(my_tree$Get("ft", filterFun = isLeaf),-1))
-  # get is_head info about leaves
-  head_spec <- my_tree$Get("is_head", filterFun = isLeaf)
-  
-  # use a data frame to calculate agreement
-  outlook <- tibble(goal_feats, hp_feats, sp_feats, head_spec)
-  outlook[is.na(outlook)] <- "0"
-  outlook %<>% mutate(new_goals = case_when(
-    # agreement for heads with specifiers
-    head_spec ~ ifelse(goal_feats == sp_feats,"", goal_feats),
-    # agreement for heads
-    T ~ ifelse(goal_feats == hp_feats,"", goal_feats)
-  )) %>% mutate(new_goals = replace(new_goals, new_goals == "0", NA))
-  # set agreement on leaves
-  my_tree$Set(ac = outlook$new_goals, filterFun = isLeaf)
-  
-  return(my_tree)
-}
+
+
+dt_trial <- mergeMC("V","v", numeration = df) %>% 
+  labelMC()
+
+dt_trial %>% cons_merge()
+
+
+
 

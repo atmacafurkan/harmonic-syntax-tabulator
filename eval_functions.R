@@ -48,21 +48,36 @@ cons_agree <- function(my_tree){
   return(violations)
 }
 
-
-cons_merge <- function(my_tree){
-  if (length(my_tree$Get("it", filterFun = isLeaf)) == 1){
-  violations <- tibble(mc = length(which(!is.na(my_tree$Get("mc", filterFun = isLeaf) %>% as.vector()))))  
-  }else{
-  subcat <- my_tree$Get("mc", filterFun = function(x) x$position == 1 & isNotRoot(x))
-  merging <- my_tree$Get("name", filterFun = function(x) x$position == 2)
-  violations <- tibble(mc = length(which(merging != subcat)))}
+# MERGE CONDITION CONSTRAINT, count the number of merge conditions in the structure
+# MERGE CONDITION CONSTRAINT, count the number of remaining merge conditions in the structure
+cons_merge <- function(my_tree,numeration){
+  # check complement merge conditions
+  subcat_r <- my_tree$Get("mr", filterFun = function(x) x$position == 1 & isNotRoot(x))
+  merging_r <- my_tree$Get("lb", filterFun = function(x) x$position == 2)
+  subcat_r[which(merging_r == subcat_r)] <- NA
+  my_tree$Set(mr = subcat_r, filterFun = function(x) x$position == 1 & isNotRoot(x))
+  
+  # check specifier merge conditions  
+  subcat_l <- my_tree$Get("ml", filterFun = function(x) x$position == 1 & isNotRoot(x))
+  to_check_l <- subcat_l %>% is.na() %>% !.
+  merging_l <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x)) %>% 
+    append(NA,.) %>% head(-1)
+  subcat_l[which(merging_l == subcat_l)] <- NA
+  my_tree$Set(ml = subcat_l, filterFun = function(x) x$position == 1 & isNotRoot(x))
+  
+  # combine number of violations  
+  vio <- length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))) + 
+    length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf))))
+  remaining_mc <- length(which(!is.na(numeration$mc_left))) + length(which(!is.na(numeration$mc_right)))
+  
+  violations <- tibble(mc = vio + remaining_mc)
+  
   return(violations)
 }
 
 # EVAL FUNCTION, combines all constraint evaluations
-cons_profile <- function(my_tree){
-eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree), 
-                        cons_agree(my_tree), cons_marked(my_tree)) %>% 
-  mutate(input = my_tree$Get("name", filterFun = isRoot))
+cons_profile <- function(my_tree, numeration){
+eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree, numeration), 
+                        cons_agree(my_tree), cons_marked(my_tree))
 return(eval_table)
 }
