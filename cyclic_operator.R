@@ -1,10 +1,6 @@
 library(tidyverse)
 library(magrittr)
 
-source("gen_functions.R")
-source("eval_functions.R")
-source("draw_trees.R")
-
 prepare_tableau <- function(cycle){
   resulting_tableau <- tibble()
   for (each in 1:length(cycle)){
@@ -20,10 +16,6 @@ set_winner <- function(df, winner){
   df$freq[winner] <- 1
   return(df)
 }
-
-df <- read_csv("basic_numeration.csv")
-
-dt_trial <- mergeMC("DP1", numeration = df)
 
 # you feed the step an initial tree and a numeration to use it with
 # it returns a list of all possible Merge operations together with an Agree and Label operations, it returns itself last.
@@ -123,17 +115,4 @@ outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                      numeration = cycle_numeration)
 return(outputs)
 }
-
-cycle_1 <- cycle_step(dt_trial, df)
-cycle_1_eval <- prepare_tableau(cycle_1)
-View(cycle_1_eval)
-cycle_1_winner <- 2
-cycle_1_eval %<>% set_winner(cycle_1_winner) 
-
-
-cycle_2 <- cycle_step(cycle_1[[cycle_1_winner]]$tree, cycle_1[[cycle_1_winner]]$numeration)
-cycle_2_eval <- prepare_tableau(cycle_2)
-View(cycle_2_eval)
-cycle_2_winner <- 6
-cycle_2_eval %<>% set_winner(cycle_2_winner) 
 
