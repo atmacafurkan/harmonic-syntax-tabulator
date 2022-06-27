@@ -68,11 +68,11 @@ cons_merge <- function(my_tree,numeration){
   # combine number of violations  
   vio <- length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))) + 
     length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf))))
-  #remaining_mc <- length(which(!is.na(numeration$mc_left))) + length(which(!is.na(numeration$mc_right)))
+  remaining_mc <- length(which(!is.na(numeration$mc_left))) + length(which(!is.na(numeration$mc_right)))
   
-  #violations <- tibble(mc = vio + remaining_mc)
-  violations <- tibble(mc_l = length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf)))),
-                       mc_r = length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))))
+  violations <- tibble(mc = vio + remaining_mc)
+  # violations <- tibble(mc_l = length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf)))),
+  #                      mc_r = length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))))
   return(violations)
 }
 

@@ -40,6 +40,7 @@ if (winner_output == 100){
 my_derivation %<>% dplyr::select(-wh_agr, -foc_agr, -foc, -case)
 my_derivation$input[which(duplicated(my_derivation$input))] <- c("")
 
+my_derivation <- rbind(colnames(my_derivation), my_derivation) %>% rbind(rep("",length(my_derivation)))
 # fix colnames
 colnames(my_derivation) <- c(rep("",3), tail(colnames(my_derivation),-3))
 
