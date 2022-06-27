@@ -53,10 +53,10 @@ old_mergeMC <- function(right_arg, left_arg = NA, numeration){
                       mc=NA,
                       ac=NA,
                       ft=NA,
-                      lb="", 
                       name= "DP_copy",
                       filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
         new_node$left_arg$is_moved <- T
+        new_node$left_arg$mc <- NA
       }
       new_node$AddChildNode(right_arg)} 
     # set attributes for the resulting merge phrase
@@ -73,6 +73,108 @@ old_mergeMC <- function(right_arg, left_arg = NA, numeration){
   return(new_node)
 }
 
+# old merge 2 can handle internal and external merge, marks moved items and copies, does not carry agree conditions and features, left and right merge condition distinction 
+old2_mergeMC <- function(right_arg, left_arg = NA, numeration){
+  if (is.na(left_arg)){
+    new_node <- Node$new(right_arg)
+    field_node <- which(numeration$it == right_arg)
+    new_node$Set(
+      it = numeration$it[field_node],
+      ml = numeration$mc_left[field_node],
+      mr = numeration$mc_right[field_node],
+      ac = numeration$ac[field_node],
+      lb = numeration$lb[field_node],
+      ft = numeration$ft[field_node],
+      is_copy = numeration$is_copy[field_node],
+      is_head = numeration$is_head[field_node])
+  }else{
+    # start a new node
+    new_node <- Node$new("0")
+    # set attributes of the node if the input is a character
+    if (is.character(left_arg)){new_node$AddChild("left_arg")
+      field_left <- which(numeration$it == left_arg)
+      new_node$left_arg$Set(
+        it = numeration$it[field_left],
+        ml = numeration$mc_left[field_left],
+        mr = numeration$mc_right[field_left],
+        ac = numeration$ac[field_left],
+        lb = numeration$lb[field_left],
+        ft = numeration$ft[field_left],
+        is_copy = numeration$is_copy[field_left],
+        is_head = numeration$is_head[field_left]
+      )
+    }else{new_node$AddChildNode(left_arg)}
+    # set attributes of the node if the input is a character
+    if (is.character(right_arg)){new_node$AddChild("right_arg")
+      field_right <- which(numeration$it == right_arg)
+      new_node$right_arg$Set(
+        it = numeration$it[field_right],
+        ac = numeration$ac[field_right],
+        ml = numeration$mc_left[field_right],
+        mr = numeration$mc_right[field_right],
+        lb = numeration$lb[field_right],
+        ft = numeration$ft[field_right],
+        is_copy = numeration$is_copy[field_right],
+        is_head = numeration$is_head[field_right]
+      )
+    }else{
+      # check if it is internal move, turn on is_copy for the moved item and remove other attributes
+      if(any(str_detect(right_arg$Get("it"), left_arg))){
+        right_arg$Set(is_copy = T,
+                      it = "copy",
+                      ml = NA,
+                      mr = NA,
+                      ac = NA,
+                      ft = NA,
+                      lb="", 
+                      name= "DP_copy",
+                      filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
+        new_node$left_arg$is_moved <- T
+      }
+      new_node$AddChildNode(right_arg)} 
+    
+    # set attributes for the resulting merge phrase
+    new_node$Set(ml = NA,
+                 mr = NA,
+                 ac = NA,
+                 ft = NA,
+                 it = "",
+                 is_copy = F, filterFun = isNotLeaf)
+    
+    # rename the nodes with their item names 
+    if(is.character(left_arg)){new_node$left_arg$Set(name = new_node$left_arg$it)}
+    if(is.character(right_arg)){new_node$right_arg$Set(name = new_node$right_arg$it)}
+  }
+  return(new_node)
+}
+
+# AGREE FUNCTION, handles single specifiers and heads with single agreement conditions
+old_agreeMC <- function(my_tree){
+  # get agreement conditions
+  goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
+  
+  # get features for specifiers to agree with
+  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), "")
+  
+  # get features for heads to agree with
+  sp_feats <- c("", head(my_tree$Get("ft", filterFun = isLeaf),-1))
+  # get is_head info about leaves
+  head_spec <- my_tree$Get("is_head", filterFun = isLeaf)
+  
+  # use a data frame to calculate agreement
+  outlook <- tibble(goal_feats, hp_feats, sp_feats, head_spec)
+  outlook[is.na(outlook)] <- "0"
+  outlook %<>% mutate(new_goals = case_when(
+    # agreement for heads with specifiers
+    head_spec ~ ifelse(goal_feats == sp_feats,"", goal_feats),
+    # agreement for heads
+    T ~ ifelse(goal_feats == hp_feats,"", goal_feats)
+  )) %>% mutate(new_goals = replace(new_goals, new_goals == "0", NA))
+  # set agreement on leaves
+  my_tree$Set(ac = outlook$new_goals, filterFun = isLeaf)
+  
+  return(my_tree)
+}
 
 # old merge condition constraint, count the number of merge conditions in the structure. works with uniary merge
 old_cons_merge <- function(my_tree){
@@ -80,7 +182,7 @@ old_cons_merge <- function(my_tree){
     violations <- tibble(mc = length(which(!is.na(my_tree$Get("mc", filterFun = isLeaf) %>% as.vector()))))  
   }else{
     subcat <- my_tree$Get("mc", filterFun = function(x) x$position == 1 & isNotRoot(x))
-    merging <- my_tree$Get("name", filterFun = function(x) x$position == 2)
+    merging <- my_tree$Get("lb", filterFun = function(x) x$position == 2)
     violations <- tibble(mc = length(which(merging != subcat)))}
   return(violations)
 }

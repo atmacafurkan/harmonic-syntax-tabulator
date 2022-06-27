@@ -63,6 +63,7 @@ if(count_prev < count_next){
   violations$exnum[1] <- 1
 }
 
+if (nrow(new_numeration) == 0){ violations$exnum[1] <- 0}
 
 # add copies back to the numeration with updated features if any
 new_numeration %<>% rbind(used_items)

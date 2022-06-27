@@ -20,7 +20,7 @@ cons_marked <- function(my_tree){
   for (each in 1:nrow(n_trial)){
     new_finds <- n_trial$marked_feats[each] %>% str_split(",") %>% unlist()
     feat_violations <- which(feat_order %in% new_finds)
-    violations[each,feat_violations] <- n_trial$dom_counts[each]
+    violations[each,feat_violations] <- as.integer(n_trial$dom_counts[each])
   }
   violations %<>% summarise(foc = sum(foc, na.rm = T),
                             wh = sum(wh, na.rm = T),
@@ -40,7 +40,7 @@ cons_agree <- function(my_tree){
   for (each in 1:nrow(n_trial)){
     new_finds <- n_trial$marked_feats[each] %>% str_split(",") %>% unlist()
     feat_violations <- which(feat_order %in% new_finds)
-    violations[each,feat_violations] <- n_trial$dom_counts[each]
+    violations[each,feat_violations] <- as.integer(n_trial$dom_counts[each])
   }
   violations %<>% summarise(foc_agr = sum(foc, na.rm = T),
                             wh_agr = sum(wh, na.rm = T),
@@ -68,16 +68,17 @@ cons_merge <- function(my_tree,numeration){
   # combine number of violations  
   vio <- length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))) + 
     length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf))))
-  remaining_mc <- length(which(!is.na(numeration$mc_left))) + length(which(!is.na(numeration$mc_right)))
+  #remaining_mc <- length(which(!is.na(numeration$mc_left))) + length(which(!is.na(numeration$mc_right)))
   
-  violations <- tibble(mc = vio + remaining_mc)
-  
+  #violations <- tibble(mc = vio + remaining_mc)
+  violations <- tibble(mc_l = length(which(!is.na(my_tree$Get("ml", filterFun = isLeaf)))),
+                       mc_r = length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))))
   return(violations)
 }
 
 # EVAL FUNCTION, combines all constraint evaluations
 cons_profile <- function(my_tree, numeration){
-eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree, numeration), 
+eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree,numeration), 
                         cons_agree(my_tree), cons_marked(my_tree))
 return(eval_table)
 }

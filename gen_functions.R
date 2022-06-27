@@ -5,7 +5,7 @@ library(data.tree)
 # Use Clone() function if you want to save the version of a tree before an operation.
 # For some reason R thinks assigning trees to different objects links them instead of creating a new one.
 
-# MERGE FUNCTION, can handle internal and external merge, marks moved items and copies 
+# MERGE FUNCTION, can handle internal and external merge, marks moved items and copies and carries Agree and features up
 mergeMC <- function(right_arg, left_arg = NA, numeration){
   if (is.na(left_arg)){
     new_node <- Node$new(right_arg)
@@ -56,22 +56,37 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
                       it = "copy",
                       ml = NA,
                       mr = NA,
-                      ac = NA,
-                      ft = NA,
+                      ac = 0,
+                      ft = 0,
                       lb="", 
                       name= "DP_copy",
                       filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
         new_node$left_arg$is_moved <- T
       }
       new_node$AddChildNode(right_arg)} 
-    # set attributes for the resulting merge phrase
-    new_node$Set(ml = NA,
-                 mr = NA,
-                 ac = NA,
-                 ft = NA,
-                 it = "",
-                 is_copy = F, filterFun = isNotLeaf)
     
+    new_node$Set(ml = NA, mr = NA, ac = NA, ft = NA, it = "", is_copy = F, filterFun = isRoot) 
+    # carry over the Agree condition and features up the phrase.
+    if(new_node$left_arg$is_head){
+      # set attributes for the resulting merge phrase
+      new_node$Set(ml = NA,
+                   mr = NA,
+                   ac = new_node$left_arg$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
+                   ft = new_node$left_arg$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
+                   it = "",
+                   is_copy = F, filterFun = isRoot)
+      new_node$left_arg$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
+    } else { 
+      # set attributes for the resulting merge phrase
+      new_node$Set(ml = NA,
+                   mr = NA,
+                   ac = new_node$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
+                   ft = new_node$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
+                   it = "",
+                   is_copy = F, filterFun = isRoot)
+      new_node$children[[2]]$ac <- 0
+      new_node$children[[2]]$ft <- 0
+    }
     # rename the nodes with their item names 
     if(is.character(left_arg)){new_node$left_arg$Set(name = new_node$left_arg$it)}
     if(is.character(right_arg)){new_node$right_arg$Set(name = new_node$right_arg$it)}
@@ -79,11 +94,11 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
   return(new_node)
 }
 
-
 # LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
 # It also works additively, and you can call it whenever you want.
 labelMC <- function(my_tree){
   master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
+  #master_lb <- c("D"=1,"V"=2,"v1"=3,"v2"=4,"T"=5,"C"=6)
   x <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x))
   y <- my_tree$Get("lb", filterFun = function(x) x$position == 2 & isNotRoot(x))
   z <- ifelse(x>y,x,y) %>% as.integer()
@@ -93,7 +108,7 @@ labelMC <- function(my_tree){
   my_levels <- my_tree$Get("level", filterFun = isLeaf)
   my_position <- my_tree$Get("position", filterFun = isLeaf)
   for (each in 1:length(my_levels)){
-    domin <- my_tree$Get("lb", filterFun = function(x) isNotLeaf(x) & x$level < my_levels[each])
+    domin <- my_tree$Get("lb", filterFun = function(x) isNotLeaf(x) & x$level < my_levels[each]) %>% unique()
     my_tree$Set(n_dominator = length(domin[!is.na(domin)]),
                 filterFun = function(x) 
                   x$level == my_levels[each] &
@@ -103,30 +118,20 @@ labelMC <- function(my_tree){
   return(my_tree)
 }
 
-# AGREE FUNCTION, handles single specifiers and heads with single agreement conditions
+# AGREE FUNCTION, agreement is carried out under sisterhood
 agreeMC <- function(my_tree){
   # get agreement conditions
-  goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
+  agree_feats_l <- my_tree$Get("ac", filterFun = function(x) isLeaf(x) & x$position == 1)
+  feats_r <- my_tree$Get("ft", filterFun = isNotLeaf)
+  agree_left <- which(agree_feats_l == feats_r)
+  if(length(agree_left)>0){agree_feats_l[agree_left] <- 0}
+  my_tree$Set(ac = agree_feats_l, filterFun = function(x) isLeaf(x) & x$position == 1)
   
-  # get features for specifiers to agree with
-  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), "")
-  
-  # get features for heads to agree with
-  sp_feats <- c("", head(my_tree$Get("ft", filterFun = isLeaf),-1))
-  # get is_head info about leaves
-  head_spec <- my_tree$Get("is_head", filterFun = isLeaf)
-  
-  # use a data frame to calculate agreement
-  outlook <- tibble(goal_feats, hp_feats, sp_feats, head_spec)
-  outlook[is.na(outlook)] <- "0"
-  outlook %<>% mutate(new_goals = case_when(
-    # agreement for heads with specifiers
-    head_spec ~ ifelse(goal_feats == sp_feats,"", goal_feats),
-    # agreement for heads
-    T ~ ifelse(goal_feats == hp_feats,"", goal_feats)
-  )) %>% mutate(new_goals = replace(new_goals, new_goals == "0", NA))
-  # set agreement on leaves
-  my_tree$Set(ac = outlook$new_goals, filterFun = isLeaf)
+  agree_feats_r <- my_tree$Get("ac", filterFun = function(x) x$position == 2)
+  feats_l <- my_tree$Get("ft", filterFun = function(x) isLeaf(x) & x$position == 1)
+  agree_right <- which(agree_feats_r == feats_l)
+  if(length(agree_right)>0){agree_feats_r[agree_right] <- 0}
+  my_tree$Set(ac = agree_feats_r, filterFun = function(x) x$position == 2)
   
   return(my_tree)
 }

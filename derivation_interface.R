@@ -5,14 +5,18 @@ source("eval_functions.R")
 source("gen_functions.R")
 source("draw_trees.R")
 source("cyclic_operator.R")
+source("depricated_functions.R")
+
 
 df <- read_csv("basic_numeration.csv")
 
-dt_trial <- mergeMC("DP1", numeration = df)
+dt_trial <- mergeMC("DP1", numeration = df) 
 
-derivation <- 100
+winner_output <- 100
 
 my_derivation <- tibble()
+last_tree <- list()
+last_numeration <- list()
 
 while(winner_output != 0){
 if (winner_output == 100){
@@ -24,8 +28,20 @@ if (winner_output == 100){
   View(current_eval)
   winner_output <- readline(prompt = "Winner output: ");
   winner_output %<>% as.integer()
+  if(winner_output !=0){
   current_eval %<>% set_winner(winner_output)
   my_derivation %<>% rbind(current_eval)
+  last_tree <- my_cycle[[winner_output]]$tree
+  last_numeration <- my_cycle[[winner_output]]$numeration}
 }
 
+
+# fix repeating inputs
+my_derivation %<>% dplyr::select(-wh_agr, -foc_agr, -foc, -case)
+my_derivation$input[which(duplicated(my_derivation$input))] <- c("")
+
+# fix colnames
+colnames(my_derivation) <- c(rep("",3), tail(colnames(my_derivation),-3))
+
+write_tsv(my_derivation, "./MaxentGrammarTool/trial_derivation2.txt")
 
