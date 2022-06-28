@@ -48,8 +48,7 @@ cons_agree <- function(my_tree){
   return(violations)
 }
 
-# MERGE CONDITION CONSTRAINT, count the number of merge conditions in the structure
-# MERGE CONDITION CONSTRAINT, count the number of remaining merge conditions in the structure
+# MERGE CONDITION CONSTRAINT, count the number of remaining merge conditions in the output
 cons_merge <- function(my_tree,numeration){
   # check complement merge conditions
   subcat_r <- my_tree$Get("mr", filterFun = function(x) x$position == 1 & isNotRoot(x))
@@ -59,7 +58,6 @@ cons_merge <- function(my_tree,numeration){
   
   # check specifier merge conditions  
   subcat_l <- my_tree$Get("ml", filterFun = function(x) x$position == 1 & isNotRoot(x))
-  to_check_l <- subcat_l %>% is.na() %>% !.
   merging_l <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x)) %>% 
     append(NA,.) %>% head(-1)
   subcat_l[which(merging_l == subcat_l)] <- NA
@@ -78,7 +76,7 @@ cons_merge <- function(my_tree,numeration){
 
 # EVAL FUNCTION, combines all constraint evaluations
 cons_profile <- function(my_tree, numeration){
-eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree,numeration), 
+eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree, numeration), 
                         cons_agree(my_tree), cons_marked(my_tree))
 return(eval_table)
 }

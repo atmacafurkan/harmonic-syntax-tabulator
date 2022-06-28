@@ -12,6 +12,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
     field_node <- which(numeration$it == right_arg)
     new_node$Set(
       it = numeration$it[field_node],
+      mc = numeration$mc[field_node],
       ml = numeration$mc_left[field_node],
       mr = numeration$mc_right[field_node],
       ac = numeration$ac[field_node],
@@ -27,6 +28,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
       field_left <- which(numeration$it == left_arg)
       new_node$left_arg$Set(
         it = numeration$it[field_left],
+        mc = numeration$mc[field_left],
         ml = numeration$mc_left[field_left],
         mr = numeration$mc_right[field_left],
         ac = numeration$ac[field_left],
@@ -42,6 +44,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
       new_node$right_arg$Set(
         it = numeration$it[field_right],
         ac = numeration$ac[field_right],
+        mc = numeration$mc[field_right],
         ml = numeration$mc_left[field_right],
         mr = numeration$mc_right[field_right],
         lb = numeration$lb[field_right],
@@ -54,39 +57,45 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
       if(any(str_detect(right_arg$Get("it"), left_arg))){
         right_arg$Set(is_copy = T,
                       it = "copy",
+                      mc = NA,
                       ml = NA,
                       mr = NA,
                       ac = 0,
                       ft = 0,
-                      lb="", 
-                      name= "DP_copy",
+                      lb = NA, 
+                      name= "DPc",
                       filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
         new_node$left_arg$is_moved <- T
       }
       new_node$AddChildNode(right_arg)} 
-    
-    new_node$Set(ml = NA, mr = NA, ac = NA, ft = NA, it = "", is_copy = F, filterFun = isRoot) 
-    # carry over the Agree condition and features up the phrase.
-    if(new_node$left_arg$is_head){
-      # set attributes for the resulting merge phrase
-      new_node$Set(ml = NA,
-                   mr = NA,
-                   ac = new_node$left_arg$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
-                   ft = new_node$left_arg$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
-                   it = "",
-                   is_copy = F, filterFun = isRoot)
-      new_node$left_arg$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
-    } else { 
-      # set attributes for the resulting merge phrase
-      new_node$Set(ml = NA,
-                   mr = NA,
-                   ac = new_node$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
-                   ft = new_node$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
-                   it = "",
-                   is_copy = F, filterFun = isRoot)
-      new_node$children[[2]]$ac <- 0
-      new_node$children[[2]]$ft <- 0
-    }
+    new_node$Set(mc = NA, ml = NA, mr = NA, ac = NA, ft = NA, lb= NA, it = "", is_copy = F, filterFun = isRoot)
+    # # carry over the Agree condition and features up the phrase.
+    # if(new_node$left_arg$is_head){
+    #   # set attributes for the resulting merge phrase
+    #   new_node$Set(ml = NA,
+    #                mr = NA,
+    #                ac = new_node$left_arg$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
+    #                ft = new_node$left_arg$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
+    #                it = "",
+    #                is_copy = F, filterFun = isRoot)
+    #   new_node$left_arg$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
+    # } else {
+    #   # set attributes for the resulting merge phrase
+    #   new_node$Set(ml = NA,
+    #                mr = NA,
+    #                ac = new_node$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
+    #                ft = new_node$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
+    #                it = "",
+    #                is_copy = F, filterFun = isRoot)
+    #   new_node$children[[2]]$ac <- 0
+    #   new_node$children[[2]]$ft <- 0
+    # }
+x <- ifelse(is.na(new_node$children[[1]]$mr) || is_empty(new_node$children[[1]]$mr),"A", new_node$children[[1]]$mr)
+y <- ifelse(is.na(new_node$children[[2]]$lb) || is_empty(new_node$children[[2]]$lb),"B", new_node$children[[2]]$lb)
+
+if(x ==y){
+  new_node$children[[1]]$mr <- NA
+}
     # rename the nodes with their item names 
     if(is.character(left_arg)){new_node$left_arg$Set(name = new_node$left_arg$it)}
     if(is.character(right_arg)){new_node$right_arg$Set(name = new_node$right_arg$it)}
@@ -97,8 +106,11 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
 # LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
 # It also works additively, and you can call it whenever you want.
 labelMC <- function(my_tree){
-  master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
-  #master_lb <- c("D"=1,"V"=2,"v1"=3,"v2"=4,"T"=5,"C"=6)
+  if (!is.na(my_tree$lb)){
+    return(my_tree)
+  } else {
+  #master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
+  master_lb <- c("D"=1,"V"=2,"v1"=3,"v2"=4,"T"=5,"C"=6)
   x <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x))
   y <- my_tree$Get("lb", filterFun = function(x) x$position == 2 & isNotRoot(x))
   z <- ifelse(x>y,x,y) %>% as.integer()
@@ -115,9 +127,30 @@ labelMC <- function(my_tree){
                   x$position == my_position[each])
   }
   my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
+  if (ifelse(length(my_tree$children[[1]]$is_head)==0,F,my_tree$children[[1]]$is_head)){
+    my_tree$Set(mc = NA,
+                ml = NA,
+                mr = NA,
+                ac = my_tree$children[[1]]$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
+                ft = my_tree$children[[1]]$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
+                it = "",
+                is_copy = F, filterFun = isRoot)
+    my_tree$children[[1]]$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
+  } else if (ifelse(length(my_tree$lb == my_tree$children[[2]]$lb)== 0 ,F,my_tree$lb == my_tree$children[[2]]$lb)){
+    # set attributes for the resulting labelled phrase
+    my_tree$Set(mc = NA,
+                ml = NA,
+                mr = NA,
+                ac = my_tree$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
+                ft = my_tree$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
+                it = "",
+                is_copy = F, filterFun = isRoot)
+    my_tree$children[[2]]$ac <- 0
+    my_tree$children[[2]]$ft <- 0
+  }
   return(my_tree)
 }
-
+}
 # AGREE FUNCTION, agreement is carried out under sisterhood
 agreeMC <- function(my_tree){
   # get agreement conditions

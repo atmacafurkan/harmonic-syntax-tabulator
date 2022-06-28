@@ -63,7 +63,7 @@ if(count_prev < count_next){
   violations$exnum[1] <- 1
 }
 
-if (nrow(new_numeration) == 0){ violations$exnum[1] <- 0}
+if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
 
 # add copies back to the numeration with updated features if any
 new_numeration %<>% rbind(used_items)
@@ -78,6 +78,12 @@ outputs[[each]] <- list(linear = linear_tree(new_tree),
                         numeration = new_numeration)
 
 }
+
+# remove merged items
+used_args <- new_tree$Get("it", filterFun = function(x) isLeaf(x) & !x$is_copy) %>% as.vector()
+if (length(which(new_numeration$it %in% used_args)) != 0){
+  new_numeration <- new_numeration[-which(new_numeration$it %in% used_args),]}
+
 # agree and return
 new_tree <- Clone(my_tree) %>% agreeMC()
 new_tree2 <- Clone(my_tree) 
@@ -85,6 +91,11 @@ is_different <- any(new_tree$Get("ac") != new_tree2$Get("ac"), na.rm = T)
 if (new_tree$count != 0 & is_different){
 # form the evaluation
 violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
+
+# check if there is anything left in the numeration
+if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
+
+#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                             tree_latex = latex_tree(new_tree),
                                             tree_linear_latex = latex_linear_tree(new_tree),
@@ -98,6 +109,9 @@ is_different <- any(new_tree$Get("name") != new_tree2$Get("name"), na.rm = T)
 if (new_tree$count != 0 & is_different){
 # form the evaluation
 violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
+# check if there is anything left in the numeration
+if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
+#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                             tree_latex = latex_tree(new_tree),
                                             tree_linear_latex = latex_linear_tree(new_tree),
@@ -107,7 +121,9 @@ outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
 # return the tree itself
 new_tree <- Clone(my_tree)
 # form the evaluation
-violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
+violations <- cons_profile(new_tree, cycle_numeration) %>% mutate(exnum = 1)
+# check if there is anything left in the numeration
+if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                      tree_latex = latex_tree(new_tree),
                                      tree_linear_latex = latex_linear_tree(new_tree),
