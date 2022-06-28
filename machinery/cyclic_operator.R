@@ -90,12 +90,12 @@ new_tree2 <- Clone(my_tree)
 is_different <- any(new_tree$Get("ac") != new_tree2$Get("ac"), na.rm = T)
 if (new_tree$count != 0 & is_different){
 # form the evaluation
-violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
-
+#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
+  
 # check if there is anything left in the numeration
-if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
-
-#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
+#if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
+# agreeing doesnt count towards exnum
+violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                             tree_latex = latex_tree(new_tree),
                                             tree_linear_latex = latex_linear_tree(new_tree),
@@ -108,17 +108,21 @@ new_tree2 <- Clone(my_tree)
 is_different <- any(new_tree$Get("name") != new_tree2$Get("name"), na.rm = T)
 if (new_tree$count != 0 & is_different){
 # form the evaluation
-violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
+#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
+  
 # check if there is anything left in the numeration
-if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
-#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
+#if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
+
+# labelling doesnt count towards exnum   
+violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
                                             tree_latex = latex_tree(new_tree),
                                             tree_linear_latex = latex_linear_tree(new_tree),
                                             tree = new_tree,
                                             eval = violations,
                                             numeration = cycle_numeration)}
-# return the tree itself
+
+# return the tree itself, actually it is merging with nothing, which violates exnum
 new_tree <- Clone(my_tree)
 # form the evaluation
 violations <- cons_profile(new_tree, cycle_numeration) %>% mutate(exnum = 1)

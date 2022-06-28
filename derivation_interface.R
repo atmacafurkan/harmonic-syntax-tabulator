@@ -6,6 +6,7 @@ source("./machinery/gen_functions.R")
 source("./machinery/draw_trees.R")
 source("./machinery/cyclic_operator.R")
 source("./machinery/depricated_functions.R")
+cons_merge <- old_cons_merge
 
 
 df <- read_csv("basic_numeration.csv")
@@ -37,7 +38,7 @@ if (winner_output == 100){
 
 # fix repeating inputs
 my_derivation %<>% dplyr::select(-wh_agr, -foc_agr, -foc, -case)
-write_tsv(my_derivation, "./my_derivation2.tsv")
+write_tsv(my_derivation, "./my_derivation3.tsv")
 
 my_derivation$input[which(duplicated(my_derivation$input))] <- c("")
 
@@ -47,5 +48,5 @@ my_derivation %<>% dplyr::select(-cycle_number)
 colnames(my_derivation) <- c(rep("",3), tail(colnames(my_derivation),-3))
 my_derivation <- rbind(colnames(my_derivation), my_derivation) %>% rbind(rep("",length(my_derivation)))
 
-write_tsv(my_derivation,"run_my_derivation2.txt")
+write_tsv(my_derivation,"run_my_derivation3.txt")
 

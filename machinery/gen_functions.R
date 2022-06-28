@@ -62,7 +62,6 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
                       mr = NA,
                       ac = 0,
                       ft = 0,
-                      lb = NA, 
                       name= "DPc",
                       filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
         new_node$left_arg$is_moved <- T
@@ -90,11 +89,11 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
     #   new_node$children[[2]]$ac <- 0
     #   new_node$children[[2]]$ft <- 0
     # }
-x <- ifelse(is.na(new_node$children[[1]]$mr) || is_empty(new_node$children[[1]]$mr),"A", new_node$children[[1]]$mr)
+x <- ifelse(is.na(new_node$children[[1]]$mc) || is_empty(new_node$children[[1]]$mc),"A", new_node$children[[1]]$mc)
 y <- ifelse(is.na(new_node$children[[2]]$lb) || is_empty(new_node$children[[2]]$lb),"B", new_node$children[[2]]$lb)
 
 if(x ==y){
-  new_node$children[[1]]$mr <- NA
+  new_node$children[[1]]$mc <- NA
 }
     # rename the nodes with their item names 
     if(is.character(left_arg)){new_node$left_arg$Set(name = new_node$left_arg$it)}
