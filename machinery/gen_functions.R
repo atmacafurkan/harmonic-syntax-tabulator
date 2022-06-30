@@ -5,6 +5,7 @@ library(data.tree)
 # Use Clone() function if you want to save the version of a tree before an operation.
 # For some reason R thinks assigning trees to different objects links them instead of creating a new one.
 
+
 # MERGE FUNCTION, can handle internal and external merge, marks moved items and copies and carries Agree and features up
 mergeMC <- function(right_arg, left_arg = NA, numeration){
   if (is.na(left_arg)){
@@ -125,7 +126,7 @@ labelMC <- function(my_tree){
                   x$level == my_levels[each] &
                   x$position == my_position[each])
   }
-  my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
+  #my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
   if (ifelse(length(my_tree$children[[1]]$is_head)==0,F,my_tree$children[[1]]$is_head)){
     my_tree$Set(mc = NA,
                 ml = NA,
@@ -135,7 +136,8 @@ labelMC <- function(my_tree){
                 it = "",
                 is_copy = F, filterFun = isRoot)
     my_tree$children[[1]]$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
-  } else if (ifelse(length(my_tree$lb == my_tree$children[[2]]$lb)== 0 ,F,my_tree$lb == my_tree$children[[2]]$lb)){
+  } else if (ifelse(length(my_tree$lb == my_tree$children[[2]]$lb)== 0 || is.na(my_tree$children[[2]]$lb) || is.na(my_tree$lb),
+                    F,my_tree$lb == my_tree$children[[2]]$lb)){
     # set attributes for the resulting labelled phrase
     my_tree$Set(mc = NA,
                 ml = NA,

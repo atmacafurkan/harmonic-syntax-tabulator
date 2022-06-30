@@ -21,6 +21,13 @@ set_winner <- function(df, winner){
 # it returns a list of all possible Merge operations together with an Agree and Label operations, it returns itself last.
 # each cycle is a list that contains all relevant information for all the possible outputs given the input
 cycle_step <- function(my_tree, cycle_numeration){
+
+# check if phase occured when it is TP
+  if (my_tree$name == "TP" & v_phased == 0){
+    phase_out <- max(my_tree$Get("level", filterFun = function(x) x$name =="v1P")) +1
+    Prune(my_tree, function(x) x$level < phase_out)
+    v_phased <- 1}
+
   
 outputs <- list()
 
@@ -30,6 +37,8 @@ new_tree <- Clone(my_tree)
 
 # number of distinct elements in the tree before merge
 count_prev <- length(new_tree$Get("it", filterFun = function(x) isLeaf(x) & !x$is_copy))
+
+
 
 new_tree %<>% mergeMC(new_numeration$it[each], numeration = new_numeration)
 
@@ -90,10 +99,6 @@ new_tree2 <- Clone(my_tree)
 is_different <- any(new_tree$Get("ac") != new_tree2$Get("ac"), na.rm = T)
 if (new_tree$count != 0 & is_different){
 # form the evaluation
-#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
-  
-# check if there is anything left in the numeration
-#if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
 # agreeing doesnt count towards exnum
 violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
@@ -107,12 +112,8 @@ new_tree <- Clone(my_tree) %>% labelMC()
 new_tree2 <- Clone(my_tree) 
 is_different <- any(new_tree$Get("name") != new_tree2$Get("name"), na.rm = T)
 if (new_tree$count != 0 & is_different){
-# form the evaluation
-#violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 1)
   
-# check if there is anything left in the numeration
-#if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
-
+# form the evaluation
 # labelling doesnt count towards exnum   
 violations <- cons_profile(new_tree, new_numeration) %>% mutate(exnum = 0)
 outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),

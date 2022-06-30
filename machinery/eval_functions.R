@@ -12,19 +12,25 @@ cons_lab <- function(my_tree){
 cons_marked <- function(my_tree){
   feat_order <- c("foc","wh","case")
   n_trial <- tibble(marked_feats = my_tree$Get("ft", filterFun = isLeaf),
-                    dom_counts = my_tree$Get("n_dominator", filterFun= isLeaf)) %>% drop_na()
+                    dom_counts = my_tree$Get("n_dominator", filterFun= isLeaf),
+                    copy = my_tree$Get("is_copy",filterFun = isLeaf)) %>% drop_na()
   if (nrow(n_trial) == 0){
-    violations <- tibble(foc = 0, wh = 0, case = 0)
+    violations <- tibble(foc = 0, wh = 0, case = 0, copy = 0)
   }else{
-  violations <- tibble(foc = integer(), wh = integer(), case = integer())
+  violations <- tibble(foc = integer(), wh = integer(), case = integer(), copy= integer())
   for (each in 1:nrow(n_trial)){
     new_finds <- n_trial$marked_feats[each] %>% str_split(",") %>% unlist()
     feat_violations <- which(feat_order %in% new_finds)
     violations[each,feat_violations] <- as.integer(n_trial$dom_counts[each])
+    
+    # copy calculations, remove dom_counts below v1P if phased out
+    copy_dom <- n_trial$dom_counts
+    violations[each, "copy"] <- copy_dom[each]*n_trial$copy[each] 
   }
   violations %<>% summarise(foc = sum(foc, na.rm = T),
                             wh = sum(wh, na.rm = T),
-                            case = sum(case, na.rm = T))}
+                            case = sum(case, na.rm = T),
+                            copy = sum(copy, na.rm = T))}
   return(violations)
 }
 
@@ -73,6 +79,7 @@ cons_merge <- function(my_tree,numeration){
   #                      mc_r = length(which(!is.na(my_tree$Get("mr", filterFun = isLeaf)))))
   return(violations)
 }
+
 
 # EVAL FUNCTION, combines all constraint evaluations
 cons_profile <- function(my_tree, numeration){
