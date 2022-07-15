@@ -4,7 +4,7 @@ library(magrittr)
 
 # LABELLING CONSTRAINT, counts unlabelled phrases
 cons_lab <- function(my_tree){
-  violation <- tibble(lab=length(is.na(my_tree$Get("lb",filterFun = isNotLeaf)) %>% .[. ==T]))
+  violation <- tibble(lab=length(which(my_tree$Get("lb",filterFun = isNotLeaf) == 0)))
   return(violation)
 }
 

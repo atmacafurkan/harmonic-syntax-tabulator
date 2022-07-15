@@ -68,7 +68,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
         new_node$left_arg$is_moved <- T
       }
       new_node$AddChildNode(right_arg)} 
-    new_node$Set(mc = NA, ml = NA, mr = NA, ac = NA, ft = NA, lb= NA, it = "", is_copy = F, filterFun = isRoot)
+    new_node$Set(mc = NA, ml = NA, mr = NA, ac = NA, ft = NA, lb= 0, it = "", is_copy = F, filterFun = isRoot)
     # # carry over the Agree condition and features up the phrase.
     # if(new_node$left_arg$is_head){
     #   # set attributes for the resulting merge phrase
@@ -106,7 +106,7 @@ if(x ==y){
 # LABELLING FUNCTION, this is a far better labelling function that works with assigning values to the labels, far simpler. 
 # It also works additively, and you can call it whenever you want.
 labelMC <- function(my_tree){
-  if (!is.na(my_tree$lb)){
+  if (my_tree$lb!=0){
     return(my_tree)
   } else {
   #master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
