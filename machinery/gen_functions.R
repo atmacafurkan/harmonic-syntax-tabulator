@@ -68,7 +68,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
         new_node$left_arg$is_moved <- T
       }
       new_node$AddChildNode(right_arg)} 
-    new_node$Set(mc = NA, ml = NA, mr = NA, ac = NA, ft = NA, lb= 0, it = "", is_copy = F, filterFun = isRoot)
+    new_node$Set(mc = NA, ml = NA, mr = NA, ac = 0, ft = 0, lb= 0, it = "", is_copy = F, filterFun = isRoot)
     # # carry over the Agree condition and features up the phrase.
     # if(new_node$left_arg$is_head){
     #   # set attributes for the resulting merge phrase
@@ -126,28 +126,29 @@ labelMC <- function(my_tree){
                   x$level == my_levels[each] &
                   x$position == my_position[each])
   }
+  # not moving anything up currently
   #my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
   if (ifelse(length(my_tree$children[[1]]$is_head)==0,F,my_tree$children[[1]]$is_head)){
     my_tree$Set(mc = NA,
                 ml = NA,
                 mr = NA,
-                ac = my_tree$children[[1]]$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
-                ft = my_tree$children[[1]]$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
+                #ac = my_tree$children[[1]]$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
+                #ft = my_tree$children[[1]]$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
                 it = "",
                 is_copy = F, filterFun = isRoot)
-    my_tree$children[[1]]$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
+    #my_tree$children[[1]]$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
   } else if (ifelse(length(my_tree$lb == my_tree$children[[2]]$lb)== 0 || is.na(my_tree$children[[2]]$lb) || is.na(my_tree$lb),
                     F,my_tree$lb == my_tree$children[[2]]$lb)){
     # set attributes for the resulting labelled phrase
     my_tree$Set(mc = NA,
                 ml = NA,
                 mr = NA,
-                ac = my_tree$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
-                ft = my_tree$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
+                #ac = my_tree$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
+                #ft = my_tree$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
                 it = "",
                 is_copy = F, filterFun = isRoot)
-    my_tree$children[[2]]$ac <- 0
-    my_tree$children[[2]]$ft <- 0
+    #my_tree$children[[2]]$ac <- 0
+    #my_tree$children[[2]]$ft <- 0
   }
   return(my_tree)
 }

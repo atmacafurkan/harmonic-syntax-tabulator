@@ -1,0 +1,257 @@
+
+Input: [DP1$_{wh,foc}$$_{A:case}$]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[DP1$_{wh,foc}$$_{A:case}$] [DPc]]	0.0	1.0	0.0	0.0	0.0	0.0	0.0	1.0	
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	
+[[v$_{case}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	1.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[T$_{case}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	1.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[C$_{A:foc}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	1.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[DP2$_{A:case}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	1.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[DP1$_{wh,foc}$$_{A:case}$]	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	
+
+Input: [[V] [DP1$_{wh,foc}$$_{A:case}$]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[v$_{case}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[T$_{case}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[C$_{A:foc}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[DP2$_{A:case}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.0	1.0	0.0	0.0	0.0	0.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [[V] [DPc]]]	0.0	2.0	0.0	0.0	0.0	0.0	0.0	1.0	
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	1.0	0.0	0.0	0.0	1.0	1.0	0.0	0.0	
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	1.0	0.0	0.0	0.0	0.0	0.0	1.0	
+
+Input: [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	1.0	1.0	0.0	0.0	1.0	1.0	0.0	0.0	
+[[T$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	1.0	1.0	0.0	1.0	1.0	0.0	0.0	
+[[C$_{A:foc}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	1.0	1.0	0.0	1.0	1.0	0.0	0.0	
+[[DP2$_{A:case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	1.0	1.0	0.0	1.0	1.0	0.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [VP[V] [DPc]]]	0.0	1.0	0.0	0.0	0.0	0.0	1.0	1.0	
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	0.0	0.0	0.0	1.0	1.0	0.0	1.0	
+
+Input: [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	2.0	1.0	0.0	1.0	1.0	0.0	0.0	
+[[C$_{A:foc}$] [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	2.0	1.0	0.0	1.0	1.0	0.0	0.0	
+[[DP2$_{A:case}$] [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	2.0	1.0	0.0	1.0	1.0	0.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [[v$_{case}$] [VP[V] [DPc]]]]	0.0	2.0	0.0	0.0	0.0	0.0	1.0	1.0	
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	1.0	0.0	0.0	0.0	2.0	2.0	0.0	0.0	
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	1.0	0.0	0.0	1.0	1.0	0.0	1.0	
+
+Input: [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	1.0	1.0	0.0	2.0	2.0	0.0	0.0	
+[[C$_{A:foc}$] [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	1.0	1.0	0.0	2.0	2.0	0.0	0.0	
+[[DP2$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	1.0	0.0	0.0	2.0	2.0	0.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	1.0	1.0	0.0	0.0	0.0	0.0	2.0	1.0	
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	0.0	0.0	0.0	2.0	2.0	0.0	1.0	
+
+Input: [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	1.0	0.0	0.0	0.0	2.0	0.0	
+[[C$_{A:foc}$] [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	1.0	0.0	0.0	0.0	2.0	0.0	
+[[DP2$_{A:case}$] [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	1.0	0.0	0.0	0.0	2.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	0.0	0.0	0.0	0.0	2.0	1.0	
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	1.0	1.0	0.0	0.0	0.0	0.0	2.0	0.0	
+[v1P[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	0.0	0.0	0.0	1.0	1.0	2.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	1.0	0.0	0.0	0.0	0.0	2.0	1.0	
+
+Input: [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	1.0	0.0	0.0	0.0	2.0	0.0	
+[[C$_{A:foc}$] [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	1.0	0.0	0.0	0.0	2.0	0.0	
+[[DP2$_{A:case}$] [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	1.0	0.0	0.0	0.0	2.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.0	0.0	0.0	0.0	0.0	2.0	1.0	
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	1.0	0.0	0.0	0.0	0.0	1.0	2.0	0.0	
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	1.0	0.0	0.0	0.0	0.0	2.0	1.0	
+
+Input: [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.0	1.0	0.0	0.0	1.0	2.0	0.0	
+[[C$_{A:foc}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.0	1.0	0.0	0.0	1.0	2.0	0.0	
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	1.0	1.0	0.0	0.0	0.0	1.0	2.0	0.0	
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.0	0.0	0.0	0.0	0.0	3.0	1.0	
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	0.0	0.0	0.0	0.0	1.0	2.0	1.0	
+
+Input: [[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.0	1.0	0.0	0.0	1.0	2.0	0.0	
+[[C$_{A:foc}$] [[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.0	1.0	0.0	0.0	1.0	2.0	0.0	
+[[DP2$_{A:case}$] [[DPc] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.0	0.0	0.0	0.0	1.0	2.0	1.0	
+[[DP1$_{wh,foc}$] [[DP2$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.0	0.0	0.0	0.0	0.0	3.0	1.0	
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	1.0	0.0	0.0	0.0	1.0	2.0	3.0	0.0	
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.0	0.0	0.0	0.0	1.0	2.0	1.0	
+
+Input: [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	1.0	1.0	0.0	0.0	1.0	2.0	3.0	0.0	
+[[C$_{A:foc}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	1.0	1.0	0.0	1.0	2.0	3.0	0.0	
+[[DP2$_{A:case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	1.0	0.0	0.0	0.0	2.0	4.0	1.0	
+[[DP1$_{wh,foc}$] [v2P[DP2$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	1.0	0.0	0.0	1.0	0.0	5.0	1.0	
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	0.0	0.0	0.0	1.0	2.0	3.0	1.0	
+
+Input: [[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[C$_{A:foc}$] [[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]]	0.0	2.0	1.0	0.0	1.0	2.0	3.0	0.0	
+[[DP2$_{A:case}$] [[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]]	0.0	2.0	0.0	0.0	0.0	2.0	4.0	1.0	
+[[DP1$_{wh,foc}$] [[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]]	0.0	2.0	0.0	0.0	1.0	0.0	5.0	1.0	
+[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	1.0	0.0	0.0	0.0	2.0	3.0	4.0	0.0	
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	1.0	0.0	0.0	1.0	2.0	3.0	1.0	
+
+Input: [TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[C$_{A:foc}$] [TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	1.0	0.0	0.0	2.0	3.0	0.0	0.0	
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	1.0	1.0	0.0	0.0	0.0	3.0	2.0	1.0	
+[[DP1$_{wh,foc}$] [TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DPc] [v1P]]]]]	0.0	1.0	0.0	0.0	2.0	0.0	3.0	1.0	
+[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	0.0	0.0	0.0	0.0	2.0	3.0	0.0	1.0	
+
+Input: [[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[C$_{A:foc}$] [[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	2.0	1.0	0.0	0.0	3.0	2.0	0.0	
+[[DP2$_{A:case}$] [[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	2.0	0.0	0.0	0.0	3.0	2.0	1.0	
+[[DP1$_{wh,foc}$] [[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]	0.0	2.0	0.0	0.0	0.0	0.0	5.0	1.0	
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	1.0	1.0	0.0	0.0	0.0	3.0	2.0	0.0	
+[TP[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	0.0	0.0	0.0	1.0	3.0	2.0	0.0	
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	1.0	0.0	0.0	0.0	3.0	2.0	1.0	
+
+Input: [[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[C$_{A:foc}$] [[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	2.0	1.0	0.0	0.0	3.0	2.0	0.0	
+[[DP2$_{A:case}$] [[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	2.0	0.0	0.0	0.0	3.0	2.0	1.0	
+[[DP1$_{wh,foc}$] [[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]	0.0	2.0	0.0	0.0	0.0	0.0	5.0	1.0	
+[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	1.0	0.0	0.0	0.0	0.0	3.0	2.0	0.0	
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	1.0	0.0	0.0	0.0	3.0	2.0	1.0	
+
+Input: [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	1.0	1.0	0.0	0.0	0.0	3.0	2.0	0.0	
+[[DP2$_{A:case}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	1.0	0.0	0.0	0.0	3.0	3.0	1.0	
+[[DP1$_{wh,foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]	0.0	1.0	0.0	0.0	0.0	0.0	5.0	1.0	
+[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	0.0	0.0	0.0	0.0	3.0	2.0	1.0	
+
+Input: [[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[DP2] [[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]]	0.0	2.0	0.0	0.0	0.0	3.0	3.0	0.0	
+[[DP1$_{wh,foc}$] [[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	2.0	0.0	0.0	0.0	0.0	5.0	0.0	
+[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	1.0	0.0	0.0	1.0	0.0	4.0	3.0	0.0	
+[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	1.0	0.0	0.0	0.0	3.0	2.0	0.0	
+
+Input: [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[DP2] [CP[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]]	0.0	1.0	0.0	1.0	0.0	4.0	5.0	0.0	
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	1.0	0.0	1.0	0.0	0.0	7.0	0.0	
+[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	0.0	0.0	1.0	0.0	4.0	3.0	0.0	
+
+Input: [[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[DP1$_{wh,foc}$] [[DPc] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	2.0	0.0	1.0	0.0	0.0	7.0	0.0	
+[[DP2] [[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	2.0	0.0	1.0	0.0	0.0	9.0	0.0	
+[[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	1.0	0.0	0.0	0.0	0.0	7.0	0.0	
+[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.0	0.0	1.0	0.0	1.0	7.0	0.0	
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	1.0	0.0	1.0	0.0	0.0	7.0	0.0	
+
+Input: [CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[DP1$_{wh,foc}$] [CP[DPc] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	1.0	0.0	1.0	0.0	0.0	8.0	0.0	
+[[DP2] [CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	1.0	0.0	1.0	0.0	1.0	9.0	0.0	
+[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.0	0.0	0.0	0.0	1.0	7.0	0.0	
+[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	0.0	0.0	1.0	0.0	1.0	7.0	0.0	
+
+Input: [CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	lab	mc	foc_agr	case_agr	wh	copy	exnum
+[[DP1$_{wh,foc}$] [CP[DPc] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	1.0	0.0	0.0	0.0	0.0	8.0	0.0	
+[[DP2] [CP[DP1$_{wh,foc}$] [CP[C] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	1.0	0.0	0.0	0.0	1.0	9.0	0.0	
+[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.0	0.0	0.0	0.0	1.0	7.0	0.0	
+
+|weights| after optimization:
+lab (mu=0.0, sigma^2=100000.0)	19.733088532416517
+mc (mu=0.0, sigma^2=100000.0)	10.747559126142182
+foc_agr (mu=0.0, sigma^2=100000.0)	6.005022694747501
+case_agr (mu=0.0, sigma^2=100000.0)	26.358139785537208
+wh (mu=0.0, sigma^2=100000.0)	6.5754189050701015
+copy (mu=0.0, sigma^2=100000.0)	0.0
+mt (mu=0.0, sigma^2=100000.0)	0.0
+exnum (mu=0.0, sigma^2=100000.0)	40.060946510830526
+Input:	Candidate:	Observed:	Predicted:
+[DP1$_{wh,foc}$$_{A:case}$]	[[DP1$_{wh,foc}$$_{A:case}$] [DPc]]	0.0	3.9968205158436575E-18
+[DP1$_{wh,foc}$$_{A:case}$]	[[V] [DP1$_{wh,foc}$$_{A:case}$]]	1.0	0.9999140146379701
+[DP1$_{wh,foc}$$_{A:case}$]	[[v$_{case}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	2.1495969291909408E-5
+[DP1$_{wh,foc}$$_{A:case}$]	[[T$_{case}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	2.1495969291909408E-5
+[DP1$_{wh,foc}$$_{A:case}$]	[[C$_{A:foc}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	2.1495969291909408E-5
+[DP1$_{wh,foc}$$_{A:case}$]	[[DP2$_{A:case}$] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	2.1495969291909408E-5
+[DP1$_{wh,foc}$$_{A:case}$]	[DP1$_{wh,foc}$$_{A:case}$]	0.0	1.484862045778119E-9
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[v$_{case}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	3.128341895838211E-8
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[T$_{case}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	3.128341895838211E-8
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[C$_{A:foc}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	3.128341895838211E-8
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[DP2$_{A:case}$] [[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	3.128341895838211E-8
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[DP1$_{wh,foc}$$_{A:case}$] [[V] [DPc]]]	0.0	5.816635156138528E-21
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	1.0	0.9999998748641632
+[[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[V] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	2.160942865272905E-12
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	1.0	0.9991334428894366
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[T$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.1479188702687836E-5
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[C$_{A:foc}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.1479188702687836E-5
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[DP2$_{A:case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.1479188702687836E-5
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	[[DP1$_{wh,foc}$$_{A:case}$] [VP[V] [DPc]]]	0.0	8.021180607521186E-4
+[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	[VP[V] [DP1$_{wh,foc}$$_{A:case}$]]	0.0	1.4837029047455429E-9
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[T$_{case}$] [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	3.1283383390318026E-8
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[C$_{A:foc}$] [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	3.1283383390318026E-8
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[DP2$_{A:case}$] [[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	3.1283383390318026E-8
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[DP1$_{wh,foc}$$_{A:case}$] [[v$_{case}$] [VP[V] [DPc]]]]	0.0	1.1682455592779004E-6
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	1.0	0.9999987379021297
+[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	2.1609404083625873E-12
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[T$_{case}$] [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	1.3332658935995629E-16
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[C$_{A:foc}$] [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	1.3332658935995629E-16
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[DP2$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]]	0.0	6.201866192425119E-12
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	1.0	0.9999999999937979
+[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	[v1P[v$_{case}$] [VP[V] [DP1$_{wh,foc}$$_{A:case}$]]]	0.0	9.209707622170662E-21
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[T$_{case}$] [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	5.786582026083058E-14
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[C$_{A:foc}$] [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	5.786582026083058E-14
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP2$_{A:case}$] [[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	5.786582026083058E-14
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP1$_{wh,foc}$$_{A:case}$] [[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.0759193709476422E-26
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	1.0	0.9999981502719211
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[v1P[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	1.8497279052754595E-6
+[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP1$_{wh,foc}$$_{A:case}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	3.997156819788763E-18
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[T$_{case}$] [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.1171708703872866E-19
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[C$_{A:foc}$] [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.1171708703872866E-19
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP2$_{A:case}$] [[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.1171708703872866E-19
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP1$_{wh,foc}$$_{A:case}$] [[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.077194749318614E-32
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	1.0	1.0
+[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	7.717003134682248E-24
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[T$_{case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.1496893485033727E-5
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[C$_{A:foc}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.1496893485033727E-5
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	1.0	0.9999570047281013
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[[DP1$_{wh,foc}$$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.866826855781885E-15
+[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	[v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]	0.0	1.4849258856205911E-9
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[T$_{case}$] [[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	3.128342091568662E-8
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[C$_{A:foc}$] [[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	3.128342091568662E-8
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[DP2$_{A:case}$] [[DPc] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	5.816635520066938E-21
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[DP1$_{wh,foc}$] [[DP2$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	4.171958673203539E-18
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	1.0	0.9999999374309972
+[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	2.16094300047626E-12
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	1.0	0.9999773819063705
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[C$_{A:foc}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.149733154989938E-5
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[DP2$_{A:case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	1.1192750672080793E-6
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[[DP1$_{wh,foc}$] [v2P[DP2$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.056262052451172E-12
+[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	[v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]	0.0	1.4849561455211224E-9
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	[[C$_{A:foc}$] [[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]]	0.0	3.128342184338491E-8
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	[[DP2$_{A:case}$] [[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]]	0.0	1.6287953695544477E-9
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	[[DP1$_{wh,foc}$] [[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DPc] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]]	0.0	2.992320840289388E-15
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	1.0	0.9999999670856188
+[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	[[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P[v$_{case}$] [VP[V] [DPc]]]]]]	0.0	2.1609430645582415E-12
+[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	[[C$_{A:foc}$] [TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	3.1904893529991547E-6
+[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	1.0	0.9999968095106375
+[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	[[DP1$_{wh,foc}$] [TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DPc] [v1P]]]]]	0.0	4.705586164307143E-15
+[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	[TP[T$_{case}$] [v2P[DP2$_{A:case}$] [v1P[DP1$_{wh,foc}$] [v1P]]]]	0.0	4.7378439329534145E-15
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[C$_{A:foc}$] [[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	5.778925757065249E-14
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP2$_{A:case}$] [[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	1.0744958141556851E-26
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP1$_{wh,foc}$] [[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]	0.0	3.964689384723376E-18
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	1.0	0.9986750454025454
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[TP[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	0.0013249545973969144
+[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP2$_{A:case}$] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	3.991868152354245E-18
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[C$_{A:foc}$] [[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	1.5575839253673642E-22
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP2$_{A:case}$] [[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	2.8960700973831833E-35
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP1$_{wh,foc}$] [[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]	0.0	1.0685959145901573E-26
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	1.0	1.0
+[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	1.075921361109587E-26
+[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	1.0	0.9999999970401311
+[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP2$_{A:case}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	3.997164201624562E-18
+[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[[DP1$_{wh,foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]	0.0	1.4748791266003864E-9
+[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	[TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]	0.0	1.4849897287625602E-9
+[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[[DP2] [[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]]	0.0	2.1037608370067083E-12
+[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[[DP1$_{wh,foc}$] [[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	7.762485575647575E-4
+[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	1.0	0.9984421815379848
+[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	7.815699023468136E-4
+[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[[DP2] [CP[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]]	0.0	3.773272645362144E-12
+[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.9985981884019204
+[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	[CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DP1$_{wh,foc}$] [v1P]]]]]]	0.0	0.0014018115943063303
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP1$_{wh,foc}$] [[DPc] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	5.192596301755154E-15
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP2] [[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	5.192596301755154E-15
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	7.821755572655997E-4
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.9992158953370418
+[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	1.929105682119065E-6
+[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP1$_{wh,foc}$] [CP[DPc] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	4.749836579455396E-9
+[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP2] [CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	6.622325465501032E-12
+[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.9975397297150959
+[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[CP[DP1$_{wh,foc}$] [CP[C$_{A:foc}$] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	0.0	0.0024602655284451254
+[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP1$_{wh,foc}$] [CP[DPc] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	1.9306157573823986E-6
+[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[[DP2] [CP[DP1$_{wh,foc}$] [CP[C] [TP[DPc] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]]	0.0	2.6917064788104643E-9
+[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	[CP[DP1$_{wh,foc}$] [CP[C] [TP[DP2] [TP[T$_{case}$] [v2P[DPc] [v1P[DPc] [v1P]]]]]]]	1.0	0.9999980666925362

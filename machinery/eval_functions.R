@@ -37,8 +37,8 @@ cons_marked <- function(my_tree){
 # AGREEMENT CONSTRAINT, counts features that are not valued
 cons_agree <- function(my_tree){
   feat_order <- c("foc","wh","case")
-  n_trial <- tibble(marked_feats = my_tree$Get("ac", filterFun = isLeaf),
-                    dom_counts = my_tree$Get("n_dominator", filterFun= isLeaf)) %>% drop_na()
+  n_trial <- tibble(marked_feats = my_tree$Get("ac"),
+                    dom_counts = my_tree$Get("n_dominator")) %>% drop_na()
   if (nrow(n_trial) == 0){
     violations <- tibble(foc_agr = 0, wh_agr = 0, case_agr = 0)
   }else{

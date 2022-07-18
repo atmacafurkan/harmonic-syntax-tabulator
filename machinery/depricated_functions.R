@@ -154,22 +154,22 @@ old_agreeMC <- function(my_tree){
   goal_feats <- my_tree$Get("ac", filterFun = isLeaf)
   
   # get features for specifiers to agree with
-  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), "")
+  hp_feats <- c(tail(my_tree$Get("ft", filterFun = isLeaf),-1), "0")
   
   # get features for heads to agree with
-  sp_feats <- c("", head(my_tree$Get("ft", filterFun = isLeaf),-1))
+  sp_feats <- c("0", head(my_tree$Get("ft", filterFun = isLeaf),-1))
+  
   # get is_head info about leaves
-  head_spec <- my_tree$Get("is_head", filterFun = isLeaf)
+  head_spec <- my_tree$Get("is_head", filterFun = isLeaf) %>% replace_na(F)
   
   # use a data frame to calculate agreement
   outlook <- tibble(goal_feats, hp_feats, sp_feats, head_spec)
   outlook[is.na(outlook)] <- "0"
   outlook %<>% mutate(new_goals = case_when(
     # agreement for heads with specifiers
-    head_spec ~ ifelse(goal_feats == sp_feats,"", goal_feats),
+    head_spec ~ ifelse(str_detect(sp_feats,goal_feats),"0", goal_feats),
     # agreement for heads
-    T ~ ifelse(goal_feats == hp_feats,"", goal_feats)
-  )) %>% mutate(new_goals = replace(new_goals, new_goals == "0", NA))
+    T ~ ifelse(str_detect(hp_feats,goal_feats),"0", goal_feats)))
   # set agreement on leaves
   my_tree$Set(ac = outlook$new_goals, filterFun = isLeaf)
   
