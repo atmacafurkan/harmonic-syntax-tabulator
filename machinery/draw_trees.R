@@ -7,7 +7,7 @@ library(magrittr)
 linear_tree <- function(my_tree){
   if (length(my_tree$children)>1){
 
-  written <- paste0(ifelse(my_tree$name==0,"",my_tree$name),
+  written <- paste0(ifelse(my_tree$name == 0,"",my_tree$name),
                     "[",my_tree$children[[1]]$name,ifelse(is.na(my_tree$children[[1]]$ft),"", paste0("(",my_tree$children[[1]]$ft,")"))," ",linear_tree(my_tree$children[[2]]),"]")
   }else{
   written <- paste0(my_tree$name,ifelse(is.na(my_tree$ft),"", paste0("(",my_tree$ft,")")))

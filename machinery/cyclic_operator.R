@@ -28,7 +28,6 @@ cycle_step <- function(my_tree, cycle_numeration){
     Prune(my_tree, function(x) x$level < phase_out)
     v_phased <- 1}
 
-  
 outputs <- list()
 
 for (each in 1:nrow(cycle_numeration)){
@@ -37,8 +36,6 @@ new_tree <- Clone(my_tree)
 
 # number of distinct elements in the tree before merge
 count_prev <- length(new_tree$Get("it", filterFun = function(x) isLeaf(x) & !x$is_copy))
-
-
 
 new_tree %<>% mergeMC(new_numeration$it[each], numeration = new_numeration)
 
@@ -76,7 +73,6 @@ if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
 
 # add copies back to the numeration with updated features if any
 new_numeration %<>% rbind(used_items)
-
 
 # generate a list of output 
 outputs[[each]] <- list(linear = linear_tree(new_tree),

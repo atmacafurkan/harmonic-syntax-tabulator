@@ -4,11 +4,10 @@ library(data.tree)
 
 # Use Clone() function if you want to save the version of a tree before an operation.
 # For some reason R thinks assigning trees to different objects links them instead of creating a new one.
-
-
 # MERGE FUNCTION, can handle internal and external merge, marks moved items and copies and carries Agree and features up
 mergeMC <- function(right_arg, left_arg = NA, numeration){
   if (is.na(left_arg)){
+    # if there is no left argument
     new_node <- Node$new(right_arg)
     field_node <- which(numeration$it == right_arg)
     new_node$Set(
@@ -63,7 +62,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
                       mr = NA,
                       ac = 0,
                       ft = 0,
-                      name= "DPc",
+                      name = "DPc",
                       filterFun = function(x) isLeaf(x) & any(x$Get("it") == left_arg))
         new_node$left_arg$is_moved <- T
       }
@@ -92,7 +91,6 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
     # }
 x <- ifelse(is.na(new_node$children[[1]]$mc) || is_empty(new_node$children[[1]]$mc),"A", new_node$children[[1]]$mc)
 y <- ifelse(is.na(new_node$children[[2]]$lb) || is_empty(new_node$children[[2]]$lb),"B", new_node$children[[2]]$lb)
-
 if(x ==y){
   new_node$children[[1]]$mc <- NA
 }
@@ -109,50 +107,31 @@ labelMC <- function(my_tree){
   if (my_tree$lb!=0){
     return(my_tree)
   } else {
-  #master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
-  master_lb <- c("D"=1,"V"=2,"v1"=3,"v2"=4,"T"=5,"C"=6)
-  x <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x))
-  y <- my_tree$Get("lb", filterFun = function(x) x$position == 2 & isNotRoot(x))
-  z <- ifelse(x>y,x,y) %>% as.integer()
-  my_tree$Set(lb=z, name=str_replace_all(paste0(names(master_lb[z]),"P"),"NAP","0"),filterFun = isNotLeaf)
-  
-  # add dominating domain numbers
-  my_levels <- my_tree$Get("level", filterFun = isLeaf)
-  my_position <- my_tree$Get("position", filterFun = isLeaf)
-  for (each in 1:length(my_levels)){
-    domin <- my_tree$Get("lb", filterFun = function(x) isNotLeaf(x) & x$level < my_levels[each]) %>% unique()
-    my_tree$Set(n_dominator = length(domin[!is.na(domin)]),
-                filterFun = function(x) 
-                  x$level == my_levels[each] &
-                  x$position == my_position[each])
+    #master_lb <- c("D"=1,"V"=2,"v"=3,"T"=4,"C"=5)
+    master_lb <- c("D"=1,"V"=2,"v1"=3,"v2"=4,"T"=5,"C"=6)
+    x <- my_tree$Get("lb", filterFun = function(x) x$position == 1 & isNotRoot(x))
+    y <- my_tree$Get("lb", filterFun = function(x) x$position == 2 & isNotRoot(x))
+    z <- ifelse(x>y,x,y) %>% as.integer()
+    my_tree$Set(lb=z, name =str_replace_all(paste0(names(master_lb[z]),"P"),"NAP","0"), filterFun = isNotLeaf)
+    if (ifelse(length(my_tree$children[[1]]$is_head)==0,F,my_tree$children[[1]]$is_head)){
+      my_tree$Set(mc = NA,
+                  ml = NA,
+                  mr = NA,
+                  it = "",
+                  is_copy = F, filterFun = isRoot)
+    } else if (ifelse(length(my_tree$lb == my_tree$children[[2]]$lb)== 0 || is.na(my_tree$children[[2]]$lb) || is.na(my_tree$lb),
+                      F,my_tree$lb == my_tree$children[[2]]$lb)){
+      # set attributes for the resulting labelled phrase
+      my_tree$Set(mc = NA,
+                  ml = NA,
+                  mr = NA,
+                  it = "",
+                  is_copy = F, filterFun = isRoot)
+    }
+    return(my_tree)
   }
-  # not moving anything up currently
-  #my_tree$Set(n_dominator = "", filterFun = function(x) x$is_copy)
-  if (ifelse(length(my_tree$children[[1]]$is_head)==0,F,my_tree$children[[1]]$is_head)){
-    my_tree$Set(mc = NA,
-                ml = NA,
-                mr = NA,
-                #ac = my_tree$children[[1]]$Get("ac", filterFun = function(x) isLeaf(x) & x$is_head),
-                #ft = my_tree$children[[1]]$Get("ft", filterFun = function(x) isLeaf(x) & x$is_head),
-                it = "",
-                is_copy = F, filterFun = isRoot)
-    #my_tree$children[[1]]$Set(ac = 0, ft = 0, filterFun = function(x) isLeaf(x) & x$is_head)
-  } else if (ifelse(length(my_tree$lb == my_tree$children[[2]]$lb)== 0 || is.na(my_tree$children[[2]]$lb) || is.na(my_tree$lb),
-                    F,my_tree$lb == my_tree$children[[2]]$lb)){
-    # set attributes for the resulting labelled phrase
-    my_tree$Set(mc = NA,
-                ml = NA,
-                mr = NA,
-                #ac = my_tree$children[[2]]$Get("ac", filterFun = isNotLeaf)[1],
-                #ft = my_tree$children[[2]]$Get("ft", filterFun = isNotLeaf)[1],
-                it = "",
-                is_copy = F, filterFun = isRoot)
-    #my_tree$children[[2]]$ac <- 0
-    #my_tree$children[[2]]$ft <- 0
-  }
-  return(my_tree)
 }
-}
+
 # AGREE FUNCTION, agreement is carried out under sisterhood
 agreeMC <- function(my_tree){
   # get agreement conditions
@@ -171,3 +150,44 @@ agreeMC <- function(my_tree){
   return(my_tree)
 }
 
+# RECURSIVE FUNCTION, this trickles down dominating domains
+recurseMC <- function(active_tree, output_tree = active_tree){
+  # get n_dominators
+  n_doms <- output_tree$Get("n_dominator")
+  # create a new
+  my_tree <- Clone(active_tree)
+  # learn mother_lab
+  mother_lab <- my_tree$Get("lb")[1] 
+  
+  # update left
+  left_lab <- Get(my_tree$children[1],"lb")[1]
+  if (mother_lab > left_lab){
+    # increase global domination
+    range_ids <- my_tree$left_arg$Get("range_id")
+    n_doms[range_ids] <- my_tree$left_arg$Get("n_dominator")+1
+    # increase local domination
+    my_tree$left_arg$Set(n_dominator = my_tree$left_arg$Get("n_dominator")+1)
+    output_tree$Set(n_dominator = n_doms)
+  }
+  
+  # update right
+  right_lab <- Get(my_tree$children[2],"lb")[1]
+  if (mother_lab > right_lab){
+    # increase global domination
+    range_ids <- my_tree$right_arg$Get("range_id")
+    n_doms[range_ids] <- my_tree$right_arg$Get("n_dominator")+1
+    # increase local domination
+    my_tree$right_arg$Set(n_dominator = my_tree$right_arg$Get("n_dominator")+1)
+    output_tree$Set(n_dominator = n_doms)
+  }
+  
+  # recursively call the function on the left child
+  if (my_tree$left_arg$leafCount > 1){
+    recurseMC(my_tree$left_arg,output_tree)
+  }
+  # recursively call the function on the right child
+  if (my_tree$right_arg$leafCount > 1){
+    recurseMC(my_tree$right_arg,output_tree)
+  }
+  return(output_tree)
+}
