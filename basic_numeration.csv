@@ -1,5 +1,5 @@
 it,mc,ac,ft,lb,is_copy,is_head,mc_left,mc_right
-DP1,NA,case,"wh,foc",1,0,FALSE,NA,NA
+DP1,,case,"wh,foc",1,0,FALSE,NA,NA
 V,1,,,2,0,TRUE,NA,1
 v,2,,case,3,0,TRUE,NA,2
 T,4,,case,5,0,TRUE,NA,4

@@ -25,21 +25,21 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
       new_node$AddChildNode(right_arg)} 
     
     # set fields of the resulting merge
-    new_node$Set(mc = NA, ml = NA, mr = NA, ac = "", ft = "", lb = 0, it = 0, is_copy = F, filterFun = isRoot)
+    new_node$Set(mc = "", ac = "", ft = "", lb = 0, it = 0, is_copy = F, filterFun = isRoot)
     
     # remove merge conditions if mc of head matches lb of sister
     x <- ifelse(is.na(new_node$children[[1]]$mc) || is_empty(new_node$children[[1]]$mc),"A", new_node$children[[1]]$mc)
     y <- ifelse(is.na(new_node$children[[2]]$lb) || is_empty(new_node$children[[2]]$lb),"B", new_node$children[[2]]$lb)
     if(x == y){
-      new_node$children[[1]]$mc <- NA
+      new_node$children[[1]]$mc <- ""
     }
   }
   # assign unique ids
   # add range ids for unique identification
   new_node$Set(range_id = 1:length(new_node$Get("lb")))
   
-  # renew domination counts
-  new_node$Set(n_dominator = 0)
+  # renew domination counts and merge violations
+  new_node$Set(n_dominator = 0, m_vio = 0)
   new_node %<>% recurseMC()
   return(new_node)
 }
@@ -49,7 +49,7 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
   if (recurse_tree$leafCount > 1){
     # MOVE LEFT CHILD
     # create empty node
-    new_left <- Node$new("0", ac= "", ft= "", lb= 0, it="", n_dominator = 0,is_copy=F)
+    new_left <- Node$new("0", mc = "", ac = "", ft = "", lb = 0, it = "", n_dominator = 0, is_copy = F)
     # add moved item
     my_left <- Clone(recurse_tree$left_arg)
     new_left$AddChildNode(my_left)
@@ -64,15 +64,15 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     new_left$Set(name= "right_arg", filterFun = function(x){x$position == 2})
     # reset unique id
     new_left$Set(range_id = 1:length(new_left$Get("lb")))
-    # renew domination counts
-    new_left$Set(n_dominator = 0)
+    # renew domination counts and merge violations
+    new_left$Set(n_dominator = 0, m_vio = 0)
     new_left %<>% recurseMC()
     # add the resulting tree to the list
     my_list <<- append(my_list,new_left)
     
     # MOVE RIGHT CHILD
     # create empty node
-    new_right <- Node$new("0", ac= "", ft= "", lb=0, it="", n_dominator = 0,is_copy=F)
+    new_right <- Node$new("0", mc = "", ac = "", ft = "", lb = 0, it = "", n_dominator = 0, is_copy = F)
     # add moved item
     my_right <- Clone(recurse_tree$right_arg)
     new_right$AddChildNode(my_right)
@@ -87,8 +87,8 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     new_right$Set(name= "right_arg", filterFun = function(x){x$position == 2})
     # reset unique id
     new_right$Set(range_id = 1:length(new_right$Get("lb")))   
-    # renew domination counts
-    new_right$Set(n_dominator = 0)
+    # renew domination counts and merge violations
+    new_right$Set(n_dominator = 0, m_vio = 0)
     new_right %<>% recurseMC()
     # add the resulting tree to the list
     my_list <<- append(my_list, new_right)
@@ -131,7 +131,7 @@ labelMC <- function(my_tree){
   }
 }
 
-# TRICKLE DOWN, iteratively establishes domination counts embedded into labelMC, mergeMC, and moveMC
+# TRICKLE DOWN, iteratively establishes domination counts and merge violations embedded into labelMC, mergeMC, and moveMC
 recurseMC <- function(active_tree, output_tree = active_tree){
   # if(length(active_tree$Get("it")) == length(output_tree$Get("it"))){
   #   # add range ids for unique identification
@@ -147,6 +147,10 @@ recurseMC <- function(active_tree, output_tree = active_tree){
   
   # update left
   left_lab <- Get(my_tree$children[1],"lb")[1]
+  if (is.null(left_lab)){
+    left_lab <- mother_lab
+  }
+  
   if (mother_lab > left_lab){
     # increase global domination
     range_ids <- my_tree$left_arg$Get("range_id")
@@ -158,6 +162,10 @@ recurseMC <- function(active_tree, output_tree = active_tree){
   
   # update right
   right_lab <- Get(my_tree$children[2],"lb")[1]
+  if (is.null(right_lab)){
+    right_lab <- mother_lab
+  }
+  
   if (mother_lab > right_lab){
     # increase global domination
     range_ids <- my_tree$right_arg$Get("range_id")
@@ -167,18 +175,34 @@ recurseMC <- function(active_tree, output_tree = active_tree){
     output_tree$Set(n_dominator = n_doms)
   }
   
+  # merge violation calculator
+  if (length(my_tree$children) > 1){
+    mc_left <- my_tree$left_arg$Get("mc")[1] %>% as.numeric()
+    lb_right <- my_tree$right_arg$Get("lb")[1]
+    if (mc_left != lb_right){
+      my_tree$left_arg$Set(m_vio = 1)
+    }
+    mc_right <- my_tree$right_arg$Get("mc")[1]
+    lb_left <- my_tree$left_arg$Get("lb")[1]
+    if (mc_right != lb_left){
+      my_tree$right_arg$Set(m_vio = 1)
+    }
+  }
+  
   # recursively call the function on the left child
-  if (my_tree$left_arg$leafCount > 1){
+  if (is.null(my_tree$left_arg)){} else if (my_tree$left_arg$leafCount > 1){ # check if there is left_arg, if more than 1
     recurseMC(my_tree$left_arg,output_tree)
   }
+  
   # recursively call the function on the right child
-  if (my_tree$right_arg$leafCount > 1){
+  if (is.null(my_tree$right_arg)){} else if (my_tree$right_arg$leafCount > 1){ # check if there is right_arg, if more than 1
     recurseMC(my_tree$right_arg,output_tree)
   }
   return(output_tree)
 }
 
 # AGREE FUNCTION, agreement is carried out under motherhood recursively down the tree
+# it is working only under labelleds phrases for now
 agreeMC <- function(trouble_tree){
   my_tree <- Clone(trouble_tree)
   if(my_tree$leafCount>1){

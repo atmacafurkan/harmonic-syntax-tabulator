@@ -2,22 +2,24 @@ library(tidyverse)
 library(magrittr)
 library(data.tree)
 
-source("./updated_gen_functions.R")
+source("./machinery2.0/updated_gen_functions.R")
+source("./machinery2.0/updated_eval_functions.R")
 
-df <- read_csv("basic_numeration.csv")
+df <- read.csv("basic_numeration.csv", na.strings = "NA") %>% 
+  mutate(mc = ifelse(is.na(mc), "", mc))
+
+base_der <- mergeMC("V",numeration = df)
+print(base_der, "ac","ft","lb","mc","m_vio","n_dominator", "is_copy")
+
 output <- mergeMC("DP1","V",df) %>% labelMC() %>% mergeMC("v",df) %>% labelMC()
 plot(output)
-print(output,"it","n_dominator")
-
 
 my_list <- list()
 moveMC(output)
-my_tree <- Clone(my_list[[4]]) %>% labelMC()
-print(my_tree,"it","lb","ft","ac","is_copy", "range_id","n_dominator")
-plot(my_tree)
+new_ish <- Clone(my_list[[4]]) %>% labelMC() %>% mergeMC("T",df)
+print(new_ish, "ac","ft","lb","mc","m_vio","n_dominator", "is_copy")
+my_tree <- Clone(new_ish)
 
+print(my_tree, "ac","ft","lb","mc","m_vio","n_dominator", "is_copy")
 
-
-my_tree %>% agreeMC() %>% print("it","lb","ft","ac","is_copy", "range_id","n_dominator")
-
-print(my_tree,"it","lb","ft","ac","is_copy", "range_id","n_dominator")
+new_ish %>% cons_merge(df)
