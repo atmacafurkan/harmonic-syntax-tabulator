@@ -25,7 +25,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
       new_node$AddChildNode(right_arg)} 
     
     # set fields of the resulting merge
-    new_node$Set(mc = NA, ml = NA, mr = NA, ac = 0, ft = 0, lb = 0, it = 0, is_copy = F, filterFun = isRoot)
+    new_node$Set(mc = NA, ml = NA, mr = NA, ac = "", ft = "", lb = 0, it = 0, is_copy = F, filterFun = isRoot)
     
     # remove merge conditions if mc of head matches lb of sister
     x <- ifelse(is.na(new_node$children[[1]]$mc) || is_empty(new_node$children[[1]]$mc),"A", new_node$children[[1]]$mc)
@@ -34,7 +34,7 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
       new_node$children[[1]]$mc <- NA
     }
   }
-    # assign unique ids
+  # assign unique ids
   # add range ids for unique identification
   new_node$Set(range_id = 1:length(new_node$Get("lb")))
   
@@ -49,7 +49,7 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
   if (recurse_tree$leafCount > 1){
     # MOVE LEFT CHILD
     # create empty node
-    new_left <- Node$new("0", ac= 0, ft= 0, lb= 0, it="", n_dominator = 0,is_copy=F)
+    new_left <- Node$new("0", ac= "", ft= "", lb= 0, it="", n_dominator = 0,is_copy=F)
     # add moved item
     my_left <- Clone(recurse_tree$left_arg)
     new_left$AddChildNode(my_left)
@@ -72,7 +72,7 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     
     # MOVE RIGHT CHILD
     # create empty node
-    new_right <- Node$new("0", ac= 0, ft= 0, lb=0, it="", n_dominator = 0,is_copy=F)
+    new_right <- Node$new("0", ac= "", ft= "", lb=0, it="", n_dominator = 0,is_copy=F)
     # add moved item
     my_right <- Clone(recurse_tree$right_arg)
     new_right$AddChildNode(my_right)
@@ -101,7 +101,6 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
   if (my_right$leafCount > 1){
     moveMC(my_right, input_tree)
   }
-  
 }
 
 # LABELLING OPERATION, labels the root of a tree carries up dominating daughters ac and ft values
@@ -119,9 +118,11 @@ labelMC <- function(my_tree){
                 filterFun = isRoot)
     # carry up ac and ft features for agreeMC
     if (left_lb>right_lb){
-      my_tree$Set(ft=my_tree$left_arg$Get("ft")[1], ac=my_tree$left_arg$Get("ac")[1], filterFun = isRoot) 
+      my_tree$Set(ft=my_tree$left_arg$Get("ft")[1], ac=my_tree$left_arg$Get("ac")[1], filterFun = isRoot)
+      my_tree$left_arg$Set(ac = "", ft = "", filterFun = function(x){x$range_id == my_tree$left_arg$Get("range_id")[1]})
     } else if (right_lb>left_lb){
       my_tree$Set(ft=my_tree$right_arg$Get("ft")[1], ac=my_tree$right_arg$Get("ac")[1], filterFun = isRoot)
+      my_tree$right_arg$Set(ac = "", ft = "", filterFun = function(x){x$range_id == my_tree$right_arg$Get("range_id")[1]})
     }
     # renew domination counts
     my_tree$Set(n_dominator = 0)
@@ -130,7 +131,7 @@ labelMC <- function(my_tree){
   }
 }
 
-# TRICKLE DOWN, iteratively establishes domination counts
+# TRICKLE DOWN, iteratively establishes domination counts embedded into labelMC, mergeMC, and moveMC
 recurseMC <- function(active_tree, output_tree = active_tree){
   # if(length(active_tree$Get("it")) == length(output_tree$Get("it"))){
   #   # add range ids for unique identification
@@ -175,5 +176,39 @@ recurseMC <- function(active_tree, output_tree = active_tree){
     recurseMC(my_tree$right_arg,output_tree)
   }
   return(output_tree)
+}
+
+# AGREE FUNCTION, agreement is carried out under motherhood recursively down the tree
+agreeMC <- function(trouble_tree){
+  my_tree <- Clone(trouble_tree)
+  if(my_tree$leafCount>1){
+    # take mother relations
+    head_ft <- my_tree$Get("ft")[1] %>% str_split(",") %>% unlist()
+    # agreement on the left
+    left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split(",") %>% unlist()
+    left_id <- my_tree$left_arg$Get("range_id")[1]
+    if (any(left_ac %in% head_ft)){
+      to_removeL <- which(left_ac %in% head_ft)
+      left_ac <- left_ac[-to_removeL] 
+      my_tree$Set(ac = left_ac, filterFun = function(x){x$range_id == left_id})
+      agreeMC(my_tree$left_arg)
+    } else {
+      agreeMC(my_tree$left_arg)
+    }
+    # agreement on the right
+    right_ac <- my_tree$right_arg$Get("ac")[1] %>% str_split(",") %>% unlist()
+    right_id <- my_tree$right_arg$Get("range_id")[1] 
+    if (any(left_ac %in% head_ft)){
+      to_removeR <- which(right_ac %in% head_ft)
+      right_ac <- right_ac[-to_removeR] 
+      my_tree$Set(ac = left_ac, filterFun = function(x){x$range_id == right_id})
+      agreeMC(my_tree$right_arg)
+    } else {
+      agreeMC(my_tree$right_arg)
+    }
+    my_tree
+  } else {
+    my_tree
+  }
 }
 
