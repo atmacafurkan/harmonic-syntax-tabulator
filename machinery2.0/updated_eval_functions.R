@@ -60,8 +60,20 @@ cons_agree <- function(my_tree){
 
 # MERGE CONDITION CONSTRAINT, recursively checks merge violations
 cons_merge <- function(my_tree){
-
-
-  
-  
+  # check if tree has children
+  if (length(my_tree$children) > 1){
+    # left to right check
+    
+    
+    
+    
+    # right to left check
+    
+    # iterate on left
+    cons_merge(my_tree$left_arg)
+    
+    # iterate on right
+    cons_merge(my_tree$right_arg)
+  }
+  return(my_tree)
 }
