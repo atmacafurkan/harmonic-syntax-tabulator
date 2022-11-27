@@ -1,16 +1,17 @@
 library(tidyverse)
 library(magrittr)
 
-source("./machinery/eval_functions.R")
-source("./machinery/gen_functions.R")
-source("./machinery/draw_trees.R")
-source("./machinery/cyclic_operator.R")
-source("./machinery/depricated_functions.R")
-cons_merge <- old_cons_merge
-agreeMC <- old_agreeMC
+#source("./machinery/draw_trees.R")
+source("./machinery2.0/updated_gen_functions.R")
+source("./machinery2.0/updated_eval_functions.R")
+source("./machinery2.0/updated_cyclic_operator.R")
+source("./machinery2.0/updated_draw_latex.R")
 
-df <- read_csv("basic_numeration.csv")
-dt_trial <- mergeMC("DP1", numeration = df) 
+df <- read.csv("basic_numeration.csv", na.strings = "NA") %>% 
+  mutate(mc = ifelse(is.na(mc), "", mc))
+dt_trial <- mergeMC("DP1","V", numeration = df)
+df <- df[c(-1,-2),]
+print(dt_trial,"lb")
 
 winner_output <- 100
 my_derivation <- tibble()

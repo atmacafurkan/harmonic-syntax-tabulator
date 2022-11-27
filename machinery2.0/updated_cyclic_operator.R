@@ -1,2 +1,108 @@
 library(tidyverse)
 library(magrittr)
+
+prepare_tableau <- function(cycle){
+  resulting_tableau <- tibble()
+  for (each in 1:length(cycle)){
+    cand_eval <- tibble(input = cycle[[length(cycle)]]$tree_latex,
+                        output = cycle[[each]]$tree_latex,
+                        freq = 0) %>% cbind(cycle[[each]]$eval)  
+    resulting_tableau %<>% rbind(cand_eval)
+  }
+  return(resulting_tableau)
+}
+
+set_winner <- function(df, winner){
+  df$freq[winner] <- 1
+  return(df)
+}
+
+# you feed the step an initial tree and a numeration to use it with
+# it returns a list of all possible Merge operations together with an Agree and Label operations, it returns itself last.
+# each cycle is a list that contains all relevant information for all the possible outputs given the input
+cycle_step <- function(my_tree, cycle_numeration){
+  # check if phase occured when it is TP
+  if (my_tree$name == "TP" & v_phased == 0){
+    phase_out <- max(my_tree$Get("level", filterFun = function(x) x$name =="v1P")) +1
+    Prune(my_tree, function(x) x$level < phase_out)
+    v_phased <- 1}
+  
+  outputs <- list()
+  # merge new items
+  if (nrow(cycle_numeration) > 0){ # if there is something left in the numeration
+  for (each in 1:nrow(cycle_numeration)){
+    new_numeration <- cycle_numeration
+    new_tree <- Clone(my_tree)
+    # merge the new item
+    new_tree %<>% mergeMC(new_numeration$it[each], numeration = new_numeration) # merge the new item
+    # remove the merged item from the numeration
+    new_numeration <- cycle_numeration[-each,]
+    # form the evaluation
+    violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
+    
+    # generate a list of output 
+    outputs[[each]] <- list(linear = linear_tree(new_tree),
+                            tree_latex = latex_tree(new_tree),
+                            tree_linear_latex = latex_linear_tree(new_tree),
+                            tree = new_tree,
+                            eval = violations,
+                            numeration = new_numeration)
+  }
+  }
+  # internal merge, iterative, applies all possible movements
+  new_tree <- Clone(my_tree)
+  my_list <<- list()
+  moveMC(new_tree)
+  for(each in 1:length(my_list)){
+    violations <- cons_profile(my_list[[each]]) %>% mutate(exnum = ifelse(nrow(cycle_numeration > 0), 1,0))
+    outputs[[each+nrow(cycle_numeration)]] <- list(linear = linear_tree(my_list[[each]]),
+                                                   tree_latex =latex_tree(my_list[[each]]),
+                                                   tree_linear_latex = latex_linear_tree(my_list[[each]]),
+                                                   tree = my_list[[each]],
+                                                   eval = violations,
+                                                   numeration = cycle_numeration)
+  }
+  
+  # agree and return
+  new_tree <- Clone(my_tree) %>% agreeMC()
+  new_tree2 <- Clone(my_tree) 
+  is_different <- any(new_tree$Get("ac") != new_tree2$Get("ac"), na.rm = T)
+  if (new_tree$count != 0 & is_different){
+    # form the evaluation
+    # agreeing doesnt count towards exnum
+    violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
+    outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
+                                         tree_latex = latex_tree(new_tree),
+                                         tree_linear_latex = latex_linear_tree(new_tree),
+                                         tree = new_tree,
+                                         eval = violations,
+                                         numeration = cycle_numeration)}
+  # label and return
+  new_tree <- Clone(my_tree) %>% labelMC()
+  new_tree2 <- Clone(my_tree) 
+  is_different <- any(new_tree$Get("lb") != new_tree2$Get("lb"), na.rm = T)
+  if (new_tree$count != 0 & is_different){
+    # form the evaluation
+    # labelling doesnt count towards exnum   
+    violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
+    outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
+                                         tree_latex = latex_tree(new_tree),
+                                         tree_linear_latex = latex_linear_tree(new_tree),
+                                         tree = new_tree,
+                                         eval = violations,
+                                         numeration = cycle_numeration)}
+  
+  # return the tree itself, actually it is merging with nothing, which violates exnum
+  new_tree <- Clone(my_tree)
+  # form the evaluation
+  violations <- cons_profile(new_tree) %>% mutate(exnum = 1)
+  # check if there is anything left in the numeration
+  if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
+  outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
+                                       tree_latex = latex_tree(new_tree),
+                                       tree_linear_latex = latex_linear_tree(new_tree),
+                                       tree = new_tree,
+                                       eval = violations,
+                                       numeration = cycle_numeration)
+  return(outputs)
+}

@@ -40,14 +40,14 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
     mc_left <- new_node$children[[1]]$mc %>% str_split(",") %>% unlist()
     lb_right <- new_node$children[[2]]$lb
     if (purrr::is_empty(mc_left)){
-      new_node$left_arg$Set(m_vio = 0)
-    } else if (any(mc_left == lb_right)){
-      new_node$left_arg$Set(m_vio = 0) 
+      new_node$left_arg$Set(mc_vio = 0)
+    } else if (any(mc_left == lb_right, na.rm = T)){
+      new_node$left_arg$Set(mc_vio = 0) 
     } else {
-      new_node$left_arg$Set(m_vio = 1)
+      new_node$left_arg$Set(mc_vio = 1)
     }
   } else {
-    new_node$Set(m_vio = 0, filterFun = isRoot)
+    new_node$Set(mc_vio = 0, filterFun = isRoot)
   }
   new_node %<>% recurseMC()
   return(new_node)
@@ -133,7 +133,7 @@ labelMC <- function(my_tree){
       # mc feats
       mc_left <- my_tree$left_arg$Get("mc")[1] %>% str_split(",") %>% unlist()
       lb_right <- my_tree$right_arg$Get("lb")[1]
-      if (any(mc_left == lb_right)){
+      if (any(mc_left == lb_right, na.rm = T)){
         my_tree$Set(mc = mc_left[-which(mc_left == lb_right)], filterFun = isRoot)
       } else {
         my_tree$Set(mc = mc_left, filterFun = isRoot)
@@ -145,7 +145,7 @@ labelMC <- function(my_tree){
       # mc feats
       mc_right <- my_tree$right_arg$Get("mc")[1] %>% str_split(",") %>% unlist()
       lb_left <- my_tree$left_arg$Get("lb")[1]
-      if (any(mc_right == lb_left)){
+      if (any(mc_right == lb_left, na.rm = T)){
         my_tree$Set(mc = mc_right[-which(mc_right == lb_left)], filterFun = isRoot)
       } else {
         my_tree$Set(mc = mc_right, filterFun = isRoot)
@@ -219,7 +219,7 @@ agreeMC <- function(trouble_tree){
     # agreement on the left
     left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split(",") %>% unlist()
     left_id <- my_tree$left_arg$Get("range_id")[1]
-    if (any(left_ac %in% head_ft)){
+    if (any(left_ac %in% head_ft, na.rm = T)){
       to_removeL <- which(left_ac %in% head_ft)
       left_ac <- left_ac[-to_removeL] 
       my_tree$Set(ac = left_ac, filterFun = function(x){x$range_id == left_id})
@@ -230,7 +230,7 @@ agreeMC <- function(trouble_tree){
     # agreement on the right
     right_ac <- my_tree$right_arg$Get("ac")[1] %>% str_split(",") %>% unlist()
     right_id <- my_tree$right_arg$Get("range_id")[1] 
-    if (any(left_ac %in% head_ft)){
+    if (any(left_ac %in% head_ft, na.rm = T)){
       to_removeR <- which(right_ac %in% head_ft)
       right_ac <- right_ac[-to_removeR] 
       my_tree$Set(ac = left_ac, filterFun = function(x){x$range_id == right_id})
