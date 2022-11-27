@@ -55,7 +55,6 @@ used_items <- tibble(it = new_tree$Get("it", filterFun = isLeaf) %>% as.vector()
                      is_head = new_tree$Get("is_head", filterFun = isLeaf) %>% as.vector()) %>%
   subset(!is_head & !is_copy)
 
-
 # number of distinct elements in the tree after merge
 count_next <- length(new_tree$Get("it", filterFun = function(x) isLeaf(x) & !x$is_copy))
 

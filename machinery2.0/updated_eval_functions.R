@@ -23,15 +23,11 @@ cons_marked <- function(my_tree){
       new_finds <- n_trial$marked_feats[each] %>% str_split(",") %>% unlist()
       feat_violations <- which(feat_order %in% new_finds)
       violations[each,feat_violations] <- as.integer(n_trial$dom_counts[each])
-      
-      # copy calculations 
-      copy_dom <- n_trial$dom_counts
-      violations[each, "copy"] <- copy_dom[each]*n_trial$copy[each] 
     }
     violations %<>% summarise(foc = sum(foc, na.rm = T),
                               wh = sum(wh, na.rm = T),
                               case = sum(case, na.rm = T),
-                              copy = sum(copy, na.rm = T))}
+                              copy = sum(my_tree$Get("n_dominator")*my_tree$Get("is_copy")))}
   return(violations)
 }
 
@@ -39,7 +35,7 @@ cons_marked <- function(my_tree){
 cons_agree <- function(my_tree){
   feat_order <- c("foc","wh","case")
   n_trial <- tibble(agree_feats = my_tree$Get("ac", filterFun = isLeaf), # extract agreement features of leafs
-                    dom_counts = my_tree$Get("n_dominator", filterFun = isLeaf), # get domination counts
+                    dom_counts = my_tree$Get("n_dominator", filterFun = isLeaf), 
                     copy = my_tree$Get("is_copy", filterFun = isLeaf)) %>% # get is_copy info
     mutate(agree_feats = ifelse(copy > 0, "", agree_feats)) %>% # remove features if a leaf is_copy
     subset(agree_feats !="") # remove empty rows
@@ -58,22 +54,16 @@ cons_agree <- function(my_tree){
   return(violations)
 }
 
-# MERGE CONDITION CONSTRAINT, recursively checks merge violations
+# MERGE CONDITION CONSTRAINT, sum merge violations handed down by label
 cons_merge <- function(my_tree){
   # check if tree has children
-  if (length(my_tree$children) > 1){
-    # left to right check
-    
-    
-    
-    
-    # right to left check
-    
-    # iterate on left
-    cons_merge(my_tree$left_arg)
-    
-    # iterate on right
-    cons_merge(my_tree$right_arg)
-  }
-  return(my_tree)
+  violations <- tibble(mc = sum(my_tree$Get("mc_vio"),na.rm = T))
+  return(violations)
+}
+
+# EVAL FUNCTION, combines all constraint evaluations
+cons_profile <- function(my_tree){
+  eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree), 
+                          cons_agree(my_tree), cons_marked(my_tree))
+  return(eval_table)
 }
