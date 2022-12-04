@@ -210,37 +210,31 @@ recurseMC <- function(active_tree, output_tree = active_tree){
 }
 
 # AGREE FUNCTION, agreement is carried out under motherhood recursively down the tree
-# it is working only under labelleds phrases for now
-agreeMC <- function(trouble_tree){
-  my_tree <- Clone(trouble_tree)
-  if(my_tree$leafCount>1){
-    # take mother relations
-    head_ft <- my_tree$Get("ft")[1] %>% str_split(",") %>% unlist()
-    # agreement on the left
+agreeMC <- function(my_tree){
+  if(isNotLeaf(my_tree)){
+    # Non-leaf node
+    # agree left
     left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split(",") %>% unlist()
-    left_id <- my_tree$left_arg$Get("range_id")[1]
-    if (any(left_ac %in% head_ft, na.rm = T)){
-      to_removeL <- which(left_ac %in% head_ft)
-      left_ac <- left_ac[-to_removeL] 
-      my_tree$Set(ac = left_ac, filterFun = function(x){x$range_id == left_id})
-      agreeMC(my_tree$left_arg)
-    } else {
-      agreeMC(my_tree$left_arg)
+    right_ft <- my_tree$right_arg$Get("ft")[1] %>% str_split(",") %>% unlist()
+    node_pos <- my_tree$left_arg$Get("range_id")[1]
+    if (any(left_ac %in% right_ft)){
+      new_ac <- ifelse(is_empty(left_ac[-which(left_ac %in% right_ft)]),"",left_ac[-which(left_ac %in% right_ft)])
+      my_tree$left_arg$Set(ac = new_ac,
+                           filterFun = function(x) x$range_id == node_pos)
     }
-    # agreement on the right
+    # agree right
     right_ac <- my_tree$right_arg$Get("ac")[1] %>% str_split(",") %>% unlist()
-    right_id <- my_tree$right_arg$Get("range_id")[1] 
-    if (any(left_ac %in% head_ft, na.rm = T)){
-      to_removeR <- which(right_ac %in% head_ft)
-      right_ac <- right_ac[-to_removeR] 
-      my_tree$Set(ac = left_ac, filterFun = function(x){x$range_id == right_id})
-      agreeMC(my_tree$right_arg)
-    } else {
-      agreeMC(my_tree$right_arg)
-    }
-    my_tree
-  } else {
-    my_tree
+    left_ft <- my_tree$left_arg$Get("ft")[1] %>% str_split(",") %>% unlist()
+    node_pos <- my_tree$right_arg$Get("range_id")[1]
+    if (any(right_ac %in% left_ft)){
+      new_ac <- ifelse(is_empty(right_ac[-which(right_ac %in% left_ft)]),"",right_ac[-which(right_ac %in% left_ft)])
+      my_tree$right_arg$Set(ac = new_ac,
+                           filterFun = function(x) x$range_id == node_pos)
+    }    
+    # recurse on the child nodes
+    agreeMC(my_tree$left_arg)
+    agreeMC(my_tree$right_arg)
   }
+return(my_tree)
 }
 

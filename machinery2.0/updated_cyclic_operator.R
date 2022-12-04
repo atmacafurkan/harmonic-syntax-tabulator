@@ -47,6 +47,7 @@ cycle_step <- function(my_tree, cycle_numeration){
                             numeration = new_numeration)
   }
   }
+  new_numeration <- cycle_numeration
   # internal merge, iterative, applies all possible movements
   new_tree <- Clone(my_tree)
   my_list <<- list()
