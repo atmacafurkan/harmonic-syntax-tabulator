@@ -1,7 +1,7 @@
 library(tidyverse)
 library(magrittr)
+library(data.tree)
 
-#source("./machinery/draw_trees.R")
 source("./machinery2.0/updated_gen_functions.R")
 source("./machinery2.0/updated_eval_functions.R")
 source("./machinery2.0/updated_cyclic_operator.R")
@@ -11,7 +11,6 @@ df <- read.csv("basic_numeration.csv", na.strings = "NA") %>%
   mutate(mc = ifelse(is.na(mc), "", mc))
 dt_trial <- mergeMC("DP1","V", numeration = df)
 df <- df[c(-1,-2),]
-print(dt_trial,"lb")
 
 winner_output <- 100
 my_derivation <- tibble()

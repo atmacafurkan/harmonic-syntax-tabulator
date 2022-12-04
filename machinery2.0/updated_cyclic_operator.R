@@ -4,8 +4,8 @@ library(magrittr)
 prepare_tableau <- function(cycle){
   resulting_tableau <- tibble()
   for (each in 1:length(cycle)){
-    cand_eval <- tibble(input = cycle[[length(cycle)]]$tree_latex,
-                        output = cycle[[each]]$tree_latex,
+    cand_eval <- tibble(input = cycle[[length(cycle)]]$linear,
+                        output = cycle[[each]]$linear,
                         freq = 0) %>% cbind(cycle[[each]]$eval)  
     resulting_tableau %<>% rbind(cand_eval)
   }
@@ -42,8 +42,6 @@ cycle_step <- function(my_tree, cycle_numeration){
     
     # generate a list of output 
     outputs[[each]] <- list(linear = linear_tree(new_tree),
-                            tree_latex = latex_tree(new_tree),
-                            tree_linear_latex = latex_linear_tree(new_tree),
                             tree = new_tree,
                             eval = violations,
                             numeration = new_numeration)
@@ -56,8 +54,6 @@ cycle_step <- function(my_tree, cycle_numeration){
   for(each in 1:length(my_list)){
     violations <- cons_profile(my_list[[each]]) %>% mutate(exnum = ifelse(nrow(cycle_numeration > 0), 1,0))
     outputs[[each+nrow(cycle_numeration)]] <- list(linear = linear_tree(my_list[[each]]),
-                                                   tree_latex =latex_tree(my_list[[each]]),
-                                                   tree_linear_latex = latex_linear_tree(my_list[[each]]),
                                                    tree = my_list[[each]],
                                                    eval = violations,
                                                    numeration = cycle_numeration)
@@ -72,8 +68,6 @@ cycle_step <- function(my_tree, cycle_numeration){
     # agreeing doesnt count towards exnum
     violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
     outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
-                                         tree_latex = latex_tree(new_tree),
-                                         tree_linear_latex = latex_linear_tree(new_tree),
                                          tree = new_tree,
                                          eval = violations,
                                          numeration = cycle_numeration)}
@@ -86,8 +80,6 @@ cycle_step <- function(my_tree, cycle_numeration){
     # labelling doesnt count towards exnum   
     violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
     outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
-                                         tree_latex = latex_tree(new_tree),
-                                         tree_linear_latex = latex_linear_tree(new_tree),
                                          tree = new_tree,
                                          eval = violations,
                                          numeration = cycle_numeration)}
@@ -99,8 +91,6 @@ cycle_step <- function(my_tree, cycle_numeration){
   # check if there is anything left in the numeration
   if (nrow(new_numeration) == 0){violations$exnum[1] <- 0}
   outputs[[length(outputs)+1]] <- list(linear = linear_tree(new_tree),
-                                       tree_latex = latex_tree(new_tree),
-                                       tree_linear_latex = latex_linear_tree(new_tree),
                                        tree = new_tree,
                                        eval = violations,
                                        numeration = cycle_numeration)
