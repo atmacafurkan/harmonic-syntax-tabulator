@@ -15,14 +15,9 @@ df <- read.csv("basic_numeration.csv", na.strings = "NA") %>%
 my_list <- list()
 mergeMC("DP1","V",numeration = df) %>% labelMC() %>% mergeMC("v", df) %>% labelMC() %>% moveMC()
 
-
-
-my_tree <- Clone(my_list[[3]]) %>% mergeMC("T",df)
+my_tree <- Clone(my_list[[3]]) 
 
 print(my_tree, "it","lb","mc","m_vio","is_copy")
 
 my_tree %>% cons_merge()
 
-
-
-my_tree %>% cons_merge()

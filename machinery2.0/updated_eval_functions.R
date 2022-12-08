@@ -86,7 +86,9 @@ cons_merge <- function(my_tree){
 
 # EVAL FUNCTION, combines all constraint evaluations
 cons_profile <- function(my_tree){
-  eval_table <- bind_cols(cons_lab(my_tree), cons_merge(my_tree), 
-                          cons_agree(my_tree), cons_marked(my_tree))
+  eval_table <- bind_cols(cons_lab(my_tree), # labelling constraint returns a data frame
+                          tibble(mc = cons_merge(my_tree)), # merge constraint returns a number
+                          cons_agree(my_tree), # agree constraint returns a data frame
+                          cons_marked(my_tree)) # marked featues returns a data frame
   return(eval_table)
 }
