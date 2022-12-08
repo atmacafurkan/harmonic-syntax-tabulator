@@ -38,7 +38,6 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
   return(new_node)
 }
 
-
 # INTERNAL MERGE, iteratively merge existing items, requires an empty my_list as a global list vector
 moveMC <- function (recurse_tree, input_tree = recurse_tree){
   # define notin function for pruning
@@ -59,10 +58,12 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
       # set moved elements' is_copy, using it to change is_copy can create a problem but it is working for now 
       input_left$Set(is_copy = T, filterFun = function(x){x$it %in% my_left$Get("it")})
     } else { # if it is a phrase, trim anything but the head node from the moved position
+      input_left$Set(keep_me = T)
+      input_left$Set(keep_me = F, filterFun = function(x){x$range_id %in% reset_left})
       # set moved elements' is_copy 
       input_left$Set(is_copy = T, filterFun = function(x){x$it %in% my_left$Get("it")})
       # trim anything but the phrase
-      Prune(input_left,function(x) x$range_id %notin% reset_left)
+      Prune(input_left, function(x) x$keep_me)
     }
     # add the second child
     new_left$AddChildNode(input_left)
@@ -70,12 +71,13 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     new_left$Set(name= "left_arg", filterFun = function(x){x$position == 1} & isNotRoot(x))
     new_left$Set(name= "right_arg", filterFun = function(x){x$position == 2})
     # reset unique id
-    new_left$Set(range_id = 1:length(new_left$Get("lb")))
+    alt_left <- Clone(new_left)
+    alt_left$Set(range_id = 1:length(new_left$Get("lb")))
     # renew domination counts and merge violations
-    new_left$Set(n_dominator = 0)
-    new_left %<>% recurseMC()
+    alt_left$Set(n_dominator = 0)
+    alt_left %<>% recurseMC()
     # add the resulting tree to the list
-    my_list <<- append(my_list,new_left)
+    my_list <<- append(my_list,alt_left)
     
     # MOVE RIGHT CHILD
     # create empty node
@@ -85,17 +87,19 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     new_right$AddChildNode(my_right)
     # clone input for second child
     input_right <- Clone(input_tree)
-    # range id_s to be reset 
+    # range id_s to be reset
     reset_right <- my_right$Get("range_id")[-1]
     # check if you are moving a phrase (more than one node)
     if (is_empty(reset_right)){ # if it is not a phrase just change is_copy
       # set moved elements is_copy 
       input_right$Set(is_copy = T, filterFun = function(x){x$it %in% my_right$Get("it")})
     } else { # if it is a phrase, trim anything but the head node from the moved position
+      input_right$Set(keep_me = T)
+      input_right$Set(keep_me = F, filterFun = function(x){x$range_id %in% reset_right})
       # set moved elements is_copy
       input_right$Set(is_copy = T, filterFun = function(x){x$it %in% my_right$Get("it")})
       # trim anything but the phrase
-      Prune(input_right, function(x) x$range_id %notin% reset_right)
+      Prune(input_right, pruneFun = function(x) x$keep_me)
     }
     # add the second child
     new_right$AddChildNode(input_right)
@@ -103,12 +107,13 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     new_right$Set(name= "left_arg", filterFun = function(x){x$position == 1} & isNotRoot(x))
     new_right$Set(name= "right_arg", filterFun = function(x){x$position == 2})
     # reset unique id
-    new_right$Set(range_id = 1:length(new_right$Get("lb")))   
+    alt_right <- Clone(new_right)
+    alt_right$Set(range_id = 1:length(new_right$Get("lb"))) 
     # renew domination counts and merge violations
-    new_right$Set(n_dominator = 0)
-    new_right %<>% recurseMC()
+    alt_right$Set(n_dominator = 0)
+    alt_right %<>% recurseMC()
     # add the resulting tree to the list
-    my_list <<- append(my_list, new_right)
+    my_list <<- append(my_list, alt_right)
   }
   # recursively call the function on the left child
   if (my_left$leafCount > 1){
@@ -167,7 +172,7 @@ labelMC <- function(my_tree){
 }
 
 # TRICKLE DOWN, iteratively establishes domination counts embedded into labelMC, mergeMC, and moveMC
-recurseMC <- function(active_tree, output_tree = active_tree){
+recurseMC <- function(active_tree, output_tree = active_tree){ 
   # get n_dominators
   n_doms <- output_tree$Get("n_dominator")
   # create a new
