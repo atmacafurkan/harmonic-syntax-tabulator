@@ -54,10 +54,33 @@ cons_agree <- function(my_tree){
   return(violations)
 }
 
-# MERGE CONDITION CONSTRAINT, sum merge violations handed down by label
+# MERGE CONDITION CONSTRAINT, iteratively check downwards
 cons_merge <- function(my_tree){
   # check if tree has children
-  violations <- tibble(mc = sum(my_tree$Get("mc_vio"),na.rm = T))
+  violations <- 0
+  if (isNotLeaf(my_tree)){
+    # check left
+    left_mc <- my_tree$left_arg$mc %>% str_split(",") %>% unlist() %>% as.integer()
+    for_left_lb <- my_tree$right_arg$lb 
+    if (any(for_left_lb == left_mc, na.rm = T)){
+      NULL 
+    } else if (is.na(left_mc) || is_empty(left_mc)){
+      NULL
+    } else {violations %<>% +1}
+    
+    # check right
+    right_mc <- my_tree$right_arg$mc %>% str_split(",") %>% unlist() %>% as.integer()
+    for_right_lb <- my_tree$left_arg$lb
+    if (any(for_right_lb == right_mc, na.rm = T)){
+      NULL
+    } else if (is.na(right_mc) || is_empty(right_mc)){
+      NULL
+    } else {violations %<>% +1}
+    
+    # return head result by recursing
+    return(violations + cons_merge(my_tree$left_arg) + cons_merge(my_tree$right_arg))
+  }
+  # return result for leaf node
   return(violations)
 }
 

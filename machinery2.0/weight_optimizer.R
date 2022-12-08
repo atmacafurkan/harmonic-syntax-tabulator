@@ -34,6 +34,7 @@ weight_optimize <- function(the_tableaux){ # turn the optimizing into a function
                            fn = objective_KL, # objective function
                            my_tableaux = the_tableaux, # argument to be passed to the objective function
                            lower = rep(0,n_constraint), # the lowest that the constraint weights can get
+                           upper = rep(0,n_constraint),
                            method = "L-BFGS-B") # the method of optimization which allows lower bound
   # return the resulting optimization 
   return(optimal_weights)
