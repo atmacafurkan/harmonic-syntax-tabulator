@@ -6,6 +6,7 @@ source("./machinery2.0/updated_gen_functions.R")
 source("./machinery2.0/updated_eval_functions.R")
 source("./machinery2.0/updated_cyclic_operator.R")
 source("./machinery2.0/updated_draw_latex.R")
+source("./machinery2.0/weight_optimizer.R")
 
 df <- read.csv("basic_numeration.csv", na.strings = "NA") %>% 
   mutate(mc = ifelse(is.na(mc), "", mc))
@@ -37,6 +38,7 @@ if (winner_output == 100){
   last_tree <- my_cycle[[winner_output]]$tree
   last_numeration <- my_cycle[[winner_output]]$numeration}
 }
+
 
 
 # fix repeating inputs
