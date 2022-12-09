@@ -30,22 +30,22 @@ cycle_step <- function(my_tree, cycle_numeration){
   outputs <- list()
   # merge new items
   if (nrow(cycle_numeration) > 0){ # if there is something left in the numeration
-  for (each in 1:nrow(cycle_numeration)){
-    new_numeration <- cycle_numeration
-    new_tree <- Clone(my_tree)
-    # merge the new item
-    new_tree %<>% mergeMC(new_numeration$it[each], numeration = new_numeration) # merge the new item
-    # remove the merged item from the numeration
-    new_numeration <- cycle_numeration[-each,]
-    # form the evaluation
-    violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
+    for (each in 1:nrow(cycle_numeration)){
+      new_numeration <- cycle_numeration
+      new_tree <- Clone(my_tree)
+      # merge the new item
+      new_tree %<>% mergeMC(new_numeration$it[each], numeration = new_numeration) # merge the new item
+      # remove the merged item from the numeration
+      new_numeration <- cycle_numeration[-each,]
+      # form the evaluation
+      violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
     
-    # generate a list of output 
-    outputs[[each]] <- list(linear = linear_tree(new_tree),
-                            tree = new_tree,
-                            eval = violations,
-                            numeration = new_numeration)
-  }
+      # generate a list of output 
+      outputs[[each]] <- list(linear = linear_tree(new_tree),
+                              tree = new_tree,
+                              eval = violations,
+                              numeration = new_numeration)
+      }
   }
   new_numeration <- cycle_numeration
   # internal merge, iterative, applies all possible movements
@@ -63,8 +63,8 @@ cycle_step <- function(my_tree, cycle_numeration){
   # agree and return
   new_tree <- Clone(my_tree) %>% agreeMC()
   new_tree2 <- Clone(my_tree) 
-  is_different <- any(new_tree$Get("ac") != new_tree2$Get("ac"), na.rm = T)
-  if (new_tree$count != 0 & is_different){
+  ac_same <- all(new_tree$Get("ac") == new_tree2$Get("ac"))
+  if (new_tree$count != 0 & !ac_same){
     # form the evaluation
     # agreeing doesnt count towards exnum
     violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
@@ -75,8 +75,8 @@ cycle_step <- function(my_tree, cycle_numeration){
   # label and return
   new_tree <- Clone(my_tree) %>% labelMC()
   new_tree2 <- Clone(my_tree) 
-  is_different <- any(new_tree$Get("lb") != new_tree2$Get("lb"), na.rm = T)
-  if (new_tree$count != 0 & is_different){
+  lb_same <- all(new_tree$Get("lb") == new_tree2$Get("lb"))
+  if (new_tree$count != 0 & !lb_same){
     # form the evaluation
     # labelling doesnt count towards exnum   
     violations <- cons_profile(new_tree) %>% mutate(exnum = 0)
