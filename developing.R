@@ -17,13 +17,12 @@ mergeMC("DP1","V",numeration = df) %>% labelMC() %>% mergeMC("v", df) %>% labelM
 
 my_tree <- Clone(my_list[[4]]) %>% agreeMC() %>% labelMC()
 my_list <- list()
-
-
-print(my_tree, "it","lb","mc","is_copy")
-moveMC(my_tree$right_arg, my_tree)
-print(my_list[[2]], "it","is_copy", "range_id", "keep_me", "n_dominator")
-my_list <- list()
 moveMC(my_tree)
 
-my_list[[4]] %>% print("it","lb","is_copy", "n_dominator", "range_id", "keep_me")
+my_tree <- Clone(my_list[[4]])
+
+
+my_tree %>% print("it","n_dominator","is_copy","ft","ac")
+my_tree %>% cons_marked()
+
 

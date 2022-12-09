@@ -56,12 +56,12 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     # check if you are moving a phrase (more than one node)
     if (is_empty(reset_left)){ # if it is not a phrase just change is_copy
       # set moved elements' is_copy, using it to change is_copy can create a problem but it is working for now 
-      input_left$Set(is_copy = T, filterFun = function(x){x$it %in% my_left$Get("it")})
+      input_left$Set(is_copy = T, filterFun = function(x){x$range_id %in% my_left$Get("range_id")})
     } else { # if it is a phrase, trim anything but the head node from the moved position
       input_left$Set(keep_me = T)
       input_left$Set(keep_me = F, filterFun = function(x){x$range_id %in% reset_left})
       # set moved elements' is_copy 
-      input_left$Set(is_copy = T, filterFun = function(x){x$it %in% my_left$Get("it")})
+      input_left$Set(is_copy = T, filterFun = function(x){x$range_id %in% my_left$Get("range_id")})
       # trim anything but the phrase
       Prune(input_left, function(x) x$keep_me)
     }
@@ -92,12 +92,12 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
     # check if you are moving a phrase (more than one node)
     if (is_empty(reset_right)){ # if it is not a phrase just change is_copy
       # set moved elements is_copy 
-      input_right$Set(is_copy = T, filterFun = function(x){x$it %in% my_right$Get("it")})
+      input_right$Set(is_copy = T, filterFun = function(x){x$range_id %in% my_right$Get("range_id")})
     } else { # if it is a phrase, trim anything but the head node from the moved position
       input_right$Set(keep_me = T)
       input_right$Set(keep_me = F, filterFun = function(x){x$range_id %in% reset_right})
       # set moved elements is_copy
-      input_right$Set(is_copy = T, filterFun = function(x){x$it %in% my_right$Get("it")})
+      input_right$Set(is_copy = T, filterFun = function(x){x$range_id %in% my_right$Get("range_id")})
       # trim anything but the phrase
       Prune(input_right, pruneFun = function(x) x$keep_me)
     }

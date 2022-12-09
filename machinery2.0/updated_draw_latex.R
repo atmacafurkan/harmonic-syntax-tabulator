@@ -8,7 +8,7 @@ linear_tree <- function(my_tree){
     # Leaf node
     written <- paste0("[",
                       ifelse(my_tree$it == 0, "", 
-                             ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"$_c$"), my_tree$it)),
+                             ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"c"), my_tree$it)),
                       "$_{",
                       ifelse(my_tree$is_copy == 1, "", my_tree$ft),
                       "}$", " ",
@@ -22,7 +22,7 @@ linear_tree <- function(my_tree){
     right_str <- linear_tree(my_tree$right_arg)
     written <- paste0("[",
                       ifelse(my_tree$it == 0, "", 
-                             ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"$_c$"), my_tree$it)),
+                             ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"c"), my_tree$it)),
                       "$_{",
                       case_when(my_tree$is_copy == 1 ~ "",
                                 is.null(my_tree$mc) ~ "",
