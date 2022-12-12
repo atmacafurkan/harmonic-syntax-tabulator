@@ -40,8 +40,6 @@ mergeMC <- function(right_arg, left_arg = NA, numeration){
 
 # INTERNAL MERGE, iteratively merge existing items, requires an empty my_list as a global list vector
 moveMC <- function (recurse_tree, input_tree = recurse_tree){
-  # define notin function for pruning
-  `%notin%` <<- Negate(`%in%`)
   if (recurse_tree$leafCount > 1){
     # MOVE LEFT CHILD
     # create empty node
@@ -126,7 +124,8 @@ moveMC <- function (recurse_tree, input_tree = recurse_tree){
 }
 
 # LABELLING OPERATION, labels the root of a tree carries up dominating daughters ac and ft values
-labelMC <- function(my_tree){
+labelMC <- function(input_tree){
+  my_tree <- Clone(input_tree)
   if (my_tree$lb!=0){
     return(my_tree)
   } else {
@@ -222,20 +221,21 @@ recurseMC <- function(active_tree, output_tree = active_tree){
   return(output_tree)
 }
 
-# AGREE FUNCTION, agreement is carried out under sisterhood recursively down the tree
-agreeMC <- function(my_tree){
+# AGREE FUNCTION, agreement is carried out under sisterhood at the mother node. 
+# this can work recursively too, but I dont think it is of any benefit
+agreeMC <- function(input_tree){
+  my_tree <- Clone(input_tree)
   if(isLeaf(my_tree)){# if it is a leaf, return tree
     return(my_tree)} else {
-      
       # agree left
       left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split("-") %>% unlist()
       lefter_ft <- my_tree$right_arg$Get("ft")[1] %>% str_split("-") %>% unlist()
       node_l <- my_tree$left_arg$Get("range_id")[1]
       
       if (any(left_ac == lefter_ft)){ # sometimes ac is completely empty, check if there is any match
-        left_ac[which(left_ac == lefter_ft)] <- "0"
-        left_ac %<>% paste(collapse = "-")
-        my_tree$left_arg$Set(ac = left_ac, filterFun = function(x) x$range_id == node_l)
+        left_ac[which(left_ac == lefter_ft)] <- "0" # turn matches into 0
+        left_ac %<>% paste(collapse = "-") # collapse the resulting string
+        my_tree$left_arg$Set(ac = left_ac, filterFun = function(x) x$range_id == node_l) # assign the new ft set
       }
       
       # agree right
@@ -247,11 +247,45 @@ agreeMC <- function(my_tree){
         right_ac[which(right_ac == righter_ft)] <- "0"
         right_ac %<>% paste(collapse = "-")
         my_tree$right_arg$Set(ac = right_ac, filterFun = function(x) x$range_id == node_r)
-      }    
+      }
       # recurse on the child nodes
-      agreeMC(my_tree$left_arg)
-      agreeMC(my_tree$right_arg)
+      #agreeMC(my_tree$left_arg)
+      #agreeMC(my_tree$right_arg)
       return(my_tree)
     }
 }
+
+# EMPTY AGREEMENT FUNCTION, agreement is carried out without the presence of features
+mt_agreeMC <- function(input_tree){
+  my_tree <- Clone(input_tree)
+  if(isLeaf(my_tree)){# if it is a leaf, return tree
+    return(my_tree)} else {
+      # agree left
+      left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split("-") %>% unlist()
+      node_l <- my_tree$left_arg$Get("range_id")[1]
+      
+      if (any(left_ac == 1)){ # sometimes ac is completely empty, check if there is any 1
+        my_tree$left_arg$Set(mt_ac = paste(left_ac, collapse = "-"), filterFun = function(x) x$range_id == node_l) # set mt_ac values
+        left_ac[which(left_ac == 1)] <- "0" # turn 1s into 0
+        left_ac %<>% paste(collapse = "-") # collapse the resulting string
+        my_tree$left_arg$Set(ac = left_ac, filterFun = function(x) x$range_id == node_l) # assign the new ft set
+      }
+      # agree right, mirror of left
+      right_ac <- my_tree$right_arg$Get("ac")[1] %>% str_split("-") %>% unlist()
+      node_r <- my_tree$right_arg$Get("range_id")[1]
+      
+      if (any(right_ac == 1)){ 
+        my_tree$right_arg$Set(mt_ac = paste(right_ac, collapse = "-"), filterFun = function(x) x$range_id == node_r)
+        right_ac[which(right_ac == 1)] <- "0"
+        right_ac %<>% paste(collapse = "-")
+        my_tree$right_arg$Set(ac = right_ac, filterFun = function(x) x$range_id == node_r)
+      }
+      return(my_tree)
+  }
+}
+
+
+
+
+
 
