@@ -40,18 +40,8 @@ if (winner_output == 100){
 }
 
 
-
 # fix repeating inputs
-my_derivation %<>% dplyr::select(-wh_agr, -foc, -case)
-write_tsv(my_derivation, "./derivations/my_derivation7.tsv")
+my_result <- my_derivation %>% dplyr::select(-wh_agr, -foc, -case, -foc_mt, -wh_mt, -foc_agr)
 
-my_derivation$input[which(duplicated(my_derivation$input))] <- c("")
 
-# save for the maxent tool
-my_derivation %<>% dplyr::select(-cycle_number)
-# fix colnames
-colnames(my_derivation) <- c(rep("",3), tail(colnames(my_derivation),-3))
-my_derivation <- rbind(colnames(my_derivation), my_derivation)
-
-write_tsv(my_derivation,"./derivations/run_my_derivation7.txt")
 

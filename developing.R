@@ -17,5 +17,3 @@ mergeMC("DP1","V",numeration = df) %>% labelMC() %>% mergeMC("v", df) %>% labelM
 my_tree <- mergeMC("DP1","V",numeration = df)
 my_tree %>% print("it","ft","ac","n_dominator","is_copy","mt_ac")
 
-my_tree %<>% mt_agreeMC()
-my_tree %>% print("it","ft","ac","n_dominator","is_copy","mt_ac")
