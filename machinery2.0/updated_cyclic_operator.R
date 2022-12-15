@@ -23,7 +23,7 @@ set_winner <- function(df, winner){
 # each cycle is a list that contains all relevant information for all the possible outputs given the input
 cycle_step <- function(my_tree, cycle_numeration){
   # check if phase occured when it is TP
-  if (my_tree$name == "TP" & v_phased == 0){
+   if (my_tree$name == "TP" & v_phased == 0){
     phase_out <- max(my_tree$Get("level", filterFun = function(x) x$name =="v1P")) +1
     Prune(my_tree, function(x) x$level < phase_out)
     v_phased <- 1}

@@ -227,26 +227,34 @@ agreeMC <- function(input_tree){
   my_tree <- Clone(input_tree)
   if(isLeaf(my_tree)){# if it is a leaf, return tree
     return(my_tree)} else {
+      node_l <- my_tree$left_arg$Get("range_id")[1]
+      node_r <- my_tree$right_arg$Get("range_id")[1]
       # agree left
       left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split("-") %>% unlist()
       lefter_ft <- my_tree$right_arg$Get("ft")[1] %>% str_split("-") %>% unlist()
-      node_l <- my_tree$left_arg$Get("range_id")[1]
       
       if (any(left_ac == lefter_ft)){ # sometimes ac is completely empty, check if there is any match
-        left_ac[which(left_ac == lefter_ft)] <- "0" # turn matches into 0
-        left_ac %<>% paste(collapse = "-") # collapse the resulting string
-        my_tree$left_arg$Set(ac = left_ac, filterFun = function(x) x$range_id == node_l) # assign the new ft set
+        match_number <- which(left_ac == lefter_ft)
+        left_ac[match_number] <- "0" # turn matches into 0 in ac
+        lefter_ft[match_number] <- "0" # turn matches into 0 in feats
+        left_ac %<>% paste(collapse = "-") # collapse the resulting string in acs
+        lefter_ft %<>% paste(collapse="-") # collapse the resulting string in feats
+        my_tree$left_arg$Set(ac = left_ac, filterFun = function(x) x$range_id == node_l) # assign the new ac set
+        my_tree$right_arg$Set(ft = lefter_ft, filterFun = function(x) x$range_id == node_r) # assign the new ft set
       }
       
       # agree right
       right_ac <- my_tree$right_arg$Get("ac")[1] %>% str_split("-") %>% unlist()
       righter_ft <- my_tree$left_arg$Get("ft")[1] %>% str_split("-") %>% unlist()
-      node_r <- my_tree$right_arg$Get("range_id")[1]
       
       if (any(right_ac == righter_ft)){ # sometimes ac is completely empty, check if there is any match
-        right_ac[which(right_ac == righter_ft)] <- "0"
+        match_number <- which(right_ac == righter_ft)
+        right_ac[match_number] <- "0"
+        righter_ft[match_number] <- "0"
         right_ac %<>% paste(collapse = "-")
+        righter_ft %<>% paste(collapse = "-")
         my_tree$right_arg$Set(ac = right_ac, filterFun = function(x) x$range_id == node_r)
+        my_tree$left_arg$Set(ft = righter_ft, filterFun = function(x) x$range_id == node_l)
       }
       # recurse on the child nodes
       #agreeMC(my_tree$left_arg)
@@ -258,8 +266,13 @@ agreeMC <- function(input_tree){
 # EMPTY AGREEMENT FUNCTION, agreement is carried out without the presence of features
 mt_agreeMC <- function(input_tree){
   my_tree <- Clone(input_tree)
-  if(isLeaf(my_tree)){# if it is a leaf, return tree
-    return(my_tree)} else {
+  head_ac <- my_tree$Get("ac")[1] %>% str_split("-") %>% unlist() # get head ac features
+  if (any(head_ac == 1)){ # if any ac is 1
+    head_ac[which(head_ac == 1)] <- "0" # set all acs to 0
+    head_ac %<>% paste(collapse = "-") # collapse new acs
+    my_tree$Set(ac = head_ac, filterFun = isRoot) # set the new
+  }
+  if(isNotLeaf(my_tree)){
       # agree left
       left_ac <- my_tree$left_arg$Get("ac")[1] %>% str_split("-") %>% unlist()
       node_l <- my_tree$left_arg$Get("range_id")[1]
@@ -280,8 +293,8 @@ mt_agreeMC <- function(input_tree){
         right_ac %<>% paste(collapse = "-")
         my_tree$right_arg$Set(ac = right_ac, filterFun = function(x) x$range_id == node_r)
       }
-      return(my_tree)
-  }
+    }
+  return(my_tree)
 }
 
 

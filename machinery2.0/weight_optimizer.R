@@ -5,7 +5,7 @@ library(philentropy)  # KL calculating function
 # objective function to be optimized
 objective_KL <- function(x, my_tableaux){
   # extract constraint names
-  constraints <- colnames(my_tableaux)[4:9]
+  constraints <- colnames(my_tableaux)[4:16]
   
   # turn data frame into a list of matrices where each matrix is a single derivation
   tableaux <- my_tableaux %>% split(.$input) %>% map(~ (.x %>% dplyr::select(-input,-output))) %>% lapply(as.matrix)
@@ -30,11 +30,11 @@ weight_optimize <- function(the_tableaux){ # turn the optimizing into a function
   # the data frame should only include the vectors for input, output, frequency, and constraint violations
   n_constraint <- length(the_tableaux) - 3 # only 3 vectors are not constraints: input, output, and frequency
   # box optimization
-  optimal_weights <- optim(par = rep(0,n_constraint), # starting values for the weights
+  optimal_weights <- optim(par = rep(0, n_constraint), # starting values for the weights is 0
                            fn = objective_KL, # objective function
                            my_tableaux = the_tableaux, # argument to be passed to the objective function
-                           lower = rep(0,n_constraint), # the lowest that the constraint weights can get
-                           upper = rep(0,n_constraint),
+                           lower = rep(0, n_constraint), # the lowest that the constraint weights can get
+                           upper = rep(100, n_constraint), # the highest that the constraint weights can get
                            method = "L-BFGS-B") # the method of optimization which allows lower bound
   # return the resulting optimization 
   return(optimal_weights)

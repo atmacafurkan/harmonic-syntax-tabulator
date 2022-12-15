@@ -1,5 +1,7 @@
 library(tidyverse)
 library(magrittr)
+library(philentropy)
+library(optimx)
 library(data.tree)
 
 source("./machinery2.0/updated_gen_functions.R")
@@ -8,7 +10,7 @@ source("./machinery2.0/updated_cyclic_operator.R")
 source("./machinery2.0/updated_draw_latex.R")
 source("./machinery2.0/weight_optimizer.R")
 
-df <- read.csv("basic_numeration.csv", na.strings = "NA") %>% 
+df <- read.csv("C_agrees_numeration.csv", na.strings = "NA") %>% 
   mutate(mc = ifelse(is.na(mc), "", mc))
 dt_trial <- mergeMC("DP1","V", numeration = df)
 df <- df[c(-1,-2),]
@@ -39,9 +41,14 @@ if (winner_output == 100){
   last_numeration <- my_cycle[[winner_output]]$numeration}
 }
 
-
 # fix repeating inputs
-my_result <- my_derivation %>% dplyr::select(-wh_agr, -foc, -case, -foc_mt, -wh_mt, -foc_agr)
+my_result <- dplyr::select(my_derivation, -operation, -cycle_number, frequency = freq)
 
+optimized_der <- weight_optimize(my_result)
+weight_solution <- optimized_der$par
+names(weight_solution) <- colnames(my_result)[4:16]
+weight_solution
+
+saveRDS(my_derivation, "improved_Cagrees_later.rds")
 
 

@@ -13,7 +13,7 @@ df <- read.csv("basic_numeration.csv", na.strings = "NA") %>%
 my_list <- list()
 mergeMC("DP1","V",numeration = df) %>% labelMC() %>% mergeMC("v", df) %>% labelMC() %>% moveMC()
 
-#my_tree <- Clone(my_list[[4]])
-my_tree <- mergeMC("DP1","V",numeration = df)
-my_tree %>% print("it","ft","ac","n_dominator","is_copy","mt_ac")
+my_tree <- Clone(my_list[[4]])
+
+my_tree %>% agreeMC() %>% print("it","ft","ac","n_dominator","is_copy","mt_ac")
 
