@@ -268,6 +268,7 @@ mt_agreeMC <- function(input_tree){
   my_tree <- Clone(input_tree)
   head_ac <- my_tree$Get("ac")[1] %>% str_split("-") %>% unlist() # get head ac features
   if (any(head_ac == 1)){ # if any ac is 1
+    my_tree$Set(mt_ac = paste(head_ac, collapse = "-"), filterFun = isRoot) # set empty agreements on
     head_ac[which(head_ac == 1)] <- "0" # set all acs to 0
     head_ac %<>% paste(collapse = "-") # collapse new acs
     my_tree$Set(ac = head_ac, filterFun = isRoot) # set the new
