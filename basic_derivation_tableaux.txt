@@ -1,0 +1,244 @@
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [V$_{}$] [DP1$_{a:case}$]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge v & 2 & 1 & 0 & 0 & 0 & 0 & 77\\\hline
+ & merge T & 2 & 1 & 0 & 0 & 0 & 0 & 77\\\hline
+ & merge C & 2 & 1 & 0 & 0 & 0 & 0 & 77\\\hline
+ & merge DP2 & 2 & 1 & 0 & 0 & 0 & 0 & 77\\\hline
+ & move V & 2 & 1 & 0 & 0 & 0 & 1 & 145\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 0 & 1 & 118\\\hline
+ & empty agree & 1 & 0 & 0 & 1 & 0 & 0 & 119\\\hline
+\HandRight & label & 0 & 0 & 1 & 0 & 0 & 0 & 47\\\hline
+ & self & 1 & 0 & 0 & 0 & 0 & 1 & 93\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [VP$_{}$ [V$_{}$] [DP1$_{a:case}$]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+  \HandRight & merge v & 1 & 0 & 1 & 0 & 0 & 0 & 72\\\hline
+ & merge T & 1 & 1 & 1 & 0 & 0 & 0 & 99\\\hline
+ & merge C & 1 & 1 & 1 & 0 & 0 & 0 & 99\\\hline
+ & merge DP2 & 1 & 1 & 1 & 0 & 0 & 0 & 99\\\hline
+ & move V & 1 & 1 & 1 & 0 & 0 & 1 & 166\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 1 & 1 & 94\\\hline
+ & empty agree & 0 & 0 & 0 & 1 & 0 & 0 & 94\\\hline
+ & self & 0 & 0 & 1 & 0 & 0 & 1 & 114\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [v$_{case}$] [VP$_{}$ [V$_{}$] [DP1$_{a:case}$]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge T & 2 & 1 & 1 & 0 & 0 & 0 & 124\\\hline
+ & merge C & 2 & 1 & 1 & 0 & 0 & 0 & 124\\\hline
+ & merge DP2 & 2 & 1 & 1 & 0 & 0 & 0 & 124\\\hline
+ & move v & 2 & 1 & 1 & 0 & 0 & 1 & 191\\\hline
+ & move VP & 2 & 0 & 1 & 0 & 0 & 1 & 164\\\hline
+ & move V & 2 & 1 & 1 & 0 & 0 & 1 & 191\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 1 & 1 & 119\\\hline
+\HandRight & label & 0 & 0 & 2 & 0 & 0 & 0 & 93\\\hline
+ & self & 1 & 0 & 1 & 0 & 0 & 1 & 139\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [v1P$_{case}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1$_{a:case}$]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge T & 1 & 1 & 2 & 0 & 0 & 0 & 145\\\hline
+ & merge C & 1 & 1 & 2 & 0 & 0 & 0 & 145\\\hline
+ & merge DP2 & 1 & 0 & 2 & 0 & 0 & 0 & 118\\\hline
+ & move v & 1 & 1 & 2 & 0 & 0 & 1 & 213\\\hline
+ & move VP & 1 & 0 & 1 & 0 & 1 & 1 & 141\\\hline
+ & move V & 1 & 1 & 2 & 0 & 1 & 1 & 214\\\hline
+\HandRight & move DP1 & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+ & self & 0 & 0 & 2 & 0 & 0 & 1 & 161\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [DP1$_{a:case}$] [v1P$_{case}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge T & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & merge C & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & merge DP2 & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move v & 2 & 1 & 0 & 0 & 2 & 1 & 147\\\hline
+ & move VP & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move V & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+\HandRight & agree & 1 & 0 & 0 & 0 & 2 & 0 & 28\\\hline
+ & empty agree & 1 & 0 & 0 & 1 & 2 & 0 & 121\\\hline
+ & label & 0 & 0 & 1 & 0 & 2 & 0 & 49\\\hline
+ & self & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge T & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & merge C & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & merge DP2 & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move v & 2 & 1 & 0 & 0 & 2 & 1 & 147\\\hline
+ & move VP & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move V & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+\HandRight & label & 0 & 0 & 0 & 0 & 2 & 0 & 2\\\hline
+ & self & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge T & 1 & 1 & 0 & 0 & 2 & 0 & 55\\\hline
+ & merge C & 1 & 1 & 0 & 0 & 2 & 0 & 55\\\hline
+\HandRight & merge DP2 & 1 & 0 & 0 & 0 & 2 & 0 & 28\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+ & move v & 1 & 1 & 0 & 0 & 2 & 1 & 122\\\hline
+ & move VP & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+ & move V & 1 & 1 & 0 & 0 & 3 & 1 & 123\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+ & self & 0 & 0 & 0 & 0 & 2 & 1 & 70\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [DP2$_{a:case}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge T & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & merge C & 2 & 1 & 0 & 0 & 2 & 0 & 80\\\hline
+ & move DP2 & 2 & 1 & 0 & 0 & 2 & 1 & 147\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move v & 2 & 1 & 0 & 0 & 2 & 1 & 147\\\hline
+ & move VP & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & move V & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 2 & 1 & 120\\\hline
+ & empty agree & 1 & 0 & 0 & 1 & 2 & 0 & 121\\\hline
+\HandRight & label & 0 & 0 & 0 & 0 & 3 & 0 & 4\\\hline
+ & self & 1 & 0 & 0 & 0 & 2 & 1 & 95\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [v2P$_{a:case}$ [DP2$_{}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+  \HandRight & merge T & 1 & 0 & 0 & 0 & 3 & 0 & 29\\\hline
+ & merge C & 1 & 1 & 0 & 0 & 3 & 0 & 56\\\hline
+ & move DP2 & 1 & 1 & 0 & 0 & 3 & 1 & 123\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 5 & 1 & 99\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+ & move v & 1 & 1 & 0 & 0 & 4 & 1 & 125\\\hline
+ & move VP & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+ & move V & 1 & 1 & 0 & 0 & 5 & 1 & 126\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+ & empty agree & 0 & 0 & 0 & 1 & 3 & 0 & 97\\\hline
+ & self & 0 & 0 & 0 & 0 & 3 & 1 & 71\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [T$_{case}$] [v2P$_{a:case}$ [DP2$_{}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge C & 2 & 1 & 0 & 0 & 3 & 0 & 81\\\hline
+ & move T & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move v2P & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move DP2 & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 5 & 1 & 124\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move v & 2 & 1 & 0 & 0 & 4 & 1 & 150\\\hline
+ & move VP & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move V & 2 & 1 & 0 & 0 & 5 & 1 & 151\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+\HandRight & agree & 1 & 0 & 0 & 0 & 3 & 0 & 29\\\hline
+ & empty agree & 1 & 0 & 0 & 1 & 3 & 0 & 123\\\hline
+ & label & 0 & 0 & 1 & 0 & 4 & 0 & 52\\\hline
+ & self & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [T$_{}$] [v2P$_{}$ [DP2$_{}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & merge C & 2 & 1 & 0 & 0 & 3 & 0 & 81\\\hline
+ & move T & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move v2P & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move DP2 & 2 & 1 & 0 & 0 & 3 & 1 & 149\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 5 & 1 & 124\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move v & 2 & 1 & 0 & 0 & 4 & 1 & 150\\\hline
+ & move VP & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+ & move V & 2 & 1 & 0 & 0 & 5 & 1 & 151\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 3 & 1 & 121\\\hline
+\HandRight & label & 0 & 0 & 0 & 0 & 4 & 0 & 5\\\hline
+ & self & 1 & 0 & 0 & 0 & 3 & 1 & 96\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [TP$_{}$ [T$_{}$] [v2P$_{}$ [DP2$_{}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+  \HandRight & merge C & 1 & 0 & 0 & 0 & 4 & 0 & 30\\\hline
+ & move T & 1 & 1 & 0 & 0 & 4 & 1 & 125\\\hline
+ & move v2P & 1 & 0 & 0 & 0 & 4 & 1 & 98\\\hline
+ & move DP2 & 1 & 1 & 0 & 0 & 5 & 1 & 126\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 4 & 1 & 98\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 7 & 1 & 101\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 4 & 1 & 98\\\hline
+ & move v & 1 & 1 & 0 & 0 & 6 & 1 & 127\\\hline
+ & move VP & 1 & 0 & 0 & 0 & 4 & 1 & 98\\\hline
+ & move V & 1 & 1 & 0 & 0 & 7 & 1 & 128\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 4 & 1 & 98\\\hline
+ & self & 0 & 0 & 0 & 0 & 4 & 1 & 73\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [$_{}$ [C$_{}$] [TP$_{}$ [T$_{}$] [v2P$_{}$ [DP2$_{}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & move C & 2 & 1 & 0 & 0 & 4 & 0 & 82\\\hline
+ & move TP & 2 & 0 & 0 & 0 & 4 & 0 & 55\\\hline
+ & move T & 2 & 1 & 0 & 0 & 4 & 0 & 82\\\hline
+ & move v2P & 2 & 0 & 0 & 0 & 4 & 0 & 55\\\hline
+ & move DP2 & 2 & 1 & 0 & 0 & 5 & 0 & 83\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 4 & 0 & 55\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 7 & 0 & 59\\\hline
+ & move v1P & 2 & 0 & 0 & 0 & 4 & 0 & 55\\\hline
+ & move v & 2 & 1 & 0 & 0 & 6 & 0 & 84\\\hline
+ & move VP & 2 & 0 & 0 & 0 & 4 & 0 & 55\\\hline
+ & move V & 2 & 1 & 0 & 0 & 7 & 0 & 86\\\hline
+ & move DP1 & 2 & 0 & 0 & 0 & 4 & 0 & 55\\\hline
+\HandRight & label & 0 & 0 & 0 & 0 & 5 & 0 & 6\\\hline
+ & self & 1 & 0 & 0 & 0 & 4 & 0 & 30\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
+\hbox{\small\begin{tabular}{|rl||c|c|c|c|c|c|c|}\hline
+  \multicolumn{2}{|l||}{I: \hbox{\tiny \begin{forest} [CP$_{}$ [C$_{}$] [TP$_{}$ [T$_{}$] [v2P$_{}$ [DP2$_{}$] [v1P$_{}$ [DP1$_{}$] [v1P$_{}$ [v$_{}$] [VP$_{}$ [V$_{}$] [DP1c$_{}$]]]]]]] \end{forest}}} & \textsc{lab} & \textsc{mc} & \textsc{agr} & \textsc{mt} & \textsc{copy} & \textsc{Exnum} & H\\\hline
+   & move C & 1 & 1 & 0 & 0 & 5 & 0 & 58\\\hline
+ & move TP & 1 & 0 & 0 & 0 & 5 & 0 & 31\\\hline
+ & move T & 1 & 1 & 0 & 0 & 6 & 0 & 59\\\hline
+ & move v2P & 1 & 0 & 0 & 0 & 5 & 0 & 31\\\hline
+ & move DP2 & 1 & 1 & 0 & 0 & 7 & 0 & 61\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 5 & 0 & 31\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 9 & 0 & 36\\\hline
+ & move v1P & 1 & 0 & 0 & 0 & 5 & 0 & 31\\\hline
+ & move v & 1 & 1 & 0 & 0 & 8 & 0 & 62\\\hline
+ & move VP & 1 & 0 & 0 & 0 & 5 & 0 & 31\\\hline
+ & move V & 1 & 1 & 0 & 0 & 9 & 0 & 63\\\hline
+ & move DP1 & 1 & 0 & 0 & 0 & 5 & 0 & 31\\\hline
+\HandRight & self & 0 & 0 & 0 & 0 & 5 & 0 & 6\\\hline
+  \end{tabular}}
+
+ \framebreak 
+
