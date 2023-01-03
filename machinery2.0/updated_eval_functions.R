@@ -16,7 +16,7 @@ cons_marked <- function(my_tree){
     tidyr::separate(col = acs, into = c("case_a","foc_a","wh_a"), sep = "-", fill = "right") %>% # separate acs into columns
     tidyr::separate(col = feats, into = c("case","foc","wh"), sep = "-", fill = "right") %>% # separate feats into columns
     mutate_all(funs(as.numeric(as.integer(.)))) %>% replace(is.na(.),0) %>% # turn into numeric values and fill missing
-    mutate_at(vars(4:10), funs(. * n_doms)) %>% dplyr::select(-n_doms) %>% # multiply each row by domination count
+    mutate_at(vars(4:9), funs(. * n_doms)) %>% dplyr::select(-n_doms) %>% # multiply each row by domination count
     summarise(case_agr = sum(case_a), foc_agr = sum(foc_a), wh_agr = sum(wh_a), # summarise agreement conditions
               case_mt = sum(case_mt), foc_mt = sum(foc_mt), wh_mt = sum(wh_mt), # summarise empty agreement
               case = sum(case),foc = sum(foc), wh = sum(wh), copy = sum(copy)) # summarise features and copy 
