@@ -10,7 +10,7 @@ source("./machinery2.0/updated_cyclic_operator.R")
 source("./machinery2.0/updated_draw_latex.R")
 source("./machinery2.0/weight_optimizer.R")
 
-df <- read.csv("basic_numeration.csv", na.strings = "NA") %>% 
+df <- read.csv("ewe_numeration.csv", na.strings = "NA") %>% 
   mutate(mc = ifelse(is.na(mc), "", mc))
 dt_trial <- mergeMC("DP1","V", numeration = df)
 df <- df[c(-1,-2),]
@@ -50,8 +50,8 @@ weight_solution <- optimized_der$par
 names(weight_solution) <- colnames(my_result)[4:16]
 weight_solution
 
-saveRDS(my_derivation, "basic_derivation.rds")
-saveRDS(weight_solution, "basic_solution.rds")
+saveRDS(my_derivation, "ewe_derivation.rds")
+saveRDS(weight_solution, "ewe_solution.rds")
 
 
 

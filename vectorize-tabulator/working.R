@@ -45,30 +45,3 @@ close(file_con)
 
 
 
-trial <- matrix(data = c(1,0,1,0,4,5,0,0,
-                         1,0,1,0,0,7,0,0,
-                         0,0,1,0,4,3,0,0,
-                         0,0,0,0,4,3,1,0),
-                nrow = 4, ncol = 8, byrow = T)
-
-trial3 <- matrix(data = c(1,1,1,0,4,5,0,0,
-                          1,0,1,0,0,7,0,0,
-                          0,1,1,0,4,3,0,0,
-                          0,1,0,0,4,3,1,0), 
-                 nrow= 4, ncol = 8, byrow = T)
-
-weights <- c(-20,-11,-8,-28,-9,-3,-3,-40)
-
-trial3p <- sweep(trial3, MARGIN = 2, weights, "*") %>% rowSums() %>% exp()
-trial2 <- sweep(trial, MARGIN = 2, weights, "*") %>% rowSums() %>% exp()
-  
-trial2[1] / (trial2[1] + trial2[2] + trial2[3] + trial2[4])
-trial2[2] / (trial2[1] + trial2[2] + trial2[3] + trial2[4])
-trial2[3] / (trial2[1] + trial2[2] + trial2[3] + trial2[4])
-trial2[4] / (trial2[1] + trial2[2] + trial2[3] + trial2[4])
-
-trial3p[1] / (trial3p[1] + trial3p[2] + trial3p[3] + trial3p[4])
-trial3p[2] / (trial3p[1] + trial3p[2] + trial3p[3] + trial3p[4])
-trial3p[3] / (trial3p[1] + trial3p[2] + trial3p[3] + trial3p[4])
-trial3p[4] / (trial3p[1] + trial3p[2] + trial3p[3] + trial3p[4])
-

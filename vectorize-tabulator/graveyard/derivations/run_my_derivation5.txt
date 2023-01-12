@@ -1,0 +1,60 @@
+			lab	mc	case_agr	exnum
+			lab	mc	case_agr	exnum
+[DP1$_{A:case}$]	[[DP1$_{A:case}$] [DPc]]	0	1	0	0	1
+	[[V] [DP1$_{A:case}$]]	1	1	0	0	0
+	[[v] [DP1$_{A:case}$]]	0	1	1	0	0
+	[[T$_{case}$] [DP1$_{A:case}$]]	0	1	1	0	0
+	[[C] [DP1$_{A:case}$]]	0	1	1	0	0
+	[DP1$_{A:case}$]	0	0	0	0	1
+[[V] [DP1$_{A:case}$]]	[[v] [[V] [DP1$_{A:case}$]]]	0	2	1	0	0
+	[[T$_{case}$] [[V] [DP1$_{A:case}$]]]	0	2	1	0	0
+	[[C] [[V] [DP1$_{A:case}$]]]	0	2	1	0	0
+	[[DP1$_{A:case}$] [[V] [DPc]]]	0	2	0	0	1
+	[VP[V] [DP1$_{A:case}$]]	1	0	0	1	0
+	[[V] [DP1$_{A:case}$]]	0	1	0	0	1
+[VP[V] [DP1$_{A:case}$]]	[[v] [VP[V] [DP1$_{A:case}$]]]	1	1	0	1	0
+	[[T$_{case}$] [VP[V] [DP1$_{A:case}$]]]	0	1	1	1	0
+	[[C] [VP[V] [DP1$_{A:case}$]]]	0	1	1	1	0
+	[[DP1$_{A:case}$] [VP[V] [DPc]]]	0	1	0	0	1
+	[VP[V] [DP1$_{A:case}$]]	0	0	0	1	1
+[[v] [VP[V] [DP1$_{A:case}$]]]	[[T$_{case}$] [[v] [VP[V] [DP1$_{A:case}$]]]]	0	2	1	1	0
+	[[C] [[v] [VP[V] [DP1$_{A:case}$]]]]	0	2	1	1	0
+	[[DP1$_{A:case}$] [[v] [VP[V] [DPc]]]]	0	2	0	0	1
+	[v1P[v] [VP[V] [DP1$_{A:case}$]]]	1	0	0	2	0
+	[[v] [VP[V] [DP1$_{A:case}$]]]	0	1	0	1	1
+[v1P[v] [VP[V] [DP1$_{A:case}$]]]	[[T$_{case}$] [v1P[v] [VP[V] [DP1$_{A:case}$]]]]	0	1	0	2	0
+	[[C] [v1P[v] [VP[V] [DP1$_{A:case}$]]]]	0	1	1	2	0
+	[[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]	1	1	0	0	1
+	[v1P[v] [VP[V] [DP1$_{A:case}$]]]	0	0	0	2	1
+[[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]	[[T$_{case}$] [[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	0	2	1	0	0
+	[[C] [[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	0	2	1	0	0
+	[[DP1$_{A:case}$] [[DPc] [v1P[v] [VP[V] [DPc]]]]]	0	2	0	0	1
+	[v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]	1	0	0	1	0
+	[[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]	0	1	0	0	1
+[v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]	[[T$_{case}$] [v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	1	1	0	1	0
+	[[C] [v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	0	1	1	1	0
+	[[DP1$_{A:case}$] [v1P[DPc] [v1P[v] [VP[V] [DPc]]]]]	0	1	0	0	1
+	[v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]	0	0	0	1	1
+[[T$_{case}$] [v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	[[C] [[T$_{case}$] [v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]]	0	2	1	1	0
+	[[DP1$_{A:case}$] [[T$_{case}$] [v1P[DPc] [v1P[v] [VP[V] [DPc]]]]]]	0	2	0	0	1
+	[TP[T] [v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	1	0	0	2	0
+	[[T$_{case}$] [v1P[DP1$_{A:case}$] [v1P[v] [VP[V] [DPc]]]]]	0	1	0	1	1
+[TP[T] [v1P[DP1$_{A:case}$] [v1P]]]	[[C] [TP[T] [v1P[DP1$_{A:case}$] [v1P]]]]	0	1	0	2	0
+	[[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]	1	1	0	0	1
+	[TP[T] [v1P[DP1$_{A:case}$] [v1P]]]	0	0	0	2	1
+[[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]	[[C] [[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]]	0	2	1	0	0
+	[[DP1$_{A:case}$] [[DPc] [TP[T] [v1P[DPc] [v1P]]]]]	0	2	0	0	1
+	[TP[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]	1	0	0	1	0
+	[[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]	0	1	0	0	1
+[TP[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]	[[C] [TP[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]]	0	1	0	1	0
+	[[DP1$_{A:case}$] [TP[DPc] [TP[T] [v1P[DPc] [v1P]]]]]	0	1	0	0	1
+	[TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]	1	0	0	0	0
+	[TP[DP1$_{A:case}$] [TP[T] [v1P[DPc] [v1P]]]]	0	0	0	1	1
+[TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]	[[C] [TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]]	1	1	0	0	0
+	[[DP1$_{A:case}$] [TP[DPc] [TP[T] [v1P[DPc] [v1P]]]]]	0	1	0	0	1
+	[TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]	0	0	0	0	1
+[[C] [TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]]	[[DP1] [[C] [TP[DPc] [TP[T] [v1P[DPc] [v1P]]]]]]	0	2	0	0	0
+	[CP[C] [TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]]	1	0	0	0	0
+	[[C] [TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]]	0	1	0	0	0
+[CP[C] [TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]]	[[DP1] [CP[C] [TP[DPc] [TP[T] [v1P[DPc] [v1P]]]]]]	0	1	0	0	0
+	[CP[C] [TP[DP1] [TP[T] [v1P[DPc] [v1P]]]]]	1	0	0	0	0
