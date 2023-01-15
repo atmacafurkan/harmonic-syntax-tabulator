@@ -53,7 +53,6 @@ cons_merge <- function(my_tree){
   return(violations)
 }
 
-
 # EVAL FUNCTION, combines all constraint evaluations
 cons_profile <- function(my_tree){
   eval_table <- bind_cols(cons_lab(my_tree), # labelling constraint returns a data frame
