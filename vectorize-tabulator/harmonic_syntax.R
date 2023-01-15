@@ -13,6 +13,9 @@ import_numeration <- function(path_to_numeration){
   # turn data frame into a list of data.trees
   numeration_list <- sapply(split(df, 1:nrow(df)), as.Node, USE.NAMES = F)
   
+  # add output numeration to each tree
+  lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$output_num <- numeration_list[-i])
+  
   # return the list of trees
   return(numeration_list)
 }

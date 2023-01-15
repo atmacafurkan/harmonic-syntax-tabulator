@@ -13,29 +13,15 @@ numerations <- list.files(path="./numerations", pattern = "*.csv", full.names = 
 
 my_num <- import_numeration(numerations[1])
 
-# bake numeration
-bake_numeration <- function(left_arg, right_arg, numeration){
-  my_tree <- Merge(left_arg, right_arg)
-  my_tree$output_num <- numeration[[]]
-}
-
 trial <- Merge(my_num[[1]], my_num[[2]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") %>%
   Merge(my_num[[3]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") %>%
   Merge(my_num[[6]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") #%>%
   #Merge(my_num[[4]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") %>%
   #Merge(my_num[[5]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum")
 
-# add output numeration to each tree
-combine_1 <- lapply(seq_along(my_num), function(i) my_num[[i]]$Set("output_num" = my_num[-i]))
-
 # merge all the possible phrases from the numeration for the first step
 comnbine_2 <- lapply(seq_along(my_num[-1]), function(i){
   Merge(my_num[[i]], my_num[[1]])})
- 
-comnbine_2[[1]]$it
-
-lapply(seq_along(my_num), function(i) my_num[[i]]$range_id)
-
 
 # derivation function
 derivate <- function(input_tree = "first", input_numeration){
@@ -48,7 +34,6 @@ derivate <- function(input_tree = "first", input_numeration){
     
     # add tree leaves to the numeration
     my_numeration <- append(input_numeration, my_tree$leaves)
-    
   }
   return(output_trees)
 }
