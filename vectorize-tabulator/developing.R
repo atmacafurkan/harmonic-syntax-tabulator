@@ -1,51 +1,34 @@
 library(tidyverse)
 library(magrittr)
 library(rlang)
-library(philentropy)  # KL function
-library(optimx)       # optimizing function
 library(data.tree)    # data trees
+library(igraph)
+library(ggraph)
 
 # use old functions until renewed
-source("./machinery2.0/updated_draw_latex.R")
 source("./harmonic_syntax.R")
 
 numerations <- list.files(path="./numerations", pattern = "*.csv", full.names = T)
-
 my_num <- import_numeration(numerations[1])
 
-trial <- Merge(my_num[[1]], my_num[[2]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") %>%
-  Merge(my_num[[3]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") %>%
-  Merge(my_num[[6]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") #%>%
-  #Merge(my_num[[4]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum") %>%
-  #Merge(my_num[[5]]) %>% Label() %T>% print("lb","it","mc","ft","ac","exnum")
+saveRDS(my_num[[1]], "my_tree.rds")
 
-# merge all the possible phrases from the numeration for the first step
-comnbine_2 <- lapply(seq_along(my_num[-1]), function(i){
-  Merge(my_num[[i]], my_num[[1]])})
+new_nodes <- fn_cycle(my_num[[1]])
 
-# derivation function
-derivate <- function(input_tree = "first", input_numeration){
-  if(input_tree == "first"){ # if it is the first step of the derivation
-    output_trees <- lapply(input_numeration[-1], function(i) Merge(i, input_numeration[[1]]) )
-  } else { # if it is not the first step of the derivation
-    ## For merge
-    # clone tree to remove associations
-    my_tree <- Clone(input_tree)
-    
-    # add tree leaves to the numeration
-    my_numeration <- append(input_numeration, my_tree$leaves)
-  }
-  return(output_trees)
+new_nodes %>% sapply(function(i) i$eval) %>% t() %>% as.data.frame() %>% rownames_to_column(var = "candidate")
+
+fn_plotter <- function(my_tree){
+  my_tree$Set(name = my_tree$Get("it"))
+  tree.igraph <- data.tree::as.igraph.Node(my_tree)
+  V(tree.igraph)$class <- names(V(tree.igraph))
+  my_plot <- ggraph(tree.igraph,layout='tree')+
+    geom_edge_link(arrow=arrow(length=unit(2,'mm')),end_cap=circle(3,'mm'))+
+    geom_node_label(aes(label=class))+
+    theme_void()
+  my_plot
 }
 
 
+my_tree <- new_nodes[[1]] %>% Label()
 
-
-
-
-
-
-
-
-
-
+fn_plotter(x)
