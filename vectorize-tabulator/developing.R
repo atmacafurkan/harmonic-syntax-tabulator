@@ -29,6 +29,6 @@ fn_plotter <- function(my_tree){
 }
 
 
-my_tree <- new_nodes[[1]] %>% Label()
+my_tree <- new_nodes[[1]] %>% Label() %>% plot()
 
 fn_plotter(x)
