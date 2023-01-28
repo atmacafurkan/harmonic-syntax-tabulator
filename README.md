@@ -1,9 +1,17 @@
-## About 
-This is a very early start to making a shiny app for a harmonic syntax tabulator with Merge, Label, and Agree as operations. Intended use is to automate output generation and file creating to feed into programs like MaxEnt Grammar Tool for constraint learning.
+## About
 
-Intended functions:
-- Take a table as numeration, with items specified for their features, merge conditions, and agree conditions
-- Give options to activate markedness constraints for each feature
-- Enable selecting which operations count as steps
-- Output a tsv file for use in other software for learning OT & Harmonic grammars
-- Output a latex file with tree representations and OT-tableaus 
+This is a shiny app to use for "Harmonic Syntax" the explanations for which are under development.
+
+This is an OT tabulator for a cyclic syntax with operations Merge, Label, and Agree. All the operations and the required functions are saved in harmonic_syntax.R
+
+TabulatorInterface.R is the shiny app under development.
+
+## version info: broken alpha :)
+
+Further development notes:
+
+-   Add fields for uploading numerations
+
+-   Add options to save the derivations to distinct folders based on the numeration
+
+-   Reactive UI for step-wise use (upload numeration, go through the derivation, continue with weight optimization, output a latex file for evaluation steps and forest trees for winning candidates)
