@@ -2,6 +2,9 @@ library(tidyverse)
 library(magrittr)
 library(rlang)
 library(data.tree)
+library(optimx)       # minimizing optimizer function
+library(philentropy)  # KL calculating function
+library(vtree)        # to export trees as png files
 
 # GEN FUNCTIONS #####
 # a function to read a data frame into a list of tree nodes
@@ -331,6 +334,7 @@ fn_cycle <- function(input_tree){
 
 # DRAWING FUNCTIONS ####
 
+# a function to draw a latex tree for papers
 fn_latex <- function(my_tree){
   feat_names <- c("case","foc","wh")
   if(isLeaf(my_tree)){
@@ -367,6 +371,7 @@ fn_latex <- function(my_tree){
   return(written)
 }
 
+# a function to draw a simple tree for display as output
 fn_draw <- function(my_tree){
   feat_names <- c("case","foc","wh")
   if(isLeaf(my_tree)){
@@ -397,3 +402,50 @@ fn_draw <- function(my_tree){
   return(written)
 }
 
+# a function to plot the data.trees to a png file in www folder
+fn_plotter <- function(input_tree){
+  my_tree <- Clone(input_tree)
+  my_tree$Set(name = my_tree$Get("it"))
+  tree <- plot(my_tree)
+  tree
+}
+
+# WEIGHT OPTIMIZER ####
+# objective function to be optimized
+objective_KL <- function(x, my_tableaux, constraint_range = c(4:16)){
+  # extract constraint names
+  constraints <- colnames(my_tableaux)[constraint_range]
+  
+  # turn data frame into a list of matrices where each matrix is a single derivation
+  tableaux <- my_tableaux %>% split(.$input) %>% map(~ (.x %>% dplyr::select(-input,-output))) %>% lapply(as.matrix)
+  
+  # frequencies of the candidates for each derivation
+  frequencies <- lapply(tableaux,function(x){x[,"frequency"]})
+  
+  # calculate probabilities across the matrices in the list 
+  probabilities <- sapply(tableaux, function(the_element) the_element[,constraints] %*% (x*-1)) %>% # calculate harmony values on negative terms
+    sapply(function(the_element) exp(the_element)/sum(exp(the_element))) %>% # calculate the probability of each candidate
+    lapply(function(x) {colnames(x) <- "probabilities"; x}) # rename the resulting column as probabilities
+  
+  # combine the frequencies and probabilities of each matrix in the list then transpose it for KLD. Calculate KLD scores
+  sum_KL <- Map(cbind, frequencies, probabilities) %>% lapply(t) %>% lapply(KL) %>% unlist() %>% sum()
+  
+  # return the overall KLD for the whole set of derivations
+  return(sum_KL)
+}
+
+weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing into a function to be used 
+  # anything other than "input" and "output" vector for the data frame "the_tableaux" should be a numeric value. 
+  # the data frame should only include the vectors for input, output, frequency, and constraint violations
+  n_constraint <- length(constraints) # how many constraints are there?
+  # box optimization
+  optimal_weights <- optim(par = rep(0, n_constraint), # starting values for the weights is 0
+                           fn = objective_KL, # objective function
+                           my_tableaux = the_tableaux, # argument to be passed to the objective function
+                           constraint_range = constraints, # the range of constraints in the table
+                           lower = rep(0, n_constraint), # the lowest that the constraint weights can get
+                           upper = rep(100, n_constraint), # the highest that the constraint weights can get
+                           method = "L-BFGS-B") # the method of optimization which allows lower bound
+  # return the resulting optimization 
+  return(optimal_weights)
+}
