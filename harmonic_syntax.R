@@ -10,7 +10,7 @@ library(vtree)        # to export trees as png files
 # a function to read a data frame into a list of tree nodes
 import_numeration <- function(path_to_numeration){
   # read numeration from csv
-  df <- read_csv(path_to_numeration) %>%
+  df <- read.csv(path_to_numeration) %>%
     mutate(mc = ifelse(is.na(mc), "", mc), # fix na values for mc
            pathString = "new_arg") # add pathstring value for as.Node function
   
@@ -107,14 +107,18 @@ Merge <- function(input_tree){
   # if it is not the first merge operation, add leaves to the numeration
   if (!my_tree$isLeaf){
     new_args <- fn_subtrees(my_tree)
-    x <- lapply(seq_along(new_args), function(i) new_args[[i]]$Set(exnum = 1))
-    rm(x)
+    new_args <- lapply(seq_along(new_args), function(i) {
+      new_args[[i]]$Set(exnum = 1)
+      new_args[[i]]
+      })
     left_arg %<>% append(new_args)
   }
   
   # name the left nodes
-  x <- lapply(seq_along(left_arg), function(i) left_arg[[i]]$name <- "left_arg")
-  rm(x)
+  left_arg <- lapply(seq_along(left_arg), function(i) {
+    left_arg[[i]]$name <- "left_arg"
+    left_arg[[i]]
+  })
   
   # use the input as the right argument and make a list of trees (head initial)
   right_arg <- lapply(seq_along(left_arg), function(i) Clone(my_tree)$Set(name = "right_arg", filterFun = isRoot))
@@ -126,31 +130,24 @@ Merge <- function(input_tree){
   x <- lapply(seq_along(left_arg), function(i) new_nodes[[i]]$AddChildNode(left_arg[[i]])$AddSiblingNode(right_arg[[i]]))
   rm(x)
   
-  # update output numerations for resulting trees
-  x <- lapply(seq_along(new_nodes), function(i) new_nodes[[i]]$output_num <- my_tree$output_num)
+  # update output numerations, domination counts, eval, and range_ids, prune copies and previous numerations
+  new_nodes <- lapply(seq_along(new_nodes), function(i) {
+    new_nodes[[i]]$output_num <- my_tree$output_num
+    new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x))
+    new_nodes[[i]] <- fn_pruneCopy(new_nodes[[i]])
+    new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0)
+    new_nodes[[i]]
+  })
+  
+  # update output numeration trees for external merge and set operation name
+  x <- lapply(seq_along(my_tree$output_num), function(i) {
+    new_nodes[[i]]$output_num <- my_tree$output_num[-i]
+    new_nodes[[i]]$gen <- "xMerge"
+    new_nodes[[i]]
+    })
   rm(x)
   
-  # prune the tree if it is internal merge
-  new_nodes <- lapply(seq_along(new_nodes), function(i) fn_pruneCopy(new_nodes[[i]]))
-  
-  # update output numeration trees for external merge
-  x <- lapply(seq_along(my_tree$output_num), function(i) new_nodes[[i]]$output_num <- my_tree$output_num[-i])
-  rm(x)
-  
-  # update operation type in trees for external merge
-  x <- lapply(seq_along(my_tree$output_num), function(i) new_nodes[[i]]$gen <- "xMerge")
-  rm(x)
-  
-  # add range ids for unique identification and default domination counts
-  x <- lapply(new_nodes, function(i) i$Set(range_id = 1: length(i$Get("lb")), n_dominator = 0))
-  rm(x)
-  
-  # update domination counts
-  new_nodes <- lapply(seq_along(new_nodes), function(i) fn_recurse(new_nodes[[i]]))
-  
-  # add eval to the resulting tree
-  new_nodes <- lapply(seq_along(new_nodes), function(i) fn_eval(new_nodes[[i]]))
-  
+  new_nodes %<>% lapply(function(i) fn_recurse(i) %>% fn_eval())
   # return the list of merges
   return(new_nodes)
 }
@@ -200,7 +197,7 @@ Agree <- function(input_tree){
   left_ac <- unlist(str_split(my_tree$left_arg$ac, "-"))
   lefter_ft <- unlist(str_split(my_tree$right_arg$ft, "-"))
   
-  if (any(which(left_ac == 1) == which(lefter_ft == 1))){ # sometimes ac is completely empty, check if there is any match
+  if (any(which(left_ac == 1) == which(lefter_ft == 1))){ # check for matching ft and ac values
     match_number <- which(left_ac == lefter_ft)
     left_ac[match_number] <- "0" # turn matches into 0 in ac
     lefter_ft[match_number] <- "0" # turn matches into 0 in feats
@@ -215,7 +212,7 @@ Agree <- function(input_tree){
   right_ac <- unlist(str_split(my_tree$right_arg$ac, "-"))
   righter_ft <- unlist(str_split(my_tree$left_arg$ft, "-"))
   
-  if (any(which(right_ac == 1) == which(righter_ft == 1))){ # sometimes ac is completely empty, check if there is any match
+  if (any(which(right_ac == 1) == which(righter_ft == 1))){ # check for matching ft and ac values
     match_number <- which(right_ac == righter_ft)
     right_ac[match_number] <- "0"
     righter_ft[match_number] <- "0"
@@ -232,6 +229,7 @@ Agree <- function(input_tree){
     my_tree$mt_ac <- paste(head_ac, collapse = "-")
     my_tree$ac <- paste(rep("0", length(head_ac)), collapse = "-")
   }
+  
   my_tree$gen <- "Agree" # add operation name
   my_tree %<>% fn_eval() # add eval after agree
   return(my_tree)
