@@ -6,7 +6,6 @@ library(optimx)       # minimizing optimizer function
 library(philentropy)  # KL calculating function
 library(vtree)        # to export trees as png files
 
-# GEN FUNCTIONS #####
 # a function to read a data frame into a list of tree nodes
 import_numeration <- function(path_to_numeration){
   # read numeration from csv
@@ -24,6 +23,7 @@ import_numeration <- function(path_to_numeration){
   return(numeration_list)
 }
 
+# GEN FUNCTIONS #####
 # a function to extract subtrees of a tree
 fn_subtrees <- function(input_tree, new_nodes = list()){
   my_tree <- Clone(input_tree)
@@ -86,12 +86,12 @@ fn_recurse <- function(active_tree, output_tree = active_tree){
   
   # recursively call the function on the left child
   if (is.null(my_tree$left_arg)){} else if (my_tree$left_arg$leafCount > 1){ # check if there is left_arg, if more than 1
-    fn_recurse(my_tree$left_arg,output_tree)
+    fn_recurse(my_tree$left_arg, output_tree)
   }
   
   # recursively call the function on the right child
   if (is.null(my_tree$right_arg)){} else if (my_tree$right_arg$leafCount > 1){ # check if there is right_arg, if more than 1
-    fn_recurse(my_tree$right_arg,output_tree)
+    fn_recurse(my_tree$right_arg, output_tree)
   }
   return(output_tree)
 }
@@ -105,13 +105,13 @@ Merge <- function(input_tree){
   left_arg <- lapply(seq_along(my_tree$output_num), function(i) Clone(my_tree$output_num[[i]]))
   
   # if it is not the first merge operation, add leaves to the numeration
-  if (!my_tree$isLeaf){
-    new_args <- fn_subtrees(my_tree)
+  if (!my_tree$isLeaf){ # if the input tree is not a leaf
+    new_args <- fn_subtrees(my_tree) # extract all subtrees of the input tree
     new_args <- lapply(seq_along(new_args), function(i) {
-      new_args[[i]]$Set(exnum = 1)
+      new_args[[i]]$Set(exnum = 1) # since these are subtrees, they violate exnum
       new_args[[i]]
       })
-    left_arg %<>% append(new_args)
+    left_arg %<>% append(new_args) # add the subtrees to trees from the numeration
   }
   
   # name the left nodes
@@ -147,8 +147,10 @@ Merge <- function(input_tree){
     })
   rm(x)
   
+  # recalculate domination counts and evaluation after
   new_nodes %<>% lapply(function(i) fn_recurse(i) %>% fn_eval())
-  # return the list of merges
+  
+  # return the list of trees as a result of all possible Merge operations
   return(new_nodes)
 }
 
@@ -406,6 +408,11 @@ fn_plotter <- function(input_tree){
   my_tree$Set(name = my_tree$Get("it"))
   tree <- plot(my_tree)
   tree
+}
+
+# a function to compose eval from a list of trees
+fn_compose <- function(my_list){
+  sapply(my_list, function(i) i$eval) %>% t() %>% as.data.frame() %>% rownames_to_column(var = "candidate")
 }
 
 # WEIGHT OPTIMIZER ####
