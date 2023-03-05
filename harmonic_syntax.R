@@ -331,9 +331,7 @@ fn_cycle <- function(input_tree){
   return(output_nodes)
 }
 
-
 # DRAWING FUNCTIONS ####
-
 # a function to draw a latex tree for papers
 fn_latex <- function(my_tree){
   feat_names <- c("case","foc","wh")
@@ -416,16 +414,18 @@ fn_compose <- function(my_list){
 }
 
 # WEIGHT OPTIMIZER ####
+# make sure constructed matrices are not lists
+unlisted_matrix <- function(x){as.data.frame(x) %>% data.matrix()}
 # objective function to be optimized
-objective_KL <- function(x, my_tableaux, constraint_range = c(4:16)){
+objective_KL <- function(x, my_tableaux, constraint_range){
   # extract constraint names
   constraints <- colnames(my_tableaux)[constraint_range]
   
   # turn data frame into a list of matrices where each matrix is a single derivation
-  tableaux <- my_tableaux %>% split(.$input) %>% map(~ (.x %>% dplyr::select(-input,-output))) %>% lapply(as.matrix)
+  tableaux <- my_tableaux %>% split(.$input) %>% map(~ (.x %>% dplyr::select(-input,-output, -candidate))) %>% lapply(unlisted_matrix)
   
   # frequencies of the candidates for each derivation
-  frequencies <- lapply(tableaux,function(x){x[,"frequency"]})
+  frequencies <- lapply(tableaux,function(x){x[,"winner"]})
   
   # calculate probabilities across the matrices in the list 
   probabilities <- sapply(tableaux, function(the_element) the_element[,constraints] %*% (x*-1)) %>% # calculate harmony values on negative terms

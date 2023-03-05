@@ -14,10 +14,11 @@ frontend <- fluidPage(
       textOutput("file_read"), # if you don't render output in the ui the server does not execute it
       
       numericInput("winner", label = h4("Optimal output?"), value = 100),
-      actionButton("proceed", label = "Next Cycle"),
+      actionButton("proceeder", label = "Next Cycle"),
       grVizOutput("tree"),
       br(),
-      img(src = "uni_leipzig_logo_v2.svg", height = 142, width = 338),
+      actionButton("remove_button", label = "Terminate Derivation")
+      #img(src = "uni_leipzig_logo_v2.svg", height = 142, width = 338)
     ),
     
     # Show a plot of the generated distribution
@@ -31,6 +32,14 @@ frontend <- fluidPage(
 backend <- function(input, output, session) {
   # new functions for harmonic syntax
   source("./harmonic_syntax.R")
+  
+  observeEvent(input$remove_button, {
+    removeUI(selector = "div:has(>>>> #numerationFile)")
+    removeUI(selector = "div:has(> #eval)")
+    removeUI(selector = "div:has(> #winner)")
+    removeUI(selector = "#proceeder")
+    removeUI(selector = "#tree")
+  })
 
   file_path <- eventReactive(input$numerationFile, {
     my_num <- import_numeration(input$numerationFile$datapath)
@@ -50,7 +59,7 @@ backend <- function(input, output, session) {
   output$file_read <- renderPrint({file_path()})
 
   # a reactive value that reads the latest tree and displays the evaluation
-  selected_winner <- eventReactive(input$proceed, {
+  selected_winner <- eventReactive(input$proceeder, {
     # set file paths
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
     file_last_tree <- sprintf("./%s/last_tree.rds", numeration_name)
@@ -92,7 +101,7 @@ backend <- function(input, output, session) {
   output$eval <- renderTable({selected_winner()}, digits = 0, spacing = "xs")
   
   # a reactive value that reads the latest tree and displays evaluation
-  selected_tree <- eventReactive(input$proceed,{
+  selected_tree <- eventReactive(input$proceeder,{
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
     file_last_tree <- sprintf("./%s/last_tree.rds", numeration_name)
     my_tree <- readRDS(file_last_tree)
