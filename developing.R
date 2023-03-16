@@ -12,14 +12,14 @@ my_files <- list.files(path = "./basic_numeration/", pattern = "*.rds$", full.na
 
 df_eval <- readRDS(my_files[4]) %>% mutate(across(where(is.list), ~ map_chr(.x, as.character)))
 
-my_trial <- weight_optimize(df_eval, c(4:15))
+my_optimization <- weight_optimize(df_eval, c(4:15))
 
-optimized_weights <- my_trial$par
+optimized_weights <- my_optimization$par
 names(optimized_weights) <- colnames(df_eval)[4:15]
 optimized_weights
 
-trial <- df_eval[,4:15] %>% data.matrix()
+trial <- df_eval[,4:15] %>% as.data.frame() %>% mutate_all(as.integer) %>% data.matrix()
+
 df_eval %<>% mutate(harmonies = as.numeric(trial %*% optimized_weights))
+rm(trial)
 
-
-x <- readRDS("./basic_numeration/last_cycle.rds")

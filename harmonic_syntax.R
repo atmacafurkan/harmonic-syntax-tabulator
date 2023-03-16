@@ -111,7 +111,7 @@ Merge <- function(input_tree){
     new_args <- fn_subtrees(my_tree) # extract all subtrees of the input tree
     new_args <- lapply(seq_along(new_args), function(i) {
       
-      new_args[[i]]$Set(exnum = ifelse(length(my_tree$output_num) == 0, 0, 1)) # since these are subtrees, they violate exnum
+      new_args[[i]]$Set(exnum = 1) # since these are subtrees, they violate exnum
       new_args[[i]]
       })
     left_arg %<>% append(new_args) # add the subtrees to trees from the numeration
@@ -343,9 +343,10 @@ fn_cycle <- function(input_tree){
     output_nodes %<>% append(agreed_tree)
   }
   
-  self_tree <- Clone(input_tree)
-  self_tree$eval$exnum <- ifelse(length(self_tree$output_num) == 0, 0, 1)
+  self_tree <- Clone(input_tree) %>% fn_eval()
+  self_tree$eval$exnum <- 1
   self_tree$eval$operation <- "rMerge"
+  self_tree$input <- fn_draw(input_tree)
   output_nodes %<>% append(self_tree)
   
   return(output_nodes)
@@ -435,17 +436,17 @@ fn_compose <- function(my_list){
 
 # WEIGHT OPTIMIZER ####
 # make sure constructed matrices are not lists
-unlisted_matrix <- function(x){as.data.frame(x) %>% data.matrix()}
+unlisted_matrix <- function(x){as.data.frame(x) %>% mutate_all(as.integer) %>% data.matrix()}
 # objective function to be optimized
 objective_KL <- function(x, my_tableaux, constraint_range){
   # extract constraint names
   constraints <- colnames(my_tableaux)[constraint_range]
   
   # turn data frame into a list of matrices where each matrix is a single derivation
-  tableaux <- my_tableaux %>% split(.$input) %>% map(~ (.x %>% dplyr::select(-input,-output, -candidate))) %>% lapply(unlisted_matrix)
+  tableaux <- my_tableaux %>% split(.$input) %>% map(~ (.x %>% dplyr::select(-input, -output, -candidate, -operation))) %>% lapply(unlisted_matrix)
   
   # frequencies of the candidates for each derivation
-  frequencies <- lapply(tableaux,function(x){x[,"winner"]})
+  frequencies <- lapply(tableaux, function(x){x[,"winner"]})
   
   # calculate probabilities across the matrices in the list 
   probabilities <- sapply(tableaux, function(the_element) the_element[,constraints] %*% (x*-1)) %>% # calculate harmony values on negative terms
