@@ -74,7 +74,7 @@ backend <- function(input, output, session) {
     my_tree <- my_outputs[[input$winner]]
     
     # save the eval
-    new_eval <- my_outputs %>% fn_compose() %>% mutate(input = fn_draw(my_tree), winner = rep(0, length(my_outputs)))
+    new_eval <- my_outputs %>% fn_compose() %>% mutate(input = my_tree$input, winner = rep(0, length(my_outputs)))
     new_eval$winner[input$winner] <- 1
     updated_eval <- readRDS(file_eval) %>% rbind(new_eval)
     saveRDS(updated_eval,file_eval)

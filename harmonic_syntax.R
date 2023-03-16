@@ -19,6 +19,8 @@ import_numeration <- function(path_to_numeration){
   # add output numeration to each tree
   lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$output_num <- numeration_list[-i])
   
+  lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$input <- fn_draw(numeration_list[[i]]))
+
   # return the list of trees
   return(numeration_list)
 }
@@ -108,7 +110,8 @@ Merge <- function(input_tree){
   if (!my_tree$isLeaf){ # if the input tree is not a leaf
     new_args <- fn_subtrees(my_tree) # extract all subtrees of the input tree
     new_args <- lapply(seq_along(new_args), function(i) {
-      new_args[[i]]$Set(exnum = 1) # since these are subtrees, they violate exnum
+      
+      new_args[[i]]$Set(exnum = ifelse(length(my_tree$output_num) == 0, 0, 1)) # since these are subtrees, they violate exnum
       new_args[[i]]
       })
     left_arg %<>% append(new_args) # add the subtrees to trees from the numeration
@@ -124,7 +127,7 @@ Merge <- function(input_tree){
   right_arg <- lapply(seq_along(left_arg), function(i) Clone(my_tree)$Set(name = "right_arg", filterFun = isRoot))
   
   # create new node and set default values
-  new_nodes <- lapply(seq_along(left_arg), function(i) Node$new("0", mc = "", ac = "0-0-0", ft = "0-0-0", lb = 0, it = 0, is_copy = 0, gen = "iMerge"))
+  new_nodes <- lapply(seq_along(left_arg), function(i) Node$new("0", mc = "", ac = "0-0-0", ft = "0-0-0", lb = 0, it = 0, is_copy = 0))
   
   # modify the new list by merging the left arg from the left_arg list and the right_arg tree
   x <- lapply(seq_along(left_arg), function(i) new_nodes[[i]]$AddChildNode(left_arg[[i]])$AddSiblingNode(right_arg[[i]]))
@@ -136,6 +139,8 @@ Merge <- function(input_tree){
     new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x))
     new_nodes[[i]] <- fn_pruneCopy(new_nodes[[i]])
     new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0)
+    new_nodes[[i]]$gen <- "iMerge"
+    new_nodes[[i]]$input <- fn_draw(input_tree)
     new_nodes[[i]]
   })
   
@@ -143,6 +148,7 @@ Merge <- function(input_tree){
   x <- lapply(seq_along(my_tree$output_num), function(i) {
     new_nodes[[i]]$output_num <- my_tree$output_num[-i]
     new_nodes[[i]]$gen <- "xMerge"
+    new_nodes[[i]]$input <- fn_draw(input_tree)
     new_nodes[[i]]
     })
   rm(x)
@@ -187,6 +193,7 @@ Label <- function(input_tree){
   my_tree$Set(n_dominator = 0)
   my_tree$gen <- "Label" # add operation name
   my_tree %<>% fn_recurse() %>% fn_eval()
+  my_tree$input <- fn_draw(input_tree) # add input tree
   return(my_tree)
 }
 
@@ -234,6 +241,7 @@ Agree <- function(input_tree){
   
   my_tree$gen <- "Agree" # add operation name
   my_tree %<>% fn_eval() # add eval after agree
+  my_tree$input <- fn_draw(input_tree) # add input tree flat
   return(my_tree)
 }
 
@@ -272,7 +280,7 @@ cons_merge <- function(my_tree){
 # labelling constraint, counts unlabeled phrases
 cons_derive <- function(my_tree){
   violation <- tibble(exnum = ifelse(my_tree$left_arg$exnum == 1, 1, 0),
-                      lab= ifelse(my_tree$lb == 0, 1, 0))
+                      lab = ifelse(my_tree$lb == 0, 1, 0))
   return(violation)
 }
 
@@ -296,12 +304,18 @@ cons_marked <- function(my_tree){
 fn_eval <- function(input_tree){
   my_tree <- Clone(input_tree)
   if (my_tree$isLeaf){
-    return(my_tree)
+    my_eval <- tibble(output = fn_draw(my_tree), operation = "x", exnum = 0, lab = 0, merge_cond = 0,
+                      case_agr = 0, foc_agr = 0, wh_agr = 0,
+                      case_mt = 0, foc_mt = 0, wh_mt = 0,
+                      case = 0, foc = 0, wh = 0)
+    my_tree$eval <- my_eval
+  return(my_tree)
   } else {
   my_eval <- do.call(cbind, list(tibble(output = fn_draw(my_tree), operation = my_tree$gen), cons_derive(my_tree), cons_merge(my_tree), cons_marked(my_tree)))
   my_tree$eval <- my_eval
   return(my_tree)
   }
+  
 }
 
 # DERIVATION INTERFACE ####
@@ -328,6 +342,12 @@ fn_cycle <- function(input_tree){
   if(first_step){} else if(any(agreed_tree$Get("ac") != my_tree$Get("ac"))){ 
     output_nodes %<>% append(agreed_tree)
   }
+  
+  self_tree <- Clone(input_tree)
+  self_tree$eval$exnum <- ifelse(length(self_tree$output_num) == 0, 0, 1)
+  self_tree$eval$operation <- "rMerge"
+  output_nodes %<>% append(self_tree)
+  
   return(output_nodes)
 }
 
