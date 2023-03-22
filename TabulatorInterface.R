@@ -14,15 +14,19 @@ frontend <- fluidPage(
       textOutput("file_read"), # if you don't render output in the ui the server does not execute it
       
       numericInput("winner", label = h4("Optimal output?"), value = 100),
+
       actionButton("proceeder", label = "Next Cycle"),
       grVizOutput("tree"),
       br(),
-      actionButton("remove_button", label = "Terminate Derivation")
+      #actionButton("remove_button", label = "Terminate Derivation")
+      actionButton("runOptimization", label = "Calculate weights")
       #img(src = "uni_leipzig_logo_v2.svg", height = 142, width = 338)
+      
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
+      tableOutput("costraintWeights"),
       tableOutput("eval")
     )
   )
@@ -33,13 +37,13 @@ backend <- function(input, output, session) {
   # new functions for harmonic syntax
   source("./harmonic_syntax.R")
   
-  observeEvent(input$remove_button, {
-    removeUI(selector = "div:has(>>>> #numerationFile)")
-    removeUI(selector = "div:has(> #eval)")
-    removeUI(selector = "div:has(> #winner)")
-    removeUI(selector = "#proceeder")
-    removeUI(selector = "#tree")
-  })
+  # observeEvent(input$remove_button, {
+  #   removeUI(selector = "div:has(>>>> #numerationFile)")
+  #   #removeUI(selector = "div:has(> #eval)")
+  #   removeUI(selector = "div:has(> #winner)")
+  #   removeUI(selector = "#proceeder")
+  #   removeUI(selector = "#tree")
+  # })
 
   file_path <- eventReactive(input$numerationFile, {
     my_num <- import_numeration(input$numerationFile$datapath)
@@ -87,14 +91,17 @@ backend <- function(input, output, session) {
     saveRDS(my_derivation, file_my_derivation)
     }
     
-    # create the next cycle
-    my_tree <- readRDS(file_last_tree)
-    my_outputs <- fn_cycle(my_tree)
-    
-    # save the resulting cycle
-    saveRDS(my_outputs, file_last_cycle)
-    
-    my_eval2 <- fn_compose(my_outputs)
+    if (input$winner == length(my_outputs)){ # if the winning output is a result of self merge stop advancing
+    } else {
+      # create the next cycle
+      my_tree <- readRDS(file_last_tree)
+      my_outputs <- fn_cycle(my_tree)
+      
+      # save the resulting cycle
+      saveRDS(my_outputs, file_last_cycle)
+      
+      my_eval2 <- fn_compose(my_outputs) 
+    }
     my_eval2
   })
   # assign the reactive value to the output
@@ -110,7 +117,19 @@ backend <- function(input, output, session) {
   
   # assign the reactive tree to the output
   output$tree <- renderGrViz({selected_tree()})
+  
+  optimize_me <- eventReactive(input$runOptimization, {
+    numeration_name <- str_replace(input$numerationFile$name,".csv","")
+    file_eval <- sprintf("./%s/my_eval.rds", numeration_name)
+    my_derivation <- readRDS(file_eval) %>% mutate(across(where(is.list), ~ map_chr(.x, as.character)))
+    optimization <- weight_optimize(my_derivation, c(4:15))
+    optimized_weights <- tibble(weights = optimization$par) %>% t()
+    colnames(optimized_weights) <- colnames(my_derivation)[4:15]
+    optimized_weights
+  })
 
+  output$costraintWeights <- renderTable({optimize_me()}, digits = 0, spacing = "xs")
+  
 }
 shinyApp(ui = frontend, server = backend)
 

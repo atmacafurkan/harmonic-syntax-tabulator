@@ -437,6 +437,7 @@ fn_compose <- function(my_list){
 # WEIGHT OPTIMIZER ####
 # make sure constructed matrices are not lists
 unlisted_matrix <- function(x){as.data.frame(x) %>% mutate_all(as.integer) %>% data.matrix()}
+
 # objective function to be optimized
 objective_KL <- function(x, my_tableaux, constraint_range){
   # extract constraint names
@@ -475,3 +476,4 @@ weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing in
   # return the resulting optimization 
   return(optimal_weights)
 }
+
