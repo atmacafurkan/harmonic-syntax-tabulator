@@ -12,16 +12,11 @@ frontend <- fluidPage(
       # Copy the line below to make a file upload manager
       fileInput("numerationFile", label = h4("Select numeration")),
       textOutput("file_read"), # if you don't render output in the ui the server does not execute it
-      
       numericInput("winner", label = h4("Optimal output?"), value = 100),
-
       actionButton("proceeder", label = "Next Cycle"),
       grVizOutput("tree"),
       br(),
-      #actionButton("remove_button", label = "Terminate Derivation")
       actionButton("runOptimization", label = "Calculate weights")
-      #img(src = "uni_leipzig_logo_v2.svg", height = 142, width = 338)
-      
     ),
     
     # Show a plot of the generated distribution
@@ -36,14 +31,6 @@ frontend <- fluidPage(
 backend <- function(input, output, session) {
   # new functions for harmonic syntax
   source("./harmonic_syntax.R")
-  
-  # observeEvent(input$remove_button, {
-  #   removeUI(selector = "div:has(>>>> #numerationFile)")
-  #   #removeUI(selector = "div:has(> #eval)")
-  #   removeUI(selector = "div:has(> #winner)")
-  #   removeUI(selector = "#proceeder")
-  #   removeUI(selector = "#tree")
-  # })
 
   file_path <- eventReactive(input$numerationFile, {
     my_num <- import_numeration(input$numerationFile$datapath)
@@ -92,6 +79,7 @@ backend <- function(input, output, session) {
     }
     
     if (input$winner == length(my_outputs)){ # if the winning output is a result of self merge stop advancing
+      my_eval2 <- readRDS(file_last_tree)
     } else {
       # create the next cycle
       my_tree <- readRDS(file_last_tree)
@@ -104,6 +92,7 @@ backend <- function(input, output, session) {
     }
     my_eval2
   })
+  
   # assign the reactive value to the output
   output$eval <- renderTable({selected_winner()}, digits = 0, spacing = "xs")
   
@@ -127,9 +116,8 @@ backend <- function(input, output, session) {
     colnames(optimized_weights) <- colnames(my_derivation)[4:15]
     optimized_weights
   })
-
+  # dipslay optimized weights
   output$costraintWeights <- renderTable({optimize_me()}, digits = 0, spacing = "xs")
-  
 }
 shinyApp(ui = frontend, server = backend)
 
