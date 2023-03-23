@@ -92,7 +92,7 @@ backend <- function(input, output, session) {
     }
     
     if (input$winner == length(my_outputs)){ # if the winning output is a result of self merge stop advancing
-      my_eval2 <- readRDS(file_last_tree)
+      my_eval2 <- readRDS(file_last_cycle) %>% fn_compose()
     } else {
       # create the next cycle
       my_tree <- readRDS(file_last_tree)

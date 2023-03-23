@@ -270,7 +270,7 @@ cons_merge <- function(my_tree){
     } else {violations %<>% +1}
     
     # return head result by recursing
-    return(violations + cons_merge(my_tree$left_arg) + cons_merge(my_tree$right_arg))
+    #return(violations + cons_merge(my_tree$left_arg) + cons_merge(my_tree$right_arg))
   }
   # return result for leaf node
   violation <- tibble(merge_cond = violations)
@@ -332,11 +332,13 @@ fn_cycle <- function(input_tree){
   # if the input tree is not labelled, label it and add labelled_tree as a candidate to the output nodes
   if(first_step){} else if (my_tree$lb == 0){
     labelled_tree <- Label(my_tree)
+    labelled_tree$left_arg$exnum <- 0
     output_nodes %<>% append(labelled_tree)
   }
   
   # perform agree on the input tree
   agreed_tree <- Agree(my_tree)
+  agreed_tree$left_arg$exnum <- 0
   
   # if there is a difference between ac values, add agreed_tree as a candidate to the output nodes
   if(first_step){} else if(any(agreed_tree$Get("ac") != my_tree$Get("ac"))){ 
