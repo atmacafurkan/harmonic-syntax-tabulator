@@ -19,7 +19,7 @@ import_numeration <- function(path_to_numeration){
   # add output numeration to each tree
   lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$output_num <- numeration_list[-i])
   
-  lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$input <- fn_draw(numeration_list[[i]]))
+  lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$input <- draw_tree(numeration_list[[i]]))
 
   # return the list of trees
   return(numeration_list)
@@ -27,7 +27,7 @@ import_numeration <- function(path_to_numeration){
 
 # GEN FUNCTIONS #####
 # a function to extract subtrees of a tree
-fn_subtrees <- function(input_tree, new_nodes = list()){
+get_subtrees <- function(input_tree, new_nodes = list()){
   my_tree <- Clone(input_tree)
   my_nodes <- list()
   if (my_tree$isLeaf){ 
@@ -35,12 +35,12 @@ fn_subtrees <- function(input_tree, new_nodes = list()){
   } else {
     my_nodes %<>% append(Clone(my_tree$left_arg))
     my_nodes %<>% append(Clone(my_tree$right_arg))
-    return(append(my_nodes, fn_subtrees(my_tree$left_arg)) %>% append(fn_subtrees(my_tree$right_arg)))
+    return(append(my_nodes, get_subtrees(my_tree$left_arg)) %>% append(get_subtrees(my_tree$right_arg)))
   }
 }
 
 # a function to prune copies from their moved position
-fn_pruneCopy <- function(input_tree){
+prune_copies <- function(input_tree){
   my_tree <- Clone(input_tree)
   if(my_tree$left_arg$exnum == 1){ # if there is exnum violation
     reset_left <- my_tree$left_arg$Get("range_id")[-1] # get range ids to reset
@@ -55,7 +55,7 @@ fn_pruneCopy <- function(input_tree){
 }
 
 # recurse function to update domination counts
-fn_recurse <- function(active_tree, output_tree = active_tree){ 
+count_domination <- function(active_tree, output_tree = active_tree){ 
   # get n_dominators
   n_doms <- output_tree$Get("n_dominator")
   # create a new
@@ -88,12 +88,12 @@ fn_recurse <- function(active_tree, output_tree = active_tree){
   
   # recursively call the function on the left child
   if (is.null(my_tree$left_arg)){} else if (my_tree$left_arg$leafCount > 1){ # check if there is left_arg, if more than 1
-    fn_recurse(my_tree$left_arg, output_tree)
+    count_domination(my_tree$left_arg, output_tree)
   }
   
   # recursively call the function on the right child
   if (is.null(my_tree$right_arg)){} else if (my_tree$right_arg$leafCount > 1){ # check if there is right_arg, if more than 1
-    fn_recurse(my_tree$right_arg, output_tree)
+    count_domination(my_tree$right_arg, output_tree)
   }
   return(output_tree)
 }
@@ -108,7 +108,7 @@ Merge <- function(input_tree){
   
   # if it is not the first merge operation, add leaves to the numeration
   if (!my_tree$isLeaf){ # if the input tree is not a leaf
-    new_args <- fn_subtrees(my_tree) # extract all subtrees of the input tree
+    new_args <- get_subtrees(my_tree) # extract all subtrees of the input tree
     new_args <- lapply(seq_along(new_args), function(i) {
       
       new_args[[i]]$Set(exnum = 1) # since these are subtrees, they violate exnum
@@ -137,10 +137,10 @@ Merge <- function(input_tree){
   new_nodes <- lapply(seq_along(new_nodes), function(i) {
     new_nodes[[i]]$output_num <- my_tree$output_num
     new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x))
-    new_nodes[[i]] <- fn_pruneCopy(new_nodes[[i]])
+    new_nodes[[i]] <- prune_copies(new_nodes[[i]])
     new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0)
     new_nodes[[i]]$gen <- "iMerge"
-    new_nodes[[i]]$input <- fn_draw(input_tree)
+    new_nodes[[i]]$input <- draw_tree(input_tree)
     new_nodes[[i]]
   })
   
@@ -148,13 +148,13 @@ Merge <- function(input_tree){
   x <- lapply(seq_along(my_tree$output_num), function(i) {
     new_nodes[[i]]$output_num <- my_tree$output_num[-i]
     new_nodes[[i]]$gen <- "xMerge"
-    new_nodes[[i]]$input <- fn_draw(input_tree)
+    new_nodes[[i]]$input <- draw_tree(input_tree)
     new_nodes[[i]]
     })
   rm(x)
   
   # recalculate domination counts and evaluation after
-  new_nodes %<>% lapply(function(i) fn_recurse(i) %>% fn_eval())
+  new_nodes %<>% lapply(function(i) count_domination(i) %>% form_evaluation())
   
   # return the list of trees as a result of all possible Merge operations
   return(new_nodes)
@@ -192,8 +192,9 @@ Label <- function(input_tree){
   # renew domination counts and add eval
   my_tree$Set(n_dominator = 0)
   my_tree$gen <- "Label" # add operation name
-  my_tree %<>% fn_recurse() %>% fn_eval()
-  my_tree$input <- fn_draw(input_tree) # add input tree
+  my_tree %<>% count_domination() %>% form_evaluation()
+  my_tree$eval$exnum <- 0 # set exnum constraint to zero for labelling operation
+  my_tree$input <- draw_tree(input_tree) # add input tree
   return(my_tree)
 }
 
@@ -240,8 +241,10 @@ Agree <- function(input_tree){
   }
   
   my_tree$gen <- "Agree" # add operation name
-  my_tree %<>% fn_eval() # add eval after agree
-  my_tree$input <- fn_draw(input_tree) # add input tree flat
+  my_tree %<>% form_evaluation() # add eval after agree
+  my_tree$eval$lab <- 0 # set labeling constraint to zero for agreement operation
+  my_tree$eval$exnum <- 0 # set exnum constraint to zero for agreement operation
+  my_tree$input <- draw_tree(input_tree) # add input tree flat
   return(my_tree)
 }
 
@@ -301,17 +304,17 @@ cons_marked <- function(my_tree){
 }
 
 # a function to form evaluation for a tree
-fn_eval <- function(input_tree){
+form_evaluation <- function(input_tree){
   my_tree <- Clone(input_tree)
   if (my_tree$isLeaf){
-    my_eval <- tibble(output = fn_draw(my_tree), operation = "x", exnum = 0, lab = 0, merge_cond = 0,
+    my_eval <- tibble(output = draw_tree(my_tree), operation = "x", exnum = 0, lab = 0, merge_cond = 0,
                       case_agr = 0, foc_agr = 0, wh_agr = 0,
                       case_mt = 0, foc_mt = 0, wh_mt = 0,
                       case = 0, foc = 0, wh = 0)
     my_tree$eval <- my_eval
   return(my_tree)
   } else {
-  my_eval <- do.call(cbind, list(tibble(output = fn_draw(my_tree), operation = my_tree$gen), cons_derive(my_tree), cons_merge(my_tree), cons_marked(my_tree)))
+  my_eval <- do.call(cbind, list(tibble(output = draw_tree(my_tree), operation = my_tree$gen), cons_derive(my_tree), cons_merge(my_tree), cons_marked(my_tree)))
   my_tree$eval <- my_eval
   return(my_tree)
   }
@@ -319,7 +322,7 @@ fn_eval <- function(input_tree){
 }
 
 # DERIVATION INTERFACE ####
-fn_cycle <- function(input_tree){
+proceed_cycle <- function(input_tree){
   # clone input tree to remove connections
   my_tree <- Clone(input_tree)
   
@@ -345,10 +348,10 @@ fn_cycle <- function(input_tree){
     output_nodes %<>% append(agreed_tree)
   }
   
-  self_tree <- Clone(input_tree) %>% fn_eval()
+  self_tree <- Clone(input_tree) %>% form_evaluation()
   self_tree$eval$exnum <- 1
   self_tree$eval$operation <- "rMerge"
-  self_tree$input <- fn_draw(input_tree)
+  self_tree$input <- draw_tree(input_tree)
   output_nodes %<>% append(self_tree)
   
   return(output_nodes)
@@ -356,7 +359,7 @@ fn_cycle <- function(input_tree){
 
 # DRAWING FUNCTIONS ####
 # a function to draw a latex tree for papers
-fn_latex <- function(my_tree){
+draw_latex <- function(my_tree){
   feat_names <- c("case","foc","wh")
   if(isLeaf(my_tree)){
     # Leaf node
@@ -375,8 +378,8 @@ fn_latex <- function(my_tree){
                       "]")
   } else {
     # Non-leaf node
-    left_str <- fn_latex(my_tree$left_arg)
-    right_str <- fn_latex(my_tree$right_arg)
+    left_str <- draw_latex(my_tree$left_arg)
+    right_str <- draw_latex(my_tree$right_arg)
     written <- paste0("[",
                       ifelse(my_tree$it == 0, "", 
                              ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"c"), my_tree$it)),
@@ -393,7 +396,7 @@ fn_latex <- function(my_tree){
 }
 
 # a function to draw a simple tree for display as output
-fn_draw <- function(my_tree){
+draw_tree <- function(my_tree){
   feat_names <- c("case","foc","wh")
   if(isLeaf(my_tree)){
     # Leaf node
@@ -408,8 +411,8 @@ fn_draw <- function(my_tree){
                                 T ~ ""))
   } else {
     # Non-leaf node
-    left_str <- fn_draw(my_tree$left_arg)
-    right_str <- fn_draw(my_tree$right_arg)
+    left_str <- draw_tree(my_tree$left_arg)
+    right_str <- draw_tree(my_tree$right_arg)
     written <- paste0(ifelse(my_tree$it == 0, "", 
                              ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"c"), my_tree$it)),
                       case_when(my_tree$is_copy == 1 ~ "",
@@ -424,7 +427,7 @@ fn_draw <- function(my_tree){
 }
 
 # a function to plot the data.trees to a png file in www folder
-fn_plotter <- function(input_tree){
+plot_tree <- function(input_tree){
   my_tree <- Clone(input_tree)
   my_tree$Set(name = my_tree$Get("it"))
   tree <- plot(my_tree)
@@ -432,7 +435,7 @@ fn_plotter <- function(input_tree){
 }
 
 # a function to compose eval from a list of trees
-fn_compose <- function(my_list){
+compose_eval <- function(my_list){
   sapply(my_list, function(i) i$eval) %>% t() %>% as.data.frame() %>% rownames_to_column(var = "candidate")
 }
 
