@@ -15,10 +15,7 @@ eval_ewe <- list.files(path = "./ewe_numeration/", pattern = "*.rds$", full.name
 
 df_eval <- rbind(eval_basic, eval_ewe)
 
-# my_optimization <- weight_optimize(df_eval, c(4:15))
-# saveRDS(my_optimization,"ewe_agree_basic_optimization.rds")
-
-my_optimization <- readRDS("ewe_agree_basic_optimization.rds")
+my_optimization <- readRDS("./optimization_results/ewe_agree_basic_optimization.rds")
 
 optimized_weights <- my_optimization$par
 names(optimized_weights) <- colnames(df_eval)[4:15]
@@ -34,11 +31,35 @@ rm(trial)
 
 df_eval %<>% group_by(input) %>% mutate(is_min = ifelse(min(harmonies) == harmonies, T, F),
                                         is_winner = ifelse(winner == 1, T, F),
-                                        check = ifelse(is_min == is_winner, T, F))
-View(df_eval)
+                                        check = ifelse(is_min == is_winner, T, F),
+                                        harmonies = as.character(harmonies),
+                                        winner = ifelse(winner == 1, "\\HandRight", ""),) %>% ungroup()
 
-wanted_cand <- df_eval %>% ungroup() %>% subset(input == "C_a:foc[C T[T DP2[DP2 v[DP1_f:foc,wh v[v V[V DP1c]]]]]]") %>%
-  dplyr::select(output, operation, 4:15, harmonies)
-View(wanted_cand)
+df_eval$input <- factor(df_eval$input, levels = unique(df_eval$input))
 
-xtable(wanted_cand)
+dl <- df_eval %>% split(df_eval$input, drop = F)
+
+my_table <- dl[[3]]
+
+# Define a function to rotate text
+rotate_text <- function(x) {
+  paste("\\rotatebox{90}{", gsub("_", "-", x), "}", sep = "")
+}
+
+small_text <- function(x) {
+  paste0("\\small ", gsub("_", "-", x))
+}
+
+tabulate_latex <- function(my_file, my_table){
+  if(!file.exists(my_file)){
+    file.create(my_file)
+  }
+  my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-"))
+  my_table %<>% dplyr::select(operation, winner, output, 4:15, harmonies)
+  my_lines <- print(xtable(my_table, caption = my_caption), include.rownames = F, caption.placement = "top", 
+                    sanitize.colnames.function = rotate_text,
+                    size = "\\small")
+  cat(my_lines, "\n", file = my_file, append = T)
+}
+
+lapply(dl, tabulate_latex, my_file = "./latex_tabulars/ewe_basic_agree_latex.txt")
