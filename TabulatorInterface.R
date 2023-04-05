@@ -3,7 +3,6 @@ library(DiagrammeR)
 
 frontend <- fluidPage(
   titlePanel("Harmonic Syntax"),
-  
   sidebarLayout(
     sidebarPanel(
       fileInput("numerationFile", label = h4("Select numeration")),
