@@ -43,14 +43,6 @@ backend <- function(input, output, session) {
   })
   output$file_read <- renderPrint({file_path()})
   
-  select_tree <- eventReactive(input$proceeder,{
-    numeration_name <- str_replace(input$numerationFile$name,".csv","")
-    file_last_tree <- sprintf("./%s/last_tree.rds", numeration_name)
-    my_tree <- readRDS(file_last_tree)
-    plot_tree(my_tree)
-  })
-  output$tree <- renderGrViz({select_tree()})
-
   select_winner <- eventReactive(input$proceeder, {
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
     file_last_tree <- sprintf("./%s/last_tree.rds", numeration_name)
@@ -82,9 +74,12 @@ backend <- function(input, output, session) {
       
       my_eval2 <- compose_eval(my_outputs) 
     }
-    my_eval2
+    my_tree <- plot_tree(my_tree) # plot the tree
+    return(list(my_eval2, my_tree)) # return a list for the output evaluations and the plot of the input
   })
-  output$eval <- renderTable({select_winner()}, digits = 0, spacing = "xs")
+  
+  output$eval <- renderTable({select_winner()[[1]]}, digits = 0, spacing = "xs")
+  output$tree <- renderGrViz({select_winner()[[2]]})
   
   optimize_me <- eventReactive(input$runOptimization, {
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
