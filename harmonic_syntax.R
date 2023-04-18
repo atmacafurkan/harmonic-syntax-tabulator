@@ -403,12 +403,12 @@ tabulate_latex <- function(my_file, my_table){
   if(!file.exists(my_file)){
     file.create(my_file)
   }
-  my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-"))
+  #my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-"))
   my_table %<>% dplyr::select(winner, output, 4:15, harmonies)
-  my_lines <- print(xtable(my_table, caption = my_caption), include.rownames = F, caption.placement = "top", 
+  my_lines <- print(xtable(my_table), include.rownames = F, caption.placement = "top", 
                     sanitize.colnames.function = rotate_text,
                     size = "\\small")
-  cat(my_lines, "\n", file = my_file, append = T)
+  x <- cat(my_lines, "\n", file = my_file, append = T)
 }
 
 export_derivation <- function(my_eval, my_optimization, new_file){
