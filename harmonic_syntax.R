@@ -390,25 +390,25 @@ plot_tree <- function(input_tree){
 compose_eval <- function(my_list){
   sapply(my_list, function(i) i$eval) %>% t() %>% as.data.frame() %>% rownames_to_column(var = "candidate")
 }
-
 rotate_text <- function(x) {
-  paste("\\rotatebox{90}{\\textsc{", gsub("_", "\\\\_", x), "}}", sep = "")
+  paste("\\rotatebox{90}{", gsub("_", "\\\\_", x), "}", sep = "")
 }
 
 small_text <- function(x) {
   paste0("\\small ", gsub("_", "-", x))
 }
 
-tabulate_latex <- function(my_file, my_table){
+tabulate_latex <- function(my_file, my_table, my_weights){
   if(!file.exists(my_file)){
     file.create(my_file)
   }
-  #my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-"))
+  my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-")) 
   my_table %<>% dplyr::select(winner, output, 4:15, harmonies)
-  my_lines <- print(xtable(my_table), include.rownames = F, caption.placement = "top", 
-                    sanitize.colnames.function = rotate_text,
-                    size = "\\small")
-  x <- cat(my_lines, "\n", file = my_file, append = T)
+  colnames(my_table)[3:14] <- paste(colnames(my_table)[3:14], my_weights, sep = "_")
+  my_lines <- capture.output(print(xtable(my_table, caption = my_caption), include.rownames = F, caption.placement = "top", 
+                                   sanitize.colnames.function = rotate_text,
+                                   size = "\\small"))
+  cat(my_lines, "\n", file = my_file, append = T)
 }
 
 export_derivation <- function(my_eval, my_optimization, new_file){
@@ -419,7 +419,7 @@ export_derivation <- function(my_eval, my_optimization, new_file){
   df_eval %<>% mutate_all(as.character)
   df_eval$input <- factor(df_eval$input, levels = unique(df_eval$input))
   df_eval %<>% split(.$input)
-  lapply(df_eval, tabulate_latex, my_file = sprintf("./%s/latex_tables.txt", new_file))
+  x <- lapply(df_eval, tabulate_latex, my_weights = con_weights, my_file = sprintf("./%s/latex_tables.txt", new_file))
 }
 
 # WEIGHT OPTIMIZER ####
