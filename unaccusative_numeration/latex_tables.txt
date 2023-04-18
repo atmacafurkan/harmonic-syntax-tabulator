@@ -1,0 +1,353 @@
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input DP-a:case} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+1 & [V DP\_a:case] & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 39 \\ 
+  0 & [v DP\_a:case] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [T\_f:case DP\_a:case] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [C DP\_a:case] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & DP\_a:case & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 61 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [V DP-a:case]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [v [V DP\_a:case]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [T\_f:case [V DP\_a:case]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [C [V DP\_a:case]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [V [Vc DP\_a:case]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DP\_a:case [V DPc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  1 & V[V DP\_a:case] & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 40 \\ 
+  0 & [V DP] & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V DP\_a:case] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input V[V DP-a:case]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+1 & [v V[V DP\_a:case]] & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 79 \\ 
+  0 & [T\_f:case V[V DP\_a:case]] & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 109 \\ 
+  0 & [C V[V DP\_a:case]] & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 109 \\ 
+  0 & [V V[Vc DP\_a:case]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [DP\_a:case V[V DPc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & V[V DP] & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & V[V DP\_a:case] & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 101 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [v V[V DP-a:case]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [T\_f:case [v V[V DP\_a:case]]] & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 109 \\ 
+  0 & [C [v V[V DP\_a:case]]] & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 109 \\ 
+  0 & [v [vc V[V DP\_a:case]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [V[V DP\_a:case] [v Vc]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [V [v V[Vc DP\_a:case]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [DP\_a:case [v V[V DPc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  1 & v[v V[V DP\_a:case]] & 0 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 80 \\ 
+  0 & [v V[V DP\_a:case]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input v[v V[V DP-a:case]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [T\_f:case v[v V[V DP\_a:case]]] & 0 & 1 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 119 \\ 
+  0 & [C v[v V[V DP\_a:case]]] & 0 & 1 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 149 \\ 
+  0 & [v v[vc V[V DP\_a:case]]] & 1 & 1 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 210 \\ 
+  0 & [V[V DP\_a:case] v[v Vc]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [V v[v V[Vc DP\_a:case]]] & 1 & 1 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 210 \\ 
+  1 & [DP\_a:case v[v V[V DPc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & v[v V[V DP\_a:case]] & 1 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [DP-a:case v[v V[V DPc]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [T\_f:case [DP\_a:case v[v V[V DPc]]]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [C [DP\_a:case v[v V[V DPc]]]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [DP\_a:case [DPc v[v V[V DPc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] [DP\_a:case vc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v [DP\_a:case v[vc V[V DPc]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [V[V DPc] [DP\_a:case v[v Vc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V [DP\_a:case v[v V[Vc DPc]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DPc [DP\_a:case v[v V[V DPcc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  1 & v[DP\_a:case v[v V[V DPc]]] & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 40 \\ 
+  0 & [DP v[v V[V DPc]]] & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DP\_a:case v[v V[V DPc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input v[DP-a:case v[v V[V DPc]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+1 & [T\_f:case v[DP\_a:case v[v V[V DPc]]]] & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 79 \\ 
+  0 & [C v[DP\_a:case v[v V[V DPc]]]] & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 109 \\ 
+  0 & [DP\_a:case v[DPc v[v V[V DPc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] v[DP\_a:case vc]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [v v[DP\_a:case v[vc V[V DPc]]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [V[V DPc] v[DP\_a:case v[v Vc]]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [V v[DP\_a:case v[v V[Vc DPc]]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [DPc v[DP\_a:case v[v V[V DPcc]]]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & v[DP v[v V[V DPc]]] & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & v[DP\_a:case v[v V[V DPc]]] & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 101 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [T-f:case v[DP-a:case v[v V[V DPc]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [C [T\_f:case v[DP\_a:case v[v V[V DPc]]]]] & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 109 \\ 
+  0 & [T\_f:case [Tc v[DP\_a:case v[v V[V DPc]]]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [v[DP\_a:case v[v V[V DPc]]] [T\_f:case vc]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [DP\_a:case [T\_f:case v[DPc v[v V[V DPc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] [T\_f:case v[DP\_a:case vc]]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [v [T\_f:case v[DP\_a:case v[vc V[V DPc]]]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [V[V DPc] [T\_f:case v[DP\_a:case v[v Vc]]]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  0 & [V [T\_f:case v[DP\_a:case v[v V[Vc DPc]]]]] & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 170 \\ 
+  0 & [DPc [T\_f:case v[DP\_a:case v[v V[V DPcc]]]]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  1 & T\_f:case[T v[DP\_a:case v[v V[V DPc]]]] & 0 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 80 \\ 
+  0 & [T\_f:case v[DP\_a:case v[v V[V DPc]]]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input T-f:case[T v[DP-a:case v[v V[V DPc]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [C T\_f:case[T v[DP\_a:case v[v V[V DPc]]]]] & 0 & 1 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 119 \\ 
+  0 & [T T\_f:case[Tc v[DP\_a:case v[v V[V DPc]]]]] & 1 & 1 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 210 \\ 
+  0 & [v[DP\_a:case v[v V[V DPc]]] T\_f:case[T vc]] & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 140 \\ 
+  1 & [DP\_a:case T\_f:case[T v[DPc v[v V[V DPc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] T\_f:case[T v[DP\_a:case vc]]] & 1 & 1 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 180 \\ 
+  0 & [v T\_f:case[T v[DP\_a:case v[vc V[V DPc]]]]] & 1 & 1 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 210 \\ 
+  0 & [V[V DPc] T\_f:case[T v[DP\_a:case v[v Vc]]]] & 1 & 1 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 180 \\ 
+  0 & [V T\_f:case[T v[DP\_a:case v[v V[Vc DPc]]]]] & 1 & 1 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 210 \\ 
+  0 & [DPc T\_f:case[T v[DP\_a:case v[v V[V DPcc]]]]] & 1 & 1 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 180 \\ 
+  0 & T\_f:case[T v[DP\_a:case v[v V[V DPc]]]] & 1 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [DP-a:case T-f:case[T v[DPc v[v V[V DPc]]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [C [DP\_a:case T\_f:case[T v[DPc v[v V[V DPc]]]]]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [DP\_a:case [DPc T\_f:case[T v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T\_f:case[T v[DPc v[v V[V DPc]]]] [DP\_a:case Tc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T [DP\_a:case T\_f:case[Tc v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [v[DPc v[v V[V DPc]]] [DP\_a:case T\_f:case[T vc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DPc [DP\_a:case T\_f:case[T v[DPcc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] [DP\_a:case T\_f:case[T v[DPc vc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v [DP\_a:case T\_f:case[T v[DPc v[vc V[V DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [V[V DPc] [DP\_a:case T\_f:case[T v[DPc v[v Vc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V [DP\_a:case T\_f:case[T v[DPc v[v V[Vc DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DPc [DP\_a:case T\_f:case[T v[DPc v[v V[V DPcc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & T\_f:case[DP\_a:case T[T v[DPc v[v V[V DPc]]]]] & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 40 \\ 
+  1 & [DP T[T v[DPc v[v V[V DPc]]]]] & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+  0 & [DP\_a:case T\_f:case[T v[DPc v[v V[V DPc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [DP T[T v[DPc v[v V[V DPc]]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [C [DP T[T v[DPc v[v V[V DPc]]]]]] & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 69 \\ 
+  0 & [DP [DPc T[T v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T[T v[DPc v[v V[V DPc]]]] [DP Tc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T [DP T[Tc v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [v[DPc v[v V[V DPc]]] [DP T[T vc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DPc [DP T[T v[DPcc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] [DP T[T v[DPc vc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v [DP T[T v[DPc v[vc V[V DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [V[V DPc] [DP T[T v[DPc v[v Vc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V [DP T[T v[DPc v[v V[Vc DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DPc [DP T[T v[DPc v[v V[V DPcc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  1 & T[DP T[T v[DPc v[v V[V DPc]]]]] & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+  0 & [DP T[T v[DPc v[v V[V DPc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input T[DP T[T v[DPc v[v V[V DPc]]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+1 & [C T[DP T[T v[DPc v[v V[V DPc]]]]]] & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 39 \\ 
+  0 & [DP T[DPc T[T v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T[T v[DPc v[v V[V DPc]]]] T[DP Tc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T T[DP T[Tc v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [v[DPc v[v V[V DPc]]] T[DP T[T vc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DPc T[DP T[T v[DPcc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] T[DP T[T v[DPc vc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v T[DP T[T v[DPc v[vc V[V DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [V[V DPc] T[DP T[T v[DPc v[v Vc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V T[DP T[T v[DPc v[v V[Vc DPc]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DPc T[DP T[T v[DPc v[v V[V DPcc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & T[DP T[T v[DPc v[v V[V DPc]]]]] & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 61 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input [C T[DP T[T v[DPc v[v V[V DPc]]]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [C [Cc T[DP T[T v[DPc v[v V[V DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [T[DP T[T v[DPc v[v V[V DPc]]]]] [C Tc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DP [C T[DPc T[T v[DPc v[v V[V DPc]]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T[T v[DPc v[v V[V DPc]]]] [C T[DP Tc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T [C T[DP T[Tc v[DPc v[v V[V DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [v[DPc v[v V[V DPc]]] [C T[DP T[T vc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DPc [C T[DP T[T v[DPcc v[v V[V DPc]]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] [C T[DP T[T v[DPc vc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v [C T[DP T[T v[DPc v[vc V[V DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [V[V DPc] [C T[DP T[T v[DPc v[v Vc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V [C T[DP T[T v[DPc v[v V[Vc DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DPc [C T[DP T[T v[DPc v[v V[V DPcc]]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  1 & C[C T[DP T[T v[DPc v[v V[V DPc]]]]]] & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+  0 & [C T[DP T[T v[DPc v[v V[V DPc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 
+% latex table generated in R 4.2.3 by xtable 1.8-4 package
+% Tue Apr 18 02:52:01 2023
+\begin{table}[ht]
+\centering
+\caption{Input C[C T[DP T[T v[DPc v[v V[V DPc]]]]]]} 
+\begingroup\small
+\begin{tabular}{lllllllllllllll}
+  \hline
+\rotatebox{90}{\textsc{winner}} & \rotatebox{90}{\textsc{output}} & \rotatebox{90}{\textsc{exnum}} & \rotatebox{90}{\textsc{lab}} & \rotatebox{90}{\textsc{merge\_cond}} & \rotatebox{90}{\textsc{case\_agr}} & \rotatebox{90}{\textsc{foc\_agr}} & \rotatebox{90}{\textsc{wh\_agr}} & \rotatebox{90}{\textsc{case\_mt}} & \rotatebox{90}{\textsc{foc\_mt}} & \rotatebox{90}{\textsc{wh\_mt}} & \rotatebox{90}{\textsc{case}} & \rotatebox{90}{\textsc{foc}} & \rotatebox{90}{\textsc{wh}} & \rotatebox{90}{\textsc{harmonies}} \\ 
+  \hline
+0 & [C C[Cc T[DP T[T v[DPc v[v V[V DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [T[DP T[T v[DPc v[v V[V DPc]]]]] C[C Tc]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DP C[C T[DPc T[T v[DPc v[v V[V DPc]]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T[T v[DPc v[v V[V DPc]]]] C[C T[DP Tc]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [T C[C T[DP T[Tc v[DPc v[v V[V DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [v[DPc v[v V[V DPc]]] C[C T[DP T[T vc]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [DPc C[C T[DP T[T v[DPcc v[v V[V DPc]]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v[v V[V DPc]] C[C T[DP T[T v[DPc vc]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [v C[C T[DP T[T v[DPc v[vc V[V DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [V[V DPc] C[C T[DP T[T v[DPc v[v Vc]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  0 & [V C[C T[DP T[T v[DPc v[v V[Vc DPc]]]]]]] & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 130 \\ 
+  0 & [DPc C[C T[DP T[T v[DPc v[v V[V DPcc]]]]]]] & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 100 \\ 
+  1 & C[C T[DP T[T v[DPc v[v V[V DPc]]]]]] & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 61 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+ 

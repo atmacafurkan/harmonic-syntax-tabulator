@@ -8,9 +8,4 @@ library(xtable)
 
 source("harmonic_syntax.R")
 
-dts <- import_numeration("./numerations/trial_numeration.csv")
-
-Merge(dts[[1]])
-
-Agree(dts[[1]])
 

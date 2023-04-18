@@ -4,6 +4,7 @@ library(rlang)
 library(data.tree)
 library(optimx)       # minimizing optimizer function
 library(philentropy)  # KL calculating function
+library(xtable)
 library(vtree)
 
 # a function to read a data frame into a list of tree nodes
@@ -347,7 +348,7 @@ proceed_cycle <- function(input_tree){
   return(output_nodes)
 }
 
-# DRAWING FUNCTIONS ####
+# DISPLAY FUNCTIONS ####
 # a function to draw a simple tree for display as output, recursive
 draw_tree <- function(my_tree){
   feat_names <- c("case","foc","wh")
@@ -388,6 +389,37 @@ plot_tree <- function(input_tree){
 # a function to compose eval from a list of trees
 compose_eval <- function(my_list){
   sapply(my_list, function(i) i$eval) %>% t() %>% as.data.frame() %>% rownames_to_column(var = "candidate")
+}
+
+rotate_text <- function(x) {
+  paste("\\rotatebox{90}{\\textsc{", gsub("_", "\\\\_", x), "}}", sep = "")
+}
+
+small_text <- function(x) {
+  paste0("\\small ", gsub("_", "-", x))
+}
+
+tabulate_latex <- function(my_file, my_table){
+  if(!file.exists(my_file)){
+    file.create(my_file)
+  }
+  my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-"))
+  my_table %<>% dplyr::select(winner, output, 4:15, harmonies)
+  my_lines <- print(xtable(my_table, caption = my_caption), include.rownames = F, caption.placement = "top", 
+                    sanitize.colnames.function = rotate_text,
+                    size = "\\small")
+  cat(my_lines, "\n", file = my_file, append = T)
+}
+
+export_derivation <- function(my_eval, my_optimization, new_file){
+  df_eval <- readRDS(my_eval) %>% mutate(across(where(is.list), ~ map_chr(.x, as.character)))
+  con_weights <- readRDS(my_optimization) %>% round() %>% as.numeric()
+  my_calc <- df_eval[,4:15] %>% as.data.frame() %>% mutate_all(as.integer) %>% data.matrix()
+  df_eval$harmonies <- as.numeric(my_calc %*% con_weights)
+  df_eval %<>% mutate_all(as.character)
+  df_eval$input <- factor(df_eval$input, levels = unique(df_eval$input))
+  df_eval %<>% split(.$input)
+  lapply(df_eval, tabulate_latex, my_file = sprintf("./%s/latex_tables.txt", new_file))
 }
 
 # WEIGHT OPTIMIZER ####
@@ -432,4 +464,6 @@ weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing in
   # return the resulting optimization 
   return(optimal_weights)
 }
+
+
 
