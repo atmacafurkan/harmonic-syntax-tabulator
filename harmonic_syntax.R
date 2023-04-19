@@ -249,9 +249,11 @@ cons_merge <- function(my_tree){
     for_left_lb <- my_tree$right_arg$lb 
     if (any(for_left_lb == left_mc, na.rm = T)){
       NULL 
+    } else if (for_left_lb == 0){
+      violations %<>% +1
     } else if (is.na(left_mc) || is_empty(left_mc)){
       NULL
-    } else {violations %<>% +1}
+      } else {violations %<>% +1}
     
     # check right
     right_mc <-  as.integer(unlist(str_split(my_tree$right_arg$mc,",")))
@@ -261,9 +263,7 @@ cons_merge <- function(my_tree){
     } else if (is.na(right_mc) || is_empty(right_mc)){
       NULL
     } else {violations %<>% +1}
-    
-    # return head result by recursing
-    #return(violations + cons_merge(my_tree$left_arg) + cons_merge(my_tree$right_arg))
+  
   }
   # return result for leaf node
   violation <- tibble(merge_cond = violations)
@@ -390,24 +390,21 @@ plot_tree <- function(input_tree){
 compose_eval <- function(my_list){
   sapply(my_list, function(i) i$eval) %>% t() %>% as.data.frame() %>% rownames_to_column(var = "candidate")
 }
-rotate_text <- function(x) {
-  paste("\\rotatebox{90}{", gsub("_", "\\\\_", x), "}", sep = "")
-}
 
-small_text <- function(x) {
-  paste0("\\small ", gsub("_", "-", x))
+rotate_text <- function(x) {
+  paste0("\\rotatebox{90}{", gsub("_", "\\\\_", x), "}")
 }
 
 tabulate_latex <- function(my_file, my_table, my_weights){
   if(!file.exists(my_file)){
     file.create(my_file)
   }
-  my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "-")) 
-  my_table %<>% dplyr::select(winner, output, 4:15, harmonies)
-  colnames(my_table)[3:14] <- paste(colnames(my_table)[3:14], my_weights, sep = "_")
+  my_caption <- paste("Input", my_table$input[1] %>% as.character() %>% str_replace_all("_", "\\\\_")) 
+  my_table %<>% dplyr::select(winner, output, 4:15, harmonies, harmonies2)
+  colnames(my_table)[3:14] <- paste0(colnames(my_table)[3:14],"$^{" ,my_weights, "}$")
   my_lines <- capture.output(print(xtable(my_table, caption = my_caption), include.rownames = F, caption.placement = "top", 
                                    sanitize.colnames.function = rotate_text,
-                                   size = "\\small"))
+                                   size = "\\footnotesize"))
   cat(my_lines, "\n", file = my_file, append = T)
 }
 
