@@ -462,5 +462,3 @@ weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing in
   return(optimal_weights)
 }
 
-
-
