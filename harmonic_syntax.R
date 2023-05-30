@@ -28,20 +28,43 @@ import_numeration <- function(path_to_numeration){
 }
 
 # GEN FUNCTIONS #####
-# a function to extract subtrees of a tree, recursive
-get_subtrees <- function(input_tree, new_nodes = list()){
+# a function to extract subtrees of a tree, recursive, same label is skipped
+get_subtrees <- function(input_tree, stash = integer()){
   my_tree <- Clone(input_tree)
   my_nodes <- list()
-  if (my_tree$isLeaf){ 
-    return(my_nodes)
+  if (my_tree$isLeaf){
+    if (my_tree$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$lb)
+      # return item if not in stash
+      return(my_nodes)  
+    }
+    
   } else {
-    my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", exnum = 1, filterFun = isRoot))
-    my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", exnum = 1, filterFun = isRoot))
-    return(append(my_nodes, get_subtrees(my_tree$left_arg)) %>% append(get_subtrees(my_tree$right_arg)))
+    if (my_tree$left_arg$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$left_arg$lb)
+      # add new node
+      my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", exnum = 1, filterFun = isRoot))  
+    }
+    
+    if (my_tree$right_arg$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$right_arg$lb)
+      # add new node
+      my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", exnum = 1, filterFun = isRoot))  
+    }
+    return(append(my_nodes, get_subtrees(my_tree$left_arg, stash)) %>% append(get_subtrees(my_tree$right_arg, stash)))
   }
 }
 
-# a function to prune copies from their moved position
+# a function to prune copies from their moved position, depricated
 prune_copies <- function(input_tree){
   my_tree <- Clone(input_tree)
   if(my_tree$left_arg$exnum == 1){ # if there is exnum violation
@@ -129,7 +152,7 @@ Merge <- function(input_tree){
   new_nodes <- lapply(seq_along(new_nodes), function(i) {
     new_nodes[[i]]$output_num <- my_tree$output_num
     new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x))
-    new_nodes[[i]] <- prune_copies(new_nodes[[i]])
+    #new_nodes[[i]] <- prune_copies(new_nodes[[i]])
     new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0, mt_ac = "") # reset range_id, dominator count, and mt_ac
     new_nodes[[i]]$gen <- "iMerge"
     new_nodes[[i]]
@@ -145,47 +168,73 @@ Merge <- function(input_tree){
   # recalculate domination counts and evaluation after
   new_nodes %<>% lapply(function(i) count_domination(i) %>% form_evaluation())
   
+  # reflexive merge
+  self_merge <- Clone(input_tree)$Set(mt_ac = "") %>% form_evaluation()
+  self_merge$eval$exnum <- 1
+  self_merge$eval$operation <- "rMerge"
+  self_merge$gen <- "rMerge"
+  self_merge$input <- draw_tree(input_tree)
+  new_nodes %<>% append(self_merge)
+  
   # return the list of trees as a result of all possible Merge operations
   return(new_nodes)
 }
 
-# label function, does not check if there is a label
+# label function, does not calculate dominance
 Label <- function(input_tree){
-  # clone to remove connections
-  my_tree <- Clone(input_tree)
   
-  # carry up features
-  if (my_tree$right_arg$lb >= my_tree$left_arg$lb){
-    # gather the values to be passed up
-    new_values <- list(lb = my_tree$right_arg$lb,
-                       ft = my_tree$right_arg$ft,
-                       ac = my_tree$right_arg$ac,
-                       it = my_tree$right_arg$it)
-    # set the new values in the labelled phrase
-    rlang::exec(my_tree$Set, !!!new_values, filterFun = isRoot)
-    # remove the moved values
-    my_tree$right_arg$ft <- ""
-    my_tree$right_arg$ac <- ""
-  } else {
-    # gather the values to be passed up
-    new_values <- list(lb = my_tree$left_arg$lb,
-                       ft = my_tree$left_arg$ft,
-                       ac = my_tree$left_arg$ac,
-                       it = my_tree$left_arg$it)
-    # set the new values in the labelled phrase
-    rlang::exec(my_tree$Set, !!!new_values, filterFun = isRoot)
-    # remove the moved values
-    my_tree$left_arg$ft <- ""
-    my_tree$left_arg$ac <- ""
-  }
-  # renew domination counts and add eval
-  my_tree$Set(n_dominator = 0)
-  my_tree$gen <- "Label" # add operation name
-  my_tree$Set(mt_ac = "") # reset empty agreement features
-  my_tree %<>% count_domination() %>% form_evaluation()
-  my_tree$eval$exnum <- 0 # set exnum constraint to zero for labeling operation
-  my_tree$input <- draw_tree(input_tree) # add input tree
-  return(my_tree)
+  # if there is already a label or if input is a leaf, return an empty list
+  if(input_tree$lb != 0 | input_tree$isLeaf){ 
+    return(list())} else {
+      # Right wins
+      # clone to remove connections
+      right_win <- Clone(input_tree)
+      
+      # carry up features
+      # gather the values to be passed up
+      new_values <- list(lb = right_win$right_arg$lb,
+                         ft = right_win$right_arg$ft,
+                         ac = right_win$right_arg$ac,
+                         it = right_win$right_arg$it)
+      # set the new values in the labelled phrase
+      rlang::exec(right_win$Set, !!!new_values, filterFun = isRoot)
+      # remove the moved values
+      right_win$right_arg$ft <- ""
+      right_win$right_arg$ac <- ""
+      right_win$left_arg$exnum <- 0
+      
+      # renew domination counts and add eval
+      right_win$Set(n_dominator = 0, mt_ac = "")
+      right_win$gen <- "Label" # add operation name
+      right_win %<>% count_domination() %>% form_evaluation()
+      right_win$eval$exnum <- 0 # set exnum constraint to zero for labeling operation
+      right_win$input <- draw_tree(input_tree) # add input tree    
+      
+      # Left wins  
+      # clone to remove connections
+      left_win <- Clone(input_tree)  
+      
+      # carry up features
+      # gather the values to be passed up
+      new_values <- list(lb = left_win$left_arg$lb,
+                         ft = left_win$left_arg$ft,
+                         ac = left_win$left_arg$ac,
+                         it = left_win$left_arg$it)
+      # set the new values in the labelled phrase
+      rlang::exec(left_win$Set, !!!new_values, filterFun = isRoot)
+      # remove the moved values
+      left_win$left_arg$ft <- ""
+      left_win$left_arg$ac <- ""
+      left_win$left_arg$lb <- 0
+      
+      # renew domination counts and add eval
+      left_win$Set(n_dominator = 0, mt_ac = "")
+      left_win$gen <- "Label" # add operation name
+      left_win %<>% count_domination() %>% form_evaluation()
+      left_win$eval$exnum <- 0 # set exnum constraint to zero for labeling operation
+      left_win$input <- draw_tree(input_tree) # add input tree
+      return(list(left_win, right_win))
+    }
 }
 
 # agree function, compare ft and ac features of the last siblings
@@ -193,6 +242,8 @@ Agree <- function(input_tree){
   # clone tree to remove connections
   my_tree <- Clone(input_tree)
   
+  # if input is not a leaf
+  if(!my_tree$isLeaf){
   # agree left
   left_ac <- unlist(str_split(my_tree$left_arg$ac, "-"))
   lefter_ft <- unlist(str_split(my_tree$right_arg$ft, "-"))
@@ -222,6 +273,7 @@ Agree <- function(input_tree){
     my_tree$right_arg$mt_ac <- paste(right_ac, collapse = "-")
     my_tree$right_arg$ac <- paste(rep("0", length(right_ac)), collapse = "-")
   }
+  }
   
   # empty agree head
   head_ac <- unlist(str_split(my_tree$ac, "-"))
@@ -235,7 +287,22 @@ Agree <- function(input_tree){
   my_tree$eval$lab <- 0 # set labeling constraint to zero for agreement operation
   my_tree$eval$exnum <- 0 # set exnum constraint to zero for agreement operation
   my_tree$input <- draw_tree(input_tree) # add input tree flat
-  return(my_tree)
+  # add exnum info
+  if (my_tree$isLeaf){
+    # nothing
+  } else {
+    my_tree$left_arg$exnum <- 0
+  }
+  
+  
+  # check if agreement happened
+  if(any(my_tree$Get("ac") == input_tree$Get("ac"))){
+    # if no, return empty list
+    return(list())
+  } else {
+    # if yes, return tree
+    return(list(my_tree))
+  }
 }
 
 # EVAL FUNCTIONS #####
@@ -309,7 +376,6 @@ form_evaluation <- function(input_tree){
   my_tree$eval <- my_eval
   return(my_tree)
   }
-  
 }
 
 # DERIVATION INTERFACE ####
@@ -317,35 +383,17 @@ proceed_cycle <- function(input_tree){
   # clone input tree to remove connections
   my_tree <- Clone(input_tree)
   
-  # determine if it is the first step of the derivation
-  first_step <- my_tree$isLeaf
-  
   # perform all merge operations given the tree with its numeration
-  output_nodes <- Merge(my_tree)
+  merge_outputs <- Merge(my_tree)
   
-  # if the input tree is not labelled, label it and add labelled_tree as a candidate to the output nodes
-  if(first_step){} else if (my_tree$lb == 0){
-    labelled_tree <- Label(my_tree)
-    labelled_tree$left_arg$exnum <- 0
-    output_nodes %<>% append(labelled_tree)
-  }
+  # perform Label on the input tree
+  label_outputs <- Label(my_tree)
   
-  # perform agree on the input tree
-  agreed_tree <- Agree(my_tree)
-  agreed_tree$left_arg$exnum <- 0
+  # perform agree
+  agree_outputs <- Agree(my_tree)
   
-  # if there is a difference between ac values, add agreed_tree as a candidate to the output nodes
-  if(first_step){} else if(any(agreed_tree$Get("ac") != my_tree$Get("ac"))){ 
-    output_nodes %<>% append(agreed_tree)
-  }
-  
-  self_tree <- Clone(input_tree)$Set(mt_ac = "") %>% form_evaluation()
-  self_tree$eval$exnum <- 1
-  self_tree$eval$operation <- "rMerge"
-  self_tree$input <- draw_tree(input_tree)
-  output_nodes %<>% append(self_tree)
-  
-  return(output_nodes)
+  # return all three options
+  return(c(agree_outputs, label_outputs, merge_outputs))
 }
 
 # DISPLAY FUNCTIONS ####
