@@ -33,9 +33,6 @@ if (file.exists("./combined_numeration/my_optimization.rds")){
     saveRDS(combined_weights, "./combined_numeration/my_optimization.rds")
   }
 
-
-
-
 rotate_text <- function(x) {
   paste0("\\rotatebox{90}{", gsub("_", "\\\\_", x), "}")
 }
@@ -61,7 +58,8 @@ export_derivation <- function(my_eval, my_optimization, new_file){
   con_weights <- readRDS(my_optimization) %>% round() %>% as.numeric() %>% data.matrix() %>% t()
   my_calc <- df_eval[,4:22] %>% as.data.frame() %>% mutate_all(as.integer) %>% data.matrix()
   df_eval$harmonies <- as.numeric(my_calc %*% con_weights)
-  con_weights2 <- c(con_weights[1:9], con_weights[10:13]+1, con_weights[14:16], con_weights[17:19]+1)
+  bias <- 3
+  con_weights2 <- c(con_weights[1:9], con_weights[10:13]+bias, con_weights[14:16], con_weights[17:19]+bias)
   df_eval$harmonies2 <- as.numeric(my_calc %*% con_weights2)
   df_eval %<>% group_by(input) %>% mutate(min_1 = ifelse(min(harmonies) == harmonies,T,F),
                                           min_2 = ifelse(min(harmonies2) == harmonies2,T,F),
