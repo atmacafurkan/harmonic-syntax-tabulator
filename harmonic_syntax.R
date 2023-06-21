@@ -12,7 +12,9 @@ import_numeration <- function(path_to_numeration){
   # read numeration from csv
   df <- read.csv(path_to_numeration) %>%
     mutate(mc = ifelse(is.na(mc), "", mc), # fix na values for mc
-           pathString = "new_arg") # add pathstring value for as.Node function
+           pathString = "new_arg", # add pathstring value for as.Node function
+           gen = "-",
+           n_dominator = 0) 
   
   # turn data frame into a list of data.trees
   numeration_list <- sapply(split(df, 1:nrow(df)), as.Node, USE.NAMES = F)
@@ -22,7 +24,7 @@ import_numeration <- function(path_to_numeration){
   
   # draw the tree for each item
   lapply(seq_along(numeration_list), function(i) numeration_list[[i]]$input <- draw_tree(numeration_list[[i]]))
-
+  
   # return the list of trees
   return(numeration_list)
 }
@@ -49,7 +51,7 @@ get_subtrees <- function(input_tree, stash = integer()){
       # update stash
       stash %<>% append(my_tree$left_arg$lb)
       # add new node
-      my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", exnum = 1, filterFun = isRoot))  
+      my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", filterFun = isRoot))  
     }
     
     if (my_tree$right_arg$lb %in% stash){
@@ -58,26 +60,9 @@ get_subtrees <- function(input_tree, stash = integer()){
       # update stash
       stash %<>% append(my_tree$right_arg$lb)
       # add new node
-      my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", exnum = 1, filterFun = isRoot))  
+      my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", filterFun = isRoot))  
     }
     return(append(my_nodes, get_subtrees(my_tree$left_arg, stash)) %>% append(get_subtrees(my_tree$right_arg, stash)))
-  }
-}
-
-# a function to prune copies from their moved position, depricated
-prune_copies <- function(input_tree){
-  my_tree <- Clone(input_tree)
-  if(my_tree$left_arg$exnum == 1){ # if there is exnum violation
-    reset_left <- my_tree$left_arg$Get("range_id")[-1] # get range ids to reset
-    my_tree$right_arg$Set(keep_me = T) # mark everything to stay
-    # get relevant it names
-    my_its <- paste0(my_tree$right_arg$Get("it", filterFun = function(x){x$range_id %in% my_tree$left_arg$Get("range_id")}),"c")
-    my_tree$right_arg$Set(keep_me = F, filterFun = function(x){x$range_id %in% reset_left}) # mark moved for removal
-    my_tree$right_arg$Set(is_copy = T, it = my_its, filterFun = function(x){x$range_id %in% my_tree$left_arg$Get("range_id")}) # mark moved as copy
-    Prune(my_tree$right_arg, function(x) x$keep_me) # prune the right argument of moved items
-    return(my_tree)
-  } else {
-    return(my_tree)
   }
 }
 
@@ -94,7 +79,7 @@ count_domination <- function(active_tree, output_tree = active_tree){
   right_lab <- my_tree$right_arg$lb
   
   # update left
-  if (mother_lab > left_lab){
+  if (mother_lab != left_lab & mother_lab != 0){
     # increase global domination
     range_ids <- my_tree$left_arg$Get("range_id")
     n_doms[range_ids] <- my_tree$left_arg$Get("n_dominator")+1
@@ -104,7 +89,7 @@ count_domination <- function(active_tree, output_tree = active_tree){
   }
   
   # update right
-  if (mother_lab > right_lab){
+  if (mother_lab != right_lab & mother_lab != 0){
     # increase global domination
     range_ids <- my_tree$right_arg$Get("range_id")
     n_doms[range_ids] <- my_tree$right_arg$Get("n_dominator") + 1
@@ -148,12 +133,11 @@ Merge <- function(input_tree){
   x <- lapply(seq_along(left_arg), function(i) new_nodes[[i]]$AddChildNode(left_arg[[i]])$AddSiblingNode(right_arg[[i]]))
   rm(x)
   
-  # update output numerations, domination counts, eval, and range_ids, prune copies and previous numerations
+  # update output numerations, domination counts, eval, and range_ids, prune previous numerations
   new_nodes <- lapply(seq_along(new_nodes), function(i) {
     new_nodes[[i]]$output_num <- my_tree$output_num
     new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x))
-    #new_nodes[[i]] <- prune_copies(new_nodes[[i]])
-    new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0, mt_ac = "") # reset range_id, dominator count, and mt_ac
+    new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0, mt_ac = "0-0-0") # reset range_id, dominator count, and mt_ac
     new_nodes[[i]]$gen <- "iMerge"
     new_nodes[[i]]
   })
@@ -169,10 +153,11 @@ Merge <- function(input_tree){
   new_nodes %<>% lapply(function(i) count_domination(i) %>% form_evaluation())
   
   # reflexive merge
-  self_merge <- Clone(input_tree)$Set(mt_ac = "") %>% form_evaluation()
-  self_merge$eval$exnum <- 1
+  self_merge <- Clone(input_tree)$Set(mt_ac = "0-0-0")
   self_merge$eval$operation <- "rMerge"
   self_merge$gen <- "rMerge"
+  self_merge %<>% form_evaluation()
+  self_merge$eval$exnum <- 1
   self_merge$input <- draw_tree(input_tree)
   new_nodes %<>% append(self_merge)
   
@@ -199,15 +184,13 @@ Label <- function(input_tree){
       # set the new values in the labelled phrase
       rlang::exec(right_win$Set, !!!new_values, filterFun = isRoot)
       # remove the moved values
-      right_win$right_arg$ft <- ""
-      right_win$right_arg$ac <- ""
-      right_win$left_arg$exnum <- 0
+      # right_win$right_arg$ft <- ""
+      # right_win$right_arg$ac <- ""
       
       # renew domination counts and add eval
-      right_win$Set(n_dominator = 0, mt_ac = "")
+      right_win$Set(n_dominator = 0, mt_ac = "0-0-0")
       right_win$gen <- "Label" # add operation name
       right_win %<>% count_domination() %>% form_evaluation()
-      right_win$eval$exnum <- 0 # set exnum constraint to zero for labeling operation
       right_win$input <- draw_tree(input_tree) # add input tree    
       
       # Left wins  
@@ -223,15 +206,13 @@ Label <- function(input_tree){
       # set the new values in the labelled phrase
       rlang::exec(left_win$Set, !!!new_values, filterFun = isRoot)
       # remove the moved values
-      left_win$left_arg$ft <- ""
-      left_win$left_arg$ac <- ""
-      left_win$left_arg$lb <- 0
+      # left_win$left_arg$ft <- ""
+      # left_win$left_arg$ac <- ""
       
       # renew domination counts and add eval
-      left_win$Set(n_dominator = 0, mt_ac = "")
+      left_win$Set(n_dominator = 0, mt_ac = "0-0-0")
       left_win$gen <- "Label" # add operation name
       left_win %<>% count_domination() %>% form_evaluation()
-      left_win$eval$exnum <- 0 # set exnum constraint to zero for labeling operation
       left_win$input <- draw_tree(input_tree) # add input tree
       return(list(left_win, right_win))
     }
@@ -248,31 +229,33 @@ Agree <- function(input_tree){
   left_ac <- unlist(str_split(my_tree$left_arg$ac, "-"))
   lefter_ft <- unlist(str_split(my_tree$right_arg$ft, "-"))
   
-  if (any(which(left_ac == 1) == which(lefter_ft == 1))){ # check for matching ft and ac values
-    match_number <- which(left_ac == lefter_ft)
+  if (any(which(left_ac == 1) == which(lefter_ft == 1)) & my_tree$lb==0){ # check for matching ft and ac values
+    match_number <- which(left_ac == lefter_ft & my_tree$lb==0)
     left_ac[match_number] <- "0" # turn matches into 0 in ac
     lefter_ft[match_number] <- "0" # turn matches into 0 in feats
     my_tree$left_arg$ac <- paste(left_ac, collapse = "-")
     my_tree$right_arg$ft <- paste(lefter_ft, collapse="-")
-  } else if (any(left_ac == 1)){ # empty agreement
-    my_tree$left_arg$mt_ac <- paste(left_ac, collapse = "-")
-    my_tree$left_arg$ac <- paste(rep("0", length(left_ac)), collapse = "-")
-  }
+  } 
+  # else if (any(left_ac == 1)){ # empty agreement
+  #   my_tree$left_arg$mt_ac <- paste(left_ac, collapse = "-")
+  #   my_tree$left_arg$ac <- paste(rep("0", length(left_ac)), collapse = "-")
+  # }
   
   # agree right
   right_ac <- unlist(str_split(my_tree$right_arg$ac, "-"))
   righter_ft <- unlist(str_split(my_tree$left_arg$ft, "-"))
   
-  if (any(which(right_ac == 1) == which(righter_ft == 1))){ # check for matching ft and ac values
+  if (any(which(right_ac == 1) == which(righter_ft == 1)) & my_tree$lb==0){ # check for matching ft and ac values
     match_number <- which(right_ac == righter_ft)
     right_ac[match_number] <- "0"
     righter_ft[match_number] <- "0"
     my_tree$right_arg$ac <- paste(right_ac,collapse = "-")
     my_tree$left_arg$ft <- paste(righter_ft, collapse = "-")
-  } else if (any(right_ac == 1)){ # empty agreement
-    my_tree$right_arg$mt_ac <- paste(right_ac, collapse = "-")
-    my_tree$right_arg$ac <- paste(rep("0", length(right_ac)), collapse = "-")
-  }
+  } 
+  # else if (any(right_ac == 1) & my_tree$lb==0){ # empty agreement
+  #   my_tree$right_arg$mt_ac <- paste(right_ac, collapse = "-")
+  #   my_tree$right_arg$ac <- paste(rep("0", length(right_ac)), collapse = "-")
+  # }
   }
   
   # empty agree head
@@ -284,33 +267,26 @@ Agree <- function(input_tree){
   
   my_tree$gen <- "Agree" # add operation name
   my_tree %<>% form_evaluation() # add eval after agree
-  my_tree$eval$lab <- 0 # set labeling constraint to zero for agreement operation
-  my_tree$eval$exnum <- 0 # set exnum constraint to zero for agreement operation
   my_tree$input <- draw_tree(input_tree) # add input tree flat
-  # add exnum info
-  if (my_tree$isLeaf){
-    # nothing
-  } else {
-    my_tree$left_arg$exnum <- 0
-  }
-  
   
   # check if agreement happened
-  if(any(my_tree$Get("ac") == input_tree$Get("ac"))){
+  if(any(my_tree$Get("ac") != input_tree$Get("ac"))){
     # if no, return empty list
-    return(list())
+    return(list(my_tree))
   } else {
     # if yes, return tree
-    return(list(my_tree))
+    return(list())
   }
 }
 
 # EVAL FUNCTIONS #####
-# merge constraint, iteratively check downwards
+# merge constraint, do not check downwards
 cons_merge <- function(my_tree){
-  violations <- 0
-  # check if tree has children
-  if (isNotLeaf(my_tree)){
+  # check operation
+  if(my_tree$isLeaf){ # if the input is a leaf, it cannot violate mc
+    violations <- 0
+  } else { # in iMerge and xMerge conditions
+    violations <- 0
     # check left
     left_mc <- as.integer(unlist(str_split(my_tree$left_arg$mc,",")))
     for_left_lb <- my_tree$right_arg$lb 
@@ -321,7 +297,6 @@ cons_merge <- function(my_tree){
     } else if (is.na(left_mc) || is_empty(left_mc)){
       NULL
       } else {violations %<>% +1}
-    
     # check right
     right_mc <-  as.integer(unlist(str_split(my_tree$right_arg$mc,",")))
     for_right_lb <- my_tree$left_arg$lb
@@ -330,33 +305,53 @@ cons_merge <- function(my_tree){
     } else if (is.na(right_mc) || is_empty(right_mc)){
       NULL
     } else {violations %<>% +1}
-  
-  }
+    }
   # return result for leaf node
   violation <- tibble(merge_cond = violations)
   return(violation)
 }
 
-# labelling constraint, counts unlabeled phrases
+# empy label constraint, counts unlabeled phrases
 cons_derive <- function(my_tree){
-  violation <- tibble(exnum = ifelse(my_tree$left_arg$exnum == 1, 1, 0),
-                      lab = ifelse(my_tree$lb == 0, 1, 0))
+  violation <- tibble(exnum = ifelse(str_detect(my_tree$gen, "rMerge|iMerge"), 1, 0),
+                      lab = ifelse(my_tree$lb == 0 & str_detect(my_tree$gen, "Merge"), 1, 0))
   return(violation)
+}
+
+# labelling constraints
+cons_label <- function(my_tree){
+  label_cons <- tibble(lb_D = 0, lb_V = 0, lb_v = 0, lb_subj = 0, lb_T = 0, lb_C = 0)
+  if(my_tree$gen == "Label"){
+    label_cons[1,my_tree$lb] <- 1
+    return(label_cons)
+  } else {
+    return(label_cons)
+  }
+}
+
+# only keep unique domains from the top
+get_attributes <- function(input_tree){
+  dt_df <- tibble(lb = input_tree$Get("lb"),
+                  mc = input_tree$Get("mc"),
+                  ft = input_tree$Get("ft"),
+                  ac = input_tree$Get("ac"),
+                  mt_ac = input_tree$Get("mt_ac"),
+                  n_dominator = input_tree$Get("n_dominator")) %>% 
+    distinct(lb, .keep_all = T) %>% dplyr::select(-lb)
+  return(dt_df)
 }
 
 # markedness constraints, counts agree conditions, empty agreements, and features under domination only works for leaves
 cons_marked <- function(my_tree){
-  violation <- tibble(mt_acs = my_tree$Get("mt_ac"), acs = my_tree$Get("ac"), feats = my_tree$Get("ft"), # get the marked feats and agreements
-                      copy = my_tree$Get("is_copy"), n_doms = my_tree$Get("n_dominator")) %>% # get copy and domination counts
-    mutate(acs = ifelse(copy == 1, "", acs),
-           feats = ifelse(copy == 1, "", feats)) %>% # remove feats if it is a copied element
-    tidyr::separate(col = mt_acs, into = c("case_mt","foc_mt","wh_mt"), sep = "-", fill = "right") %>% # separate mt_acs into columns
-    tidyr::separate(col = acs, into = c("case_a","foc_a","wh_a"), sep = "-", fill = "right") %>% # separate acs into columns
-    tidyr::separate(col = feats, into = c("case","foc","wh"), sep = "-", fill = "right") %>% # separate feats into columns
+  violation <- get_attributes(my_tree) %>%
+    tidyr::separate(col = mt_ac, into = c("case_mt","foc_mt","wh_mt"), sep = "-", fill = "right") %>% # separate mt_acs into columns
+    tidyr::separate(col = ac, into = c("case_a","foc_a","wh_a"), sep = "-", fill = "right") %>% # separate acs into columns
+    tidyr::separate(col = ft, into = c("case","foc","wh"), sep = "-", fill = "right") %>% # separate feats into columns
+    mutate(mc = ifelse(mc > 0, 1, 0)) %>%
     mutate_all(as.integer) %>% replace(is.na(.),0) %>% # turn into numeric values and fill missing
-    mutate_at(vars(4:9), list(~ . * n_doms)) %>% # multiply each row by domination count
-    summarise(case_agr = sum(case_a), foc_agr = sum(foc_a), wh_agr = sum(wh_a), # summarize agreement conditions
-              case_mt = sum(case_mt), foc_mt = sum(foc_mt), wh_mt = sum(wh_mt), # summarize empty agreement
+    mutate_at(vars(1:7), list(~ . * n_dominator)) %>% # multiply each row by domination count
+    summarise(case_mt = sum(case_mt), foc_mt = sum(foc_mt), wh_mt = sum(wh_mt), # summarize empty agreement
+              mrc = sum(mc), case_agr = sum(case_a), foc_agr = sum(foc_a), wh_agr = sum(wh_a), # summarize agreement conditions
               case = sum(case), foc = sum(foc), wh = sum(wh)) # summarize features and copy 
   return(violation)
 }
@@ -364,15 +359,18 @@ cons_marked <- function(my_tree){
 # a function to form evaluation for a tree
 form_evaluation <- function(input_tree){
   my_tree <- Clone(input_tree)
-  if (my_tree$isLeaf){
-    my_eval <- tibble(output = draw_tree(my_tree), operation = "x", exnum = 0, lab = 0, merge_cond = 0,
-                      case_agr = 0, foc_agr = 0, wh_agr = 0,
+  if (my_tree$gen == "x"){
+    my_eval <- tibble(output = draw_tree(my_tree), operation = "x", exnum = 0, lab = 0, 
+                      lb_D = 0, lb_V = 0, lb_v = 0, lb_subj = 0, lb_T = 0, lb_C = 0,
+                      merge_cond = 0,
                       case_mt = 0, foc_mt = 0, wh_mt = 0,
+                      mrc = 0,
+                      case_agr = 0, foc_agr = 0, wh_agr = 0,
                       case = 0, foc = 0, wh = 0)
     my_tree$eval <- my_eval
   return(my_tree)
   } else {
-  my_eval <- do.call(cbind, list(tibble(output = draw_tree(my_tree), operation = my_tree$gen), cons_derive(my_tree), cons_merge(my_tree), cons_marked(my_tree)))
+  my_eval <- do.call(cbind, list(tibble(output = draw_tree(my_tree), operation = my_tree$gen), cons_derive(my_tree), cons_label(my_tree), cons_merge(my_tree), cons_marked(my_tree)))
   my_tree$eval <- my_eval
   return(my_tree)
   }
@@ -431,7 +429,6 @@ plot_tree <- function(input_tree){
   my_tree <- Clone(input_tree)
   my_tree$Set(name = my_tree$Get("it"))
   tree <- plot(my_tree)
-  tree
 }
 
 # a function to compose eval from a list of trees
@@ -509,4 +506,5 @@ weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing in
   # return the resulting optimization 
   return(optimal_weights)
 }
+
 
