@@ -34,7 +34,7 @@ import_numeration <- function(path_to_numeration){
 get_subtrees <- function(input_tree, stash = integer()){
   my_tree <- Clone(input_tree)
   my_nodes <- list()
-  if (my_tree$isLeaf){
+  if (my_tree$isLeaf){ # if it is a leaf
     if (my_tree$lb %in% stash){
       # do nothing if the label is in stash
     } else {
@@ -45,6 +45,13 @@ get_subtrees <- function(input_tree, stash = integer()){
     }
     
   } else {
+    if (my_tree$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$lb)
+    }
+    
     if (my_tree$left_arg$lb %in% stash){
       # do nothing if the label is in stash
     } else {

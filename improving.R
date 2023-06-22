@@ -38,3 +38,54 @@ draw_tree2 <- function(my_tree){
   print(written)
 }
 
+# a function to extract subtrees of a tree, recursive, same label is skipped
+get_subtrees <- function(input_tree, stash = integer()){
+  my_tree <- Clone(input_tree)
+  my_nodes <- list()
+  if (my_tree$isLeaf){ # if it is a leaf
+    if (my_tree$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$lb)
+      # return item if not in stash
+      return(my_nodes)  
+    }
+    
+  } else {
+    if (my_tree$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$lb)
+      # add new node
+      my_nodes %<>% append(Clone(my_tree)$Set(name = "left_arg", filterFun = isRoot)) 
+    }
+    
+    if (my_tree$left_arg$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$left_arg$lb)
+      # add new node
+      my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", filterFun = isRoot))  
+    }
+    
+    if (my_tree$right_arg$lb %in% stash){
+      # do nothing if the label is in stash
+    } else {
+      # update stash
+      stash %<>% append(my_tree$right_arg$lb)
+      # add new node
+      my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", filterFun = isRoot))  
+    }
+    return(append(my_nodes, get_subtrees(my_tree$left_arg, stash)) %>% append(get_subtrees(my_tree$right_arg, stash)))
+  }
+}
+
+Merge(dt[[1]]) %>% .[[1]] %T>% draw_tree2() %>%
+  Label() %>% .[[1]] %T>% draw_tree2() %>%  
+  Merge() %>% .[[1]] %T>% draw_tree2() %>%
+  Label() %>% .[[1]] %T>% draw_tree2() %>% 
+  get_subtrees() %>% lapply(function(x) print(x,"it"))
+
