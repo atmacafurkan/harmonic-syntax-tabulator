@@ -55,7 +55,7 @@ tabulate_latex <- function(my_file, my_table, my_weights){
 
 export_derivation <- function(my_eval, my_optimization, new_file){
   df_eval <- readRDS(my_eval) %>% mutate(across(where(is.list), ~ map_chr(.x, as.character)))
-  con_weights <- readRDS(my_optimization) %>% round() %>% as.numeric() %>% data.matrix() %>% t()
+  con_weights <- readRDS(my_optimization) %>% round() %>% as.numeric() %>% data.matrix()
   my_calc <- df_eval[,4:22] %>% as.data.frame() %>% mutate_all(as.integer) %>% data.matrix()
   df_eval$harmonies <- as.numeric(my_calc %*% con_weights)
   bias <- 3
