@@ -1,0 +1,330 @@
+
+
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input DP1\_a:case } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_mt$^{87}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  0 & Agree & DP1 &   0 &   0 &   0 &   1 &  87 &  87 \\ 
+    1 & xMerge & [V DP1\_a:case] &   0 &   1 &   0 &   0 &  41 &  41 \\ 
+    0 & xMerge & [v\_f:case DP1\_a:case] &   0 &   1 &   1 &   0 & 135 & 135 \\ 
+    0 & xMerge & [DP2\_a:case DP1\_a:case] &   0 &   1 &   1 &   0 & 135 & 135 \\ 
+    0 & xMerge & [T\_f:case DP1\_a:case] &   0 &   1 &   1 &   0 & 135 & 135 \\ 
+    0 & xMerge & [C DP1\_a:case] &   0 &   1 &   1 &   0 & 135 & 135 \\ 
+    0 & rMerge & DP1\_a:case &   1 &   0 &   0 &   0 & 100 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [V DP1\_a:case] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_D$^{88}$} & \rotatebox{90}{lb\_V$^{2}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{mrc$^{93}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Label & V[V DP1\_a:case] &   0 &   0 &   0 &   1 &   0 &   0 &   1 &  63 &  67 \\ 
+    0 & Label & DP1\_a:case[V DP1\_a:case] &   0 &   0 &   1 &   0 &   0 &   1 &   0 & 181 & 185 \\ 
+    0 & xMerge & [v\_f:case [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & xMerge & [DP2\_a:case [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & xMerge & [T\_f:case [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & xMerge & [C [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & iMerge & [V [V DP1\_a:case]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP1\_a:case [V DP1\_a:case]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & rMerge & [V DP1\_a:case] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input V[V DP1\_a:case] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & xMerge & [v\_f:case V[V DP1\_a:case]] &   0 &   1 &   0 &   1 & 102 & 106 \\ 
+    0 & xMerge & [DP2\_a:case V[V DP1\_a:case]] &   0 &   1 &   1 &   1 & 196 & 200 \\ 
+    0 & xMerge & [T\_f:case V[V DP1\_a:case]] &   0 &   1 &   1 &   1 & 196 & 200 \\ 
+    0 & xMerge & [C V[V DP1\_a:case]] &   0 &   1 &   1 &   1 & 196 & 200 \\ 
+    0 & iMerge & [DP1\_a:case V[V DP1\_a:case]] &   1 &   1 &   0 &   0 & 141 & 141 \\ 
+    0 & rMerge & V[V DP1\_a:case] &   1 &   0 &   0 &   1 & 161 & 165 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [v\_f:case V[V DP1\_a:case]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_V$^{2}$} & \rotatebox{90}{lb\_v$^{0}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{mrc$^{93}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{case$^{36}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Label & v\_f:case[v\_f:case V[V DP1\_a:case]] &   0 &   0 &   0 &   1 &   0 &   0 &   2 &   0 & 122 & 130 \\ 
+    0 & Label & V[v\_f:case V[V DP1\_a:case]] &   0 &   0 &   1 &   0 &   0 &   1 &   1 &   1 & 192 & 204 \\ 
+    0 & xMerge & [DP2\_a:case [v\_f:case V[V DP1\_a:case]]] &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 196 & 200 \\ 
+    0 & xMerge & [T\_f:case [v\_f:case V[V DP1\_a:case]]] &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 196 & 200 \\ 
+    0 & xMerge & [C [v\_f:case V[V DP1\_a:case]]] &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 196 & 200 \\ 
+    0 & iMerge & [v\_f:case [v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 296 & 300 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 296 & 300 \\ 
+    0 & iMerge & [DP1\_a:case [v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 235 & 235 \\ 
+    0 & rMerge & [v\_f:case V[V DP1\_a:case]] &   1 &   1 &   0 &   0 &   0 &   0 &   1 &   0 & 202 & 206 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input v\_f:case[v\_f:case V[V DP1\_a:case]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  0 & xMerge & [DP2\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]] &   0 &   1 &   0 &   2 & 163 & 171 \\ 
+    0 & xMerge & [T\_f:case v\_f:case[v\_f:case V[V DP1\_a:case]]] &   0 &   1 &   1 &   2 & 257 & 265 \\ 
+    0 & xMerge & [C v\_f:case[v\_f:case V[V DP1\_a:case]]] &   0 &   1 &   1 &   2 & 257 & 265 \\ 
+    0 & iMerge & [V[V DP1\_a:case] v\_f:case[v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   1 & 202 & 206 \\ 
+    1 & iMerge & [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 & 141 & 141 \\ 
+    0 & rMerge & v\_f:case[v\_f:case V[V DP1\_a:case]] &   1 &   0 &   0 &   2 & 222 & 230 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_D$^{88}$} & \rotatebox{90}{lb\_v$^{0}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{case$^{36}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Agree & [DP1 v[v\_f:case V[V DP1\_a:case]]] &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+    0 & Label & DP1\_a:case[DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]] &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 124 & 128 \\ 
+    0 & Label & v\_f:case[DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]] &   0 &   0 &   0 &   1 &   0 &   1 &   0 &  61 &  65 \\ 
+    0 & xMerge & [DP2\_a:case [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & xMerge & [T\_f:case [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & xMerge & [C [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & iMerge & [DP1\_a:case [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [v\_f:case[v\_f:case V[V DP1\_a:case]] [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   2 &   0 & 357 & 365 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 296 & 300 \\ 
+    0 & rMerge & [DP1\_a:case v\_f:case[v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [DP1 v[v\_f:case V[V DP1\_a:case]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_D$^{88}$} & \rotatebox{90}{lb\_v$^{0}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  0 & Label & DP1[DP1 v[v\_f:case V[V DP1\_a:case]]] &   0 &   0 &   1 &   0 &   0 &   0 &  88 &  88 \\ 
+    1 & Label & v[DP1 v[v\_f:case V[V DP1\_a:case]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &   0 \\ 
+    0 & xMerge & [DP2\_a:case [DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 135 & 135 \\ 
+    0 & xMerge & [T\_f:case [DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 135 & 135 \\ 
+    0 & xMerge & [C [DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 135 & 135 \\ 
+    0 & iMerge & [DP1 [DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 235 & 235 \\ 
+    0 & iMerge & [v[v\_f:case V[V DP1\_a:case]] [DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   2 & 357 & 365 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   1 & 296 & 300 \\ 
+    0 & rMerge & [DP1 v[v\_f:case V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input v[DP1 v[v\_f:case V[V DP1\_a:case]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & xMerge & [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &  41 &  41 \\ 
+    0 & xMerge & [T\_f:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   1 &   0 & 135 & 135 \\ 
+    0 & xMerge & [C v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   1 &   1 &   0 & 135 & 135 \\ 
+    0 & iMerge & [DP1 v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 & 141 & 141 \\ 
+    0 & iMerge & [V[V DP1\_a:case] v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   1 & 202 & 206 \\ 
+    0 & rMerge & v[DP1 v[v\_f:case V[V DP1\_a:case]]] &   1 &   0 &   0 &   0 & 100 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_v$^{0}$} & \rotatebox{90}{lb\_subj$^{9}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{mrc$^{93}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Label & DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &   9 &   9 \\ 
+    0 & Label & v[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   1 & 154 & 162 \\ 
+    0 & xMerge & [T\_f:case [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & xMerge & [C [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & iMerge & [DP2\_a:case [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP1 [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 & 296 & 300 \\ 
+    0 & rMerge & [DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{case\_mt$^{87}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  0 & Agree & DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   0 &   0 &   0 &   1 &   0 &  87 &  87 \\ 
+    1 & xMerge & [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   1 &   0 &   0 &   0 &  41 &  41 \\ 
+    0 & xMerge & [C DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   1 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 & 141 & 141 \\ 
+    0 & iMerge & [DP1 DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 & 141 & 141 \\ 
+    0 & iMerge & [V[V DP1\_a:case] DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 & 202 & 206 \\ 
+    0 & rMerge & DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] &   1 &   0 &   0 &   0 &   0 & 100 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_subj$^{9}$} & \rotatebox{90}{lb\_T$^{4}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{mrc$^{93}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{case$^{36}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Agree & [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+    0 & Label & T\_f:case[T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   1 &   0 &  65 &  69 \\ 
+    0 & Label & DP2\_a:case[T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   0 &   1 & 138 & 146 \\ 
+    0 & xMerge & [C [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 135 & 135 \\ 
+    0 & iMerge & [T\_f:case [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP1 [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 296 & 300 \\ 
+    0 & rMerge & [T\_f:case DP2\_a:case[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_subj$^{9}$} & \rotatebox{90}{lb\_T$^{4}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{mrc$^{93}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Label & T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &   4 &   4 \\ 
+    0 & Label & DP2[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   0 & 102 & 106 \\ 
+    0 & xMerge & [C [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 135 & 135 \\ 
+    0 & iMerge & [T [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP1 [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 & 296 & 300 \\ 
+    0 & rMerge & [T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & xMerge & [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   0 &   1 &   0 &  41 &  41 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [DP1 T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [V[V DP1\_a:case] T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   1 & 202 & 206 \\ 
+    0 & rMerge & T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] &   1 &   0 &   0 & 100 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{lb\_T$^{4}$} & \rotatebox{90}{lb\_C$^{10}$} & \rotatebox{90}{merge\_cond$^{94}$} & \rotatebox{90}{mrc$^{93}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  1 & Label & C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &  10 &  10 \\ 
+    0 & Label & T[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   0 &  97 & 101 \\ 
+    0 & iMerge & [C [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [DP1 [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 235 & 235 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 & 296 & 300 \\ 
+    0 & rMerge & [C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 141 & 141 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
+% latex table generated in R 4.3.0 by xtable 1.8-4 package
+% Sat Jun 24 10:31:37 2023
+\begin{table}[ht]
+\centering
+\caption{Input C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] } 
+\begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{100}$} & \rotatebox{90}{lab$^{41}$} & \rotatebox{90}{case\_agr$^{61}$} & \rotatebox{90}{H} & \rotatebox{90}{H2} \\ 
+  \hline
+  0 & iMerge & [T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]] C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]] C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [v[DP1 v[v\_f:case V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [DP1 C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 & 141 & 141 \\ 
+    0 & iMerge & [V[V DP1\_a:case] C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]]] &   1 &   1 &   1 & 202 & 206 \\ 
+    1 & rMerge & C[C T[T DP2[DP2\_a:case v[DP1 v[v\_f:case V[V DP1\_a:case]]]]]] &   1 &   0 &   0 & 100 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
