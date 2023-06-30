@@ -8,84 +8,55 @@ library(xtable)
 
 source("harmonic_syntax.R")
 
-dt <- import_numeration("./numerations/basic_numeration.csv")
+dt <- readRDS("./derivations/phrasal_movement/my_derivation.rds")
 
-draw_tree2 <- function(my_tree){
+
+# DISPLAY FUNCTIONS ####
+# a function to draw a simple tree for display as output, recursive
+draw_forest <- function(my_tree){
   feat_names <- c("case","foc","wh")
   if(isLeaf(my_tree)){
     # Leaf node
-    written <- paste0(my_tree$it,
-                      case_when(my_tree$is_copy == 1 ~ "",
-                                any(unlist(str_split(my_tree$ft, "-"))==1) ~ paste0("_f:", paste(feat_names[which(unlist(str_split(my_tree$ft, "-"))==1)], collapse = ",")),
-                                T ~ ""),
-                      case_when(my_tree$is_copy == 1 ~ "",
-                                any(unlist(str_split(my_tree$ac, "-"))==1) ~ paste0("_a:", paste(feat_names[which(unlist(str_split(my_tree$ac, "-"))==1)], collapse = ",")),
-                                T ~ ""))
+    written <- paste0("[", 
+                      my_tree$it,
+                      "$_{",
+                      ifelse(any(unlist(str_split(my_tree$ft, "-"))==1),
+                             paste0("F:", paste(feat_names[which(unlist(str_split(my_tree$ft, "-"))==1)], collapse = ",")),
+                             ""),
+                      ifelse(any(unlist(str_split(my_tree$ac, "-"))==1),
+                             paste0("A:", paste(feat_names[which(unlist(str_split(my_tree$ac, "-"))==1)], collapse = ",")),
+                             ""),
+                      "}$",
+                      "]")
   } else {
     # Non-leaf node
-    left_str <- draw_tree(my_tree$left_arg)
-    right_str <- draw_tree(my_tree$right_arg)
-    written <- paste0(ifelse(my_tree$it == 0, "", 
-                             ifelse(my_tree$is_copy == 1, paste0(my_tree$it,"c"), my_tree$it)),
-                      case_when(my_tree$is_copy == 1 ~ "",
-                                any(unlist(str_split(my_tree$ft, "-")) ==1) ~ paste0("_f:", paste(feat_names[which(unlist(str_split(my_tree$ft, "-"))==1)], collapse = ",")),
-                                T ~ ""),
-                      case_when(my_tree$is_copy == 1 ~ "",
-                                any(unlist(str_split(my_tree$ac, "-"))==1) ~ paste0("_a:", paste(feat_names[which(unlist(str_split(my_tree$ac, "-"))==1)], collapse = ",")),
-                                T ~ ""),
-                      "[", left_str, " ", right_str,"]")
+    left_str <- draw_forest(my_tree$left_arg)
+    right_str <- draw_forest(my_tree$right_arg)
+    written <- paste0("[",
+                      ifelse(my_tree$it ==0, "", my_tree$it),
+                      "$_{",
+                      ifelse(any(unlist(str_split(my_tree$ft, "-"))==1),
+                             paste0("F:", paste(feat_names[which(unlist(str_split(my_tree$ft, "-"))==1)], collapse = ",")),
+                             ""),
+                      ifelse(any(unlist(str_split(my_tree$ac, "-"))==1),
+                             paste0("A:", paste(feat_names[which(unlist(str_split(my_tree$ac, "-"))==1)], collapse = ",")),
+                             ""),
+                      "}$",
+                      left_str, " ", right_str,"]")
   }
-  print(written)
+  return(written)
 }
 
-# a function to extract subtrees of a tree, recursive, same label is skipped
-get_subtrees <- function(input_tree, stash = integer()){
-  my_tree <- Clone(input_tree)
-  my_nodes <- list()
-  if (my_tree$isLeaf){ # if it is a leaf
-    if (my_tree$lb %in% stash){
-      # do nothing if the label is in stash
-    } else {
-      # update stash
-      stash %<>% append(my_tree$lb)
-      # return item if not in stash
-      return(my_nodes)  
-    }
-    
-  } else {
-    if (my_tree$lb %in% stash){
-      # do nothing if the label is in stash
-    } else {
-      # update stash
-      stash %<>% append(my_tree$lb)
-      # add new node
-      my_nodes %<>% append(Clone(my_tree)$Set(name = "left_arg", filterFun = isRoot)) 
-    }
-    
-    if (my_tree$left_arg$lb %in% stash){
-      # do nothing if the label is in stash
-    } else {
-      # update stash
-      stash %<>% append(my_tree$left_arg$lb)
-      # add new node
-      my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", filterFun = isRoot))  
-    }
-    
-    if (my_tree$right_arg$lb %in% stash){
-      # do nothing if the label is in stash
-    } else {
-      # update stash
-      stash %<>% append(my_tree$right_arg$lb)
-      # add new node
-      my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", filterFun = isRoot))  
-    }
-    return(append(my_nodes, get_subtrees(my_tree$left_arg, stash)) %>% append(get_subtrees(my_tree$right_arg, stash)))
-  }
-}
 
-Merge(dt[[1]]) %>% .[[1]] %T>% draw_tree2() %>%
-  Label() %>% .[[1]] %T>% draw_tree2() %>%  
-  Merge() %>% .[[1]] %T>% draw_tree2() %>%
-  Label() %>% .[[1]] %T>% draw_tree2() %>% 
-  get_subtrees() %>% lapply(function(x) print(x,"it"))
+my_lines <- lapply(dt, draw_forest) %>% unlist() %>% paste0("\\begin{forest}",.,"\\end{forest}\\\\")
+my_file <- "forest_trees.txt"
 
+if(!file.exists(my_file)){ 
+  file.create(my_file) 
+  my_con <- file(my_file)
+  writeLines("\n", my_con)
+  close(my_con)
+} 
+my_con <- file(my_file, "a")
+writeLines(my_lines,"\n", con = my_con) 
+close(my_con)

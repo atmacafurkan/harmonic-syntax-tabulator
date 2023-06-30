@@ -1,0 +1,20 @@
+
+
+\begin{forest}[DP1$_{A:case}$]\end{forest}\\
+\begin{forest}[$_{}$[V$_{}$] [DP1$_{A:case}$]]\end{forest}\\
+\begin{forest}[V$_{}$[V$_{}$] [DP1$_{A:case}$]]\end{forest}\\
+\begin{forest}[$_{}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]\end{forest}\\
+\begin{forest}[v$_{F:case,foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]\end{forest}\\
+\begin{forest}[$_{}$[DP1$_{A:case}$] [v$_{F:case,foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]\end{forest}\\
+\begin{forest}[$_{}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]\end{forest}\\
+\begin{forest}[v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]\end{forest}\\
+\begin{forest}[$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]\end{forest}\\
+\begin{forest}[DP2$_{A:case}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]\end{forest}\\
+\begin{forest}[$_{}$[T$_{F:case}$] [DP2$_{A:case}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]\end{forest}\\
+\begin{forest}[$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]\end{forest}\\
+\begin{forest}[T$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]\end{forest}\\
+\begin{forest}[$_{}$[C$_{}$] [T$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]]\end{forest}\\
+\begin{forest}[C$_{}$[C$_{}$] [T$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]]\end{forest}\\
+\begin{forest}[$_{}$[v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]] [C$_{}$[C$_{}$] [T$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]]]\end{forest}\\
+\begin{forest}[C$_{}$[v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]] [C$_{}$[C$_{}$] [T$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]]]\end{forest}\\
+\begin{forest}[C$_{}$[v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]] [C$_{}$[C$_{}$] [T$_{}$[T$_{}$] [DP2$_{}$[DP2$_{A:case}$] [v$_{F:foc}$[DP1$_{}$] [v$_{F:foc}$[v$_{F:case,foc}$] [V$_{}$[V$_{}$] [DP1$_{A:case}$]]]]]]]]\end{forest}\\

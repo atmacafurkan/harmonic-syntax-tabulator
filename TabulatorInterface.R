@@ -27,11 +27,11 @@ backend <- function(input, output, session) {
   file_path <- eventReactive(input$numerationFile, {
     my_num <- import_numeration(input$numerationFile$datapath)
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
-    dir.create(numeration_name)
-    file_last_tree <- sprintf("./%s/last_tree.rds", numeration_name)
-    file_my_derivation <- sprintf("./%s/my_derivation.rds", numeration_name)
-    file_last_cycle <- sprintf("./%s/last_cycle.rds", numeration_name)
-    file_eval <- sprintf("./%s/my_eval.rds", numeration_name)
+    dir.create(paste0("./derivations/", numeration_name))
+    file_last_tree <- sprintf("./derivations/%s/last_tree.rds", numeration_name)
+    file_my_derivation <- sprintf("./derivations/%s/my_derivation.rds", numeration_name)
+    file_last_cycle <- sprintf("./derivations/%s/last_cycle.rds", numeration_name)
+    file_eval <- sprintf("./derivations/%s/my_eval.rds", numeration_name)
     saveRDS(my_num[[1]], file_last_tree)
     saveRDS(my_num[[1]], file_my_derivation)
     saveRDS(my_num[[1]], file_last_cycle)
@@ -41,10 +41,10 @@ backend <- function(input, output, session) {
   
   select_winner <- eventReactive(input$proceeder, {
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
-    file_last_tree <- sprintf("./%s/last_tree.rds", numeration_name)
-    file_my_derivation <- sprintf("./%s/my_derivation.rds", numeration_name)
-    file_last_cycle <- sprintf("./%s/last_cycle.rds", numeration_name)
-    file_eval <- sprintf("./%s/my_eval.rds", numeration_name)
+    file_last_tree <- sprintf("./derivations/%s/last_tree.rds", numeration_name)
+    file_my_derivation <- sprintf("./derivations/%s/my_derivation.rds", numeration_name)
+    file_last_cycle <- sprintf("./derivations/%s/last_cycle.rds", numeration_name)
+    file_eval <- sprintf("./derivations/%s/my_eval.rds", numeration_name)
     my_outputs <- readRDS(file_last_cycle)
     
     if (input$winner < 100){
@@ -75,20 +75,20 @@ backend <- function(input, output, session) {
 
   optimize_me <- eventReactive(input$runOptimization, {
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
-    file_eval <- sprintf("./%s/my_eval.rds", numeration_name)
+    file_eval <- sprintf("./derivations/%s/my_eval.rds", numeration_name)
     my_derivation <- readRDS(file_eval) %>% mutate(across(where(is.list), ~ map_chr(.x, as.character)))
     optimization <- weight_optimize(my_derivation, c(4:22))
     optimized_weights <- tibble(weights = optimization$par) %>% t()
     colnames(optimized_weights) <- colnames(my_derivation)[4:22]
-    saveRDS(optimized_weights, sprintf("./%s/my_optimization.rds", numeration_name))
+    saveRDS(optimized_weights, sprintf("./derivations/%s/my_optimization.rds", numeration_name))
     optimized_weights
   })
   output$costraintWeights <- renderTable({optimize_me()}, digits = 0, spacing = "xs")
 
   export_me <- eventReactive(input$exportDerivation, {
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
-    file_eval <- sprintf("./%s/my_eval.rds", numeration_name)
-    file_optimization <- sprintf("./%s/my_optimization.rds", numeration_name)
+    file_eval <- sprintf("./derivations/%s/my_eval.rds", numeration_name)
+    file_optimization <- sprintf("./derivations/%s/my_optimization.rds", numeration_name)
     x <- export_derivation(file_eval, file_optimization, numeration_name)
   })
   output$export <- renderPrint({export_me()})

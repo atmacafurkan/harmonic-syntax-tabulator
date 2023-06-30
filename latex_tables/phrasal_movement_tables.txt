@@ -1,0 +1,292 @@
+
+
+\ex Input DP1\_a:case\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_mt$^{75}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & Agree & DP1 &   0 &   0 &   0 &   1 &  75 \\ 
+    1 & xMerge & [V DP1\_a:case] &   0 &   1 &   0 &   0 &  39 \\ 
+    0 & xMerge & [v\_f:case,foc DP1\_a:case] &   0 &   1 &   1 &   0 & 109 \\ 
+    0 & xMerge & [DP2\_a:case DP1\_a:case] &   0 &   1 &   1 &   0 & 109 \\ 
+    0 & xMerge & [T\_f:case DP1\_a:case] &   0 &   1 &   1 &   0 & 109 \\ 
+    0 & xMerge & [C DP1\_a:case] &   0 &   1 &   1 &   0 & 109 \\ 
+    0 & rMerge & DP1\_a:case &   1 &   0 &   0 &   0 &  64 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [V DP1\_a:case]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_D$^{100}$} & \rotatebox{90}{lb\_V$^{22}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{mrc$^{81}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Label & V[V DP1\_a:case] &   0 &   0 &   0 &   1 &   0 &   0 &   1 &  64 \\ 
+    0 & Label & DP1\_a:case[V DP1\_a:case] &   0 &   0 &   1 &   0 &   0 &   1 &   0 & 181 \\ 
+    0 & xMerge & [v\_f:case,foc [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & xMerge & [DP2\_a:case [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & xMerge & [T\_f:case [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & xMerge & [C [V DP1\_a:case]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & iMerge & [V [V DP1\_a:case]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 173 \\ 
+    0 & iMerge & [DP1\_a:case [V DP1\_a:case]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 173 \\ 
+    0 & rMerge & [V DP1\_a:case] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 103 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input V[V DP1\_a:case]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & xMerge & [v\_f:case,foc V[V DP1\_a:case]] &   0 &   1 &   0 &   1 &  81 \\ 
+    0 & xMerge & [DP2\_a:case V[V DP1\_a:case]] &   0 &   1 &   1 &   1 & 151 \\ 
+    0 & xMerge & [T\_f:case V[V DP1\_a:case]] &   0 &   1 &   1 &   1 & 151 \\ 
+    0 & xMerge & [C V[V DP1\_a:case]] &   0 &   1 &   1 &   1 & 151 \\ 
+    0 & iMerge & [DP1\_a:case V[V DP1\_a:case]] &   1 &   1 &   0 &   0 & 103 \\ 
+    0 & rMerge & V[V DP1\_a:case] &   1 &   0 &   0 &   1 & 106 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [v\_f:case,foc V[V DP1\_a:case]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_V$^{22}$} & \rotatebox{90}{lb\_v$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{mrc$^{81}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{case$^{20}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Label & v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]] &   0 &   0 &   0 &   1 &   0 &   0 &   2 &   0 &   0 & 123 \\ 
+    0 & Label & V[v\_f:case,foc V[V DP1\_a:case]] &   0 &   0 &   1 &   0 &   0 &   1 &   1 &   1 &   1 & 185 \\ 
+    0 & xMerge & [DP2\_a:case [v\_f:case,foc V[V DP1\_a:case]]] &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   0 &   0 & 151 \\ 
+    0 & xMerge & [T\_f:case [v\_f:case,foc V[V DP1\_a:case]]] &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   0 &   0 & 151 \\ 
+    0 & xMerge & [C [v\_f:case,foc V[V DP1\_a:case]]] &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   0 &   0 & 151 \\ 
+    0 & iMerge & [v\_f:case,foc [v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 &   0 & 215 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 &   0 & 215 \\ 
+    0 & iMerge & [DP1\_a:case [v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 &   0 & 173 \\ 
+    0 & rMerge & [v\_f:case,foc V[V DP1\_a:case]] &   1 &   1 &   0 &   0 &   0 &   0 &   1 &   0 &   0 & 145 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & xMerge & [DP2\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   1 &   0 &   2 & 123 \\ 
+    0 & xMerge & [T\_f:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   1 &   1 &   2 & 193 \\ 
+    0 & xMerge & [C v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   1 &   1 &   2 & 193 \\ 
+    0 & iMerge & [V[V DP1\_a:case] v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   1 & 145 \\ 
+    1 & iMerge & [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 & 103 \\ 
+    0 & rMerge & v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]] &   1 &   0 &   0 &   2 & 148 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_D$^{100}$} & \rotatebox{90}{lb\_v$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{case$^{20}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Agree & [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+    0 & Label & DP1\_a:case[DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   0 &   1 &   0 &   0 &   0 &   1 &   1 & 140 \\ 
+    0 & Label & v\_f:case,foc[DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   0 &   0 &   1 &   0 &   1 &   0 &   0 &  81 \\ 
+    0 & xMerge & [DP2\_a:case [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 109 \\ 
+    0 & xMerge & [T\_f:case [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 109 \\ 
+    0 & xMerge & [C [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 109 \\ 
+    0 & iMerge & [DP1\_a:case [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]] [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   2 &   0 &   0 & 257 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 &   0 & 215 \\ 
+    0 & rMerge & [DP1\_a:case v\_f:case,foc[v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 &   0 & 103 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_D$^{100}$} & \rotatebox{90}{lb\_v$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & Label & DP1[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 120 \\ 
+    1 & Label & v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &  39 \\ 
+    0 & xMerge & [DP2\_a:case [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & xMerge & [T\_f:case [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & xMerge & [C [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 109 \\ 
+    0 & iMerge & [DP1 [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 173 \\ 
+    0 & iMerge & [v\_f:foc[v\_f:case,foc V[V DP1\_a:case]] [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   2 &   0 & 257 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 215 \\ 
+    0 & rMerge & [DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 103 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & xMerge & [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   0 &   0 &  39 \\ 
+    0 & xMerge & [T\_f:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   1 &   0 & 109 \\ 
+    0 & xMerge & [C v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   1 &   1 &   0 & 109 \\ 
+    0 & iMerge & [DP1 v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 & 103 \\ 
+    0 & iMerge & [V[V DP1\_a:case] v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   1 & 145 \\ 
+    0 & rMerge & v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] &   1 &   0 &   0 &   0 &  64 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_v$^{39}$} & \rotatebox{90}{lb\_subj$^{3}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{mrc$^{81}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Label & DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &   1 &  23 \\ 
+    0 & Label & v\_f:foc[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   1 &   0 & 162 \\ 
+    0 & xMerge & [T\_f:case [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 109 \\ 
+    0 & xMerge & [C [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 109 \\ 
+    0 & iMerge & [DP2\_a:case [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [DP1 [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 & 215 \\ 
+    0 & rMerge & [DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 &   0 & 103 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_mt$^{75}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & Agree & DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   0 &   0 &   0 &   1 &   0 &   1 &  95 \\ 
+    1 & xMerge & [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   1 &   0 &   0 &   0 &   1 &  59 \\ 
+    0 & xMerge & [C DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   1 &   1 &   0 &   0 &   1 & 129 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 &   0 & 103 \\ 
+    0 & iMerge & [DP1 DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 &   1 & 123 \\ 
+    0 & iMerge & [V[V DP1\_a:case] DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   1 &   1 & 165 \\ 
+    0 & rMerge & DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] &   1 &   0 &   0 &   0 &   0 &   1 &  84 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_subj$^{3}$} & \rotatebox{90}{lb\_T$^{1}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{mrc$^{81}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{case$^{20}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Agree & [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   1 &  20 \\ 
+    0 & Label & T\_f:case[T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   1 &   0 &   2 &  83 \\ 
+    0 & Label & DP2\_a:case[T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   0 &   1 &   1 & 124 \\ 
+    0 & xMerge & [C [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 129 \\ 
+    0 & iMerge & [T\_f:case [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [DP1 [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   0 &   1 & 235 \\ 
+    0 & rMerge & [T\_f:case DP2\_a:case[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 &   0 &   1 & 123 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_subj$^{3}$} & \rotatebox{90}{lb\_T$^{1}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{mrc$^{81}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Label & T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &   2 &  41 \\ 
+    0 & Label & DP2[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   0 &   1 & 104 \\ 
+    0 & xMerge & [C [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 &   1 & 129 \\ 
+    0 & iMerge & [T [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [DP1 [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   1 & 235 \\ 
+    0 & rMerge & [T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 &   1 & 123 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & xMerge & [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   0 &   1 &   0 &   2 &  79 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   1 & 123 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 & 103 \\ 
+    0 & iMerge & [DP1 T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   2 & 143 \\ 
+    0 & iMerge & [V[V DP1\_a:case] T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   1 &   2 & 185 \\ 
+    0 & rMerge & T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] &   1 &   0 &   0 &   2 & 104 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_T$^{1}$} & \rotatebox{90}{lb\_C$^{0}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{mrc$^{81}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  1 & Label & C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 &   3 &  60 \\ 
+    0 & Label & T[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   0 &   0 &   1 &   0 &   0 &   1 &   0 &   2 & 122 \\ 
+    0 & iMerge & [C [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   2 & 213 \\ 
+    0 & iMerge & [T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   2 & 213 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   1 & 193 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   0 & 173 \\ 
+    0 & iMerge & [DP1 [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 &   2 & 213 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 &   2 & 255 \\ 
+    0 & rMerge & [C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 &   2 & 143 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & iMerge & [T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   2 & 143 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   1 & 123 \\ 
+    1 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 & 103 \\ 
+    0 & iMerge & [DP1 C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   3 & 163 \\ 
+    0 & iMerge & [V[V DP1\_a:case] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   1 &   3 & 205 \\ 
+    0 & rMerge & C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] &   1 &   0 &   0 &   3 & 124 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{lb\_v$^{39}$} & \rotatebox{90}{lb\_C$^{0}$} & \rotatebox{90}{merge\_cond$^{70}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & Label & v\_f:foc[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   0 &   0 &   1 &   0 &   0 &   0 &   0 &  39 \\ 
+    1 & Label & C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   1 &  20 \\ 
+    0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 173 \\ 
+    0 & iMerge & [C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]] [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   3 & 233 \\ 
+    0 & iMerge & [DP1 [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 173 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 215 \\ 
+    0 & iMerge & [T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   2 & 213 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   1 & 193 \\ 
+    0 & iMerge & [DP1 [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 173 \\ 
+    0 & iMerge & [V[V DP1\_a:case] [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 215 \\ 
+    0 & rMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 103 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+\ex Input C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]\\* \begingroup\footnotesize
+\begin{tabular}{rllrrrrr}
+  \hline
+\rotatebox{90}{winner} & \rotatebox{90}{operation} & \rotatebox{90}{output} & \rotatebox{90}{exnum$^{64}$} & \rotatebox{90}{lab$^{39}$} & \rotatebox{90}{case\_agr$^{42}$} & \rotatebox{90}{foc$^{20}$} & \rotatebox{90}{H} \\ 
+  \hline
+  0 & iMerge & [v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   0 & 103 \\ 
+    0 & iMerge & [DP1 C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   1 & 123 \\ 
+    0 & iMerge & [V[V DP1\_a:case] C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   1 &   1 & 165 \\ 
+    0 & iMerge & [T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]] C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   2 & 143 \\ 
+    0 & iMerge & [DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]] C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   1 & 123 \\ 
+    0 & iMerge & [DP1 C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   0 &   1 & 123 \\ 
+    0 & iMerge & [V[V DP1\_a:case] C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]]] &   1 &   1 &   1 &   1 & 165 \\ 
+    1 & rMerge & C[v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]] C[C T[T DP2[DP2\_a:case v\_f:foc[DP1 v\_f:foc[v\_f:case,foc V[V DP1\_a:case]]]]]]] &   1 &   0 &   0 &   1 &  84 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
