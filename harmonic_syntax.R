@@ -136,27 +136,28 @@ Merge <- function(input_tree){
   # create new node and set default values
   new_nodes <- lapply(seq_along(left_arg), function(i) Node$new("0", mc = "", ac = "0-0-0", ft = "0-0-0", lb = 0, it = 0, is_copy = 0, input = draw_tree(input_tree)))
   
-  # modify the new list by merging the left arg from the left_arg list and the right_arg tree
+  # modify the new list by merging the left arg from the left_arg list and the right_arg tree, this is basically core of Merge.
   x <- lapply(seq_along(left_arg), function(i) new_nodes[[i]]$AddChildNode(left_arg[[i]])$AddSiblingNode(right_arg[[i]]))
   rm(x)
   
   # update output numerations, domination counts, eval, and range_ids, prune previous numerations
   new_nodes <- lapply(seq_along(new_nodes), function(i) {
-    new_nodes[[i]]$output_num <- my_tree$output_num
-    new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x))
+    new_nodes[[i]]$output_num <- my_tree$output_num # set output num of root
+    new_nodes[[i]]$Set(output_num = 0, filterFun = function(x) !isRoot(x)) # prune numerations of all nodes but the root
     new_nodes[[i]]$Set(range_id = 1: length(new_nodes[[i]]$Get("lb")), n_dominator = 0, mt_ac = "0-0-0") # reset range_id, dominator count, and mt_ac
-    new_nodes[[i]]$gen <- "iMerge"
+    new_nodes[[i]]$gen <- "iMerge" # set operation name as internal merge for all
     new_nodes[[i]]
   })
   
   # update output numeration trees for external merge and set operation name
   x <- lapply(seq_along(my_tree$output_num), function(i) {
-    new_nodes[[i]]$output_num <- my_tree$output_num[-i]
-    new_nodes[[i]]$gen <- "xMerge"
+    new_nodes[[i]]$output_num <- my_tree$output_num[-i] # remove the externally merge nodes from their own numerations
+    new_nodes[[i]]$gen <- "xMerge" # correct operation name for external merge 
     new_nodes[[i]]
   })
+  rm(x)
   
-  # recalculate domination counts and evaluation after
+  # recalculate domination counts and evaluation
   new_nodes %<>% lapply(function(i) count_domination(i) %>% form_evaluation())
   
   # reflexive merge
@@ -168,7 +169,7 @@ Merge <- function(input_tree){
   self_merge$input <- draw_tree(input_tree)
   new_nodes %<>% append(self_merge)
   
-  # return the list of trees as a result of all possible Merge operations
+  # return the list of trees as a result of all possible Merge operations (internal, external, reflexive)
   return(new_nodes)
 }
 
@@ -190,9 +191,6 @@ Label <- function(input_tree){
                          it = right_win$right_arg$it)
       # set the new values in the labelled phrase
       rlang::exec(right_win$Set, !!!new_values, filterFun = isRoot)
-      # remove the moved values
-      # right_win$right_arg$ft <- ""
-      # right_win$right_arg$ac <- ""
       
       # renew domination counts and add eval
       right_win$Set(n_dominator = 0, mt_ac = "0-0-0")
@@ -212,20 +210,17 @@ Label <- function(input_tree){
                          it = left_win$left_arg$it)
       # set the new values in the labelled phrase
       rlang::exec(left_win$Set, !!!new_values, filterFun = isRoot)
-      # remove the moved values
-      # left_win$left_arg$ft <- ""
-      # left_win$left_arg$ac <- ""
       
       # renew domination counts and add eval
-      left_win$Set(n_dominator = 0, mt_ac = "0-0-0")
+      left_win$Set(n_dominator = 0, mt_ac = "0-0-0") # reset domination and empty agree
       left_win$gen <- "Label" # add operation name
-      left_win %<>% count_domination() %>% form_evaluation()
+      left_win %<>% count_domination() %>% form_evaluation() # form evaluation
       left_win$input <- draw_tree(input_tree) # add input tree
-      return(list(left_win, right_win))
+      return(list(left_win, right_win)) # return a list of trees
     }
 }
 
-# agree function, compare ft and ac features of the last siblings
+# agree function, compare ft and ac features of the last siblings of an unlabelled root or carry out empty agree for a labelled root (partial agree possible)
 Agree <- function(input_tree){
   # clone tree to remove connections
   my_tree <- Clone(input_tree)
@@ -243,10 +238,6 @@ Agree <- function(input_tree){
     my_tree$left_arg$ac <- paste(left_ac, collapse = "-")
     my_tree$right_arg$ft <- paste(lefter_ft, collapse="-")
   } 
-  # else if (any(left_ac == 1)){ # empty agreement
-  #   my_tree$left_arg$mt_ac <- paste(left_ac, collapse = "-")
-  #   my_tree$left_arg$ac <- paste(rep("0", length(left_ac)), collapse = "-")
-  # }
   
   # agree right
   right_ac <- unlist(str_split(my_tree$right_arg$ac, "-"))
@@ -259,15 +250,11 @@ Agree <- function(input_tree){
     my_tree$right_arg$ac <- paste(right_ac,collapse = "-")
     my_tree$left_arg$ft <- paste(righter_ft, collapse = "-")
   } 
-  # else if (any(right_ac == 1) & my_tree$lb==0){ # empty agreement
-  #   my_tree$right_arg$mt_ac <- paste(right_ac, collapse = "-")
-  #   my_tree$right_arg$ac <- paste(rep("0", length(right_ac)), collapse = "-")
-  # }
   }
   
   # empty agree head
   head_ac <- unlist(str_split(my_tree$ac, "-"))
-  if (any(head_ac == 1)){
+  if (any(head_ac == 1)){ # check if there is any agreement feature at the root
     my_tree$mt_ac <- paste(head_ac, collapse = "-")
     my_tree$ac <- paste(rep("0", length(head_ac)), collapse = "-")
   }
@@ -278,16 +265,16 @@ Agree <- function(input_tree){
   
   # check if agreement happened
   if(any(my_tree$Get("ac") != input_tree$Get("ac"))){
-    # if no, return empty list
+    # if yes, return tree as a list
     return(list(my_tree))
   } else {
-    # if yes, return tree
+    # if no, return empty list
     return(list())
   }
 }
 
 # EVAL FUNCTIONS #####
-# merge constraint, do not check downwards
+# merge constraint, do not check downwards, only checks left to right
 cons_merge <- function(my_tree){
   # check operation
   if(my_tree$isLeaf){ # if the input is a leaf, it cannot violate mc
@@ -297,11 +284,11 @@ cons_merge <- function(my_tree){
     # check left
     left_mc <- as.integer(unlist(str_split(my_tree$left_arg$mc,",")))
     for_left_lb <- my_tree$right_arg$lb 
-    if (any(for_left_lb == left_mc, na.rm = T)){
+    if (any(for_left_lb == left_mc, na.rm = T)){ # if there is any match between the merge features and the label
       NULL 
-    } else if (for_left_lb == 0){
+    } else if (for_left_lb == 0){ # if the merged item lacks a label
       violations %<>% +1
-    } else if (is.na(left_mc) || is_empty(left_mc)){
+    } else if (is.na(left_mc) || is_empty(left_mc)){ # if the merging item has no merge features
       NULL
       } else {violations %<>% +1}
     # check right
@@ -313,31 +300,32 @@ cons_merge <- function(my_tree){
       NULL
     } else {violations %<>% +1}
     }
-  # return result for leaf node
+  # return result of evaluation
   violation <- tibble(merge_cond = violations)
   return(violation)
 }
 
-# empy label constraint, counts unlabeled phrases
+# label and exhaust numeration constraints, check after a Merge operation only
 cons_derive <- function(my_tree){
-  violation <- tibble(exnum = ifelse(str_detect(my_tree$gen, "rMerge|iMerge"), 1, 0),
-                      lab = ifelse(my_tree$lb == 0 & str_detect(my_tree$gen, "Merge"), 1, 0))
+  violation <- tibble(exnum = ifelse(str_detect(my_tree$gen, "rMerge|iMerge"), 1, 0), # violation of exahust numeration if it is internal or reflexive merge
+                      lab = ifelse(my_tree$lb == 0 & str_detect(my_tree$gen, "Merge"), 1, 0)) # violation if there is no label after Merge
+  # return violation
   return(violation)
 }
 
 # labelling constraints
 cons_label <- function(my_tree){
-  label_cons <- tibble(lb_D = 0, lb_V = 0, lb_v = 0, lb_subj = 0, lb_T = 0, lb_C = 0)
-  if(my_tree$gen == "Label"){
-    label_cons[1,my_tree$lb] <- 1
+  label_cons <- tibble(lb_D = 0, lb_V = 0, lb_v = 0, lb_subj = 0, lb_T = 0, lb_C = 0) # default for label constraints is no violation
+  if(my_tree$gen == "Label"){ # if the operation is Label
+    label_cons[1,my_tree$lb] <- 1 # value of label determines which label constraint is violated
     return(label_cons)
-  } else {
+  } else { # if the operation is not Label, no violation
     return(label_cons)
   }
 }
 
 # only keep unique domains from the top
-get_attributes <- function(input_tree){
+get_attributes <- function(input_tree){ # a different implementation of get_subtrees, works almost the same (I did not test it with complex specifiers)
   dt_df <- tibble(lb = input_tree$Get("lb"),
                   mc = input_tree$Get("mc"),
                   ft = input_tree$Get("ft"),
@@ -513,5 +501,4 @@ weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing in
   # return the resulting optimization 
   return(optimal_weights)
 }
-
 
