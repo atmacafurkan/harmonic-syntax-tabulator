@@ -47,7 +47,6 @@ draw_forest <- function(my_tree){
   return(written)
 }
 
-
 my_lines <- lapply(dt, draw_forest) %>% unlist() %>% paste0("\\begin{forest}",.,"\\end{forest}\\\\")
 my_file <- "forest_trees.txt"
 

@@ -1,0 +1,270 @@
+
+
+Input DP1\_a:case\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & mc$^{84}$ & case$_{mt}^{69}$ & H \\ 
+  \hline
+  0 & Agr & DP1 &   0 &   0 &   0 &   1 &  69 \\ 
+    1 & xMrg & [V DP1$_{a:case}$] &   0 &   1 &   0 &   0 &  30 \\ 
+    0 & xMrg & [v$_{f:case}$ DP1$_{a:case}$] &   0 &   1 &   1 &   0 & 114 \\ 
+    0 & xMrg & [DP2$_{a:case}$ DP1$_{a:case}$] &   0 &   1 &   1 &   0 & 114 \\ 
+    0 & xMrg & [T$_{f:case}$ DP1$_{a:case}$] &   0 &   1 &   1 &   0 & 114 \\ 
+    0 & xMrg & [C DP1$_{a:case}$] &   0 &   1 &   1 &   0 & 114 \\ 
+    0 & rMrg & DP1$_{a:case}$ &   1 &   0 &   0 &   0 &  70 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [V DP1$_{a:case}$]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb$_D^{100}$ & lb$_V^{45}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & Lbl & V[V DP1$_{a:case}$] &   0 &   0 &   0 &   1 &   0 &   1 &  84 \\ 
+    0 & Lbl & DP1\_a:case[V DP1$_{a:case}$] &   0 &   0 &   1 &   0 &   0 &   0 & 100 \\ 
+    0 & xMrg & [v$_{f:case}$ [V DP1$_{a:case}$]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & xMrg & [DP2$_{a:case}$ [V DP1$_{a:case}$]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & xMrg & [T$_{f:case}$ [V DP1$_{a:case}$]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & xMrg & [C [V DP1$_{a:case}$]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & iMrg & [V [V DP1$_{a:case}$]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [DP1$_{a:case}$ [V DP1$_{a:case}$]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & rMrg & [V DP1$_{a:case}$] &   1 &   1 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input V[V DP1$_{a:case}$]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & xMrg & [v$_{f:case}$ V[V DP1$_{a:case}$]] &   0 &   1 &   0 &   1 &  69 \\ 
+    0 & xMrg & [DP2$_{a:case}$ V[V DP1$_{a:case}$]] &   0 &   1 &   1 &   1 & 153 \\ 
+    0 & xMrg & [T$_{f:case}$ V[V DP1$_{a:case}$]] &   0 &   1 &   1 &   1 & 153 \\ 
+    0 & xMrg & [C V[V DP1$_{a:case}$]] &   0 &   1 &   1 &   1 & 153 \\ 
+    0 & iMrg & [DP1$_{a:case}$ V[V DP1$_{a:case}$]] &   1 &   1 &   0 &   0 & 100 \\ 
+    0 & rMrg & V[V DP1$_{a:case}$] &   1 &   0 &   0 &   1 & 109 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [v$_{f:case}$ V[V DP1$_{a:case}$]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb$_V^{45}$ & lb$_v^{0}$ & mc$^{84}$ & case$_{agr}^{39}$ & case$^{80}$ & H \\ 
+  \hline
+  1 & Lbl & v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]] &   0 &   0 &   0 &   1 &   0 &   2 &   0 &  78 \\ 
+    0 & Lbl & V[v$_{f:case}$ V[V DP1$_{a:case}$]] &   0 &   0 &   1 &   0 &   0 &   1 &   1 & 164 \\ 
+    0 & xMrg & [DP2$_{a:case}$ [v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   1 &   0 &   0 &   1 &   1 &   0 & 153 \\ 
+    0 & xMrg & [T$_{f:case}$ [v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   1 &   0 &   0 &   1 &   1 &   0 & 153 \\ 
+    0 & xMrg & [C [v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   1 &   0 &   0 &   1 &   1 &   0 & 153 \\ 
+    0 & iMrg & [v$_{f:case}$ [v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 223 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 223 \\ 
+    0 & iMrg & [DP1$_{a:case}$ [v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 184 \\ 
+    0 & rMrg & [v$_{f:case}$ V[V DP1$_{a:case}$]] &   1 &   1 &   0 &   0 &   0 &   1 &   0 & 139 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  0 & xMrg & [DP2$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   1 &   0 &   2 & 108 \\ 
+    0 & xMrg & [T$_{f:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   1 &   1 &   2 & 192 \\ 
+    0 & xMrg & [C v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   1 &   1 &   2 & 192 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   1 & 139 \\ 
+    1 & iMrg & [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   0 & 100 \\ 
+    0 & rMrg & v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]] &   1 &   0 &   0 &   2 & 148 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb$_D^{100}$ & lb$_v^{0}$ & mc$^{84}$ & case$_{agr}^{39}$ & case$^{80}$ & H \\ 
+  \hline
+  1 & Agr & [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+    0 & Lbl & DP1\_a:case[DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 180 \\ 
+    0 & Lbl & v$_{f:case}$[DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   0 &   0 &   1 &   0 &   1 &   0 &  39 \\ 
+    0 & xMrg & [DP2$_{a:case}$ [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 114 \\ 
+    0 & xMrg & [T$_{f:case}$ [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 114 \\ 
+    0 & xMrg & [C [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 114 \\ 
+    0 & iMrg & [DP1$_{a:case}$ [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 184 \\ 
+    0 & iMrg & [v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]] [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   1 &   2 &   0 & 262 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 223 \\ 
+    0 & rMrg & [DP1$_{a:case}$ v$_{f:case}$[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb$_D^{100}$ & lb$_v^{0}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  0 & Lbl & DP1[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   0 &   1 &   0 &   0 &   0 & 100 \\ 
+    1 & Lbl & v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 \\ 
+    0 & xMrg & [DP2$_{a:case}$ [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & xMrg & [T$_{f:case}$ [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & xMrg & [C [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & iMrg & [DP1 [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [v[v$_{f:case}$ V[V DP1$_{a:case}$]] [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   1 &   2 & 262 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   1 &   1 & 223 \\ 
+    0 & rMrg & [DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   1 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & xMrg & [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   0 &   0 &  30 \\ 
+    0 & xMrg & [T$_{f:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   1 &   0 & 114 \\ 
+    0 & xMrg & [C v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   1 &   1 &   0 & 114 \\ 
+    0 & iMrg & [DP1 v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 & 100 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   1 & 139 \\ 
+    0 & rMrg & v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] &   1 &   0 &   0 &   0 &  70 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb$_v^{0}$ & lb\_subj$^{23}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & Lbl & DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   0 &   0 &   1 &   0 &   0 &  23 \\ 
+    0 & Lbl & v[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   0 &   1 &   0 &   0 &   1 &  39 \\ 
+    0 & xMrg & [T$_{f:case}$ [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & xMrg & [C [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & iMrg & [DP2$_{a:case}$ [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [DP1 [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   1 &   1 & 223 \\ 
+    0 & rMrg & [DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   1 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & mc$^{84}$ & case$_{mt}^{69}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  0 & Agr & DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   0 &   0 &   0 &   1 &   0 &  69 \\ 
+    1 & xMrg & [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   1 &   0 &   0 &   0 &  30 \\ 
+    0 & xMrg & [C DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   1 &   1 &   0 &   0 & 114 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   0 & 100 \\ 
+    0 & iMrg & [DP1 DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   0 & 100 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   1 & 139 \\ 
+    0 & rMrg & DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] &   1 &   0 &   0 &   0 &   0 &  70 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb\_subj$^{23}$ & lb$_T^{7}$ & mc$^{84}$ & case$_{agr}^{39}$ & case$^{80}$ & H \\ 
+  \hline
+  1 & Agr & [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+    0 & Lbl & T$_{f:case}$[T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   0 &   0 &   1 &   0 &   1 &   0 &  46 \\ 
+    0 & Lbl & DP2\_a:case[T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   0 &   1 &   0 &   0 &   0 &   1 & 103 \\ 
+    0 & xMrg & [C [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   0 &   1 &   0 &   0 &   1 &   0 &   0 & 114 \\ 
+    0 & iMrg & [T$_{f:case}$ [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 184 \\ 
+    0 & iMrg & [DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 184 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 184 \\ 
+    0 & iMrg & [DP1 [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 &   0 & 184 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   1 &   0 & 223 \\ 
+    0 & rMrg & [T$_{f:case}$ DP2\_a:case[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb\_subj$^{23}$ & lb$_T^{7}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & Lbl & T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   7 \\ 
+    0 & Lbl & DP2[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   0 &   0 &   1 &   0 &   0 &   0 &  23 \\ 
+    0 & xMrg & [C [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   0 &   1 &   0 &   0 &   1 &   0 & 114 \\ 
+    0 & iMrg & [T [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [DP1 [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   1 &   1 & 223 \\ 
+    0 & rMrg & [T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   1 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & xMrg & [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   0 &   1 &   0 &  30 \\ 
+    0 & iMrg & [DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [DP1 T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   1 & 139 \\ 
+    0 & rMrg & T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] &   1 &   0 &   0 &  70 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrrrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & lb$_T^{7}$ & lb$_C^{0}$ & mc$^{84}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  1 & Lbl & C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   0 &   0 &   0 &   1 &   0 &   0 &   0 \\ 
+    0 & Lbl & T[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   0 &   0 &   1 &   0 &   0 &   0 &   7 \\ 
+    0 & iMrg & [C [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [DP1 [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 &   0 &   1 &   0 & 184 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 &   0 &   1 &   1 & 223 \\ 
+    0 & rMrg & [C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   1 &   0 &   0 &   0 &   0 & 100 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
+Input C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]\\* 
+\begingroup\scriptsize
+\begin{tabular}{|rlp{6cm}rrrr|}
+  \hline
+W & opr & output & xn$^{70}$ & lab$^{30}$ & case$_{agr}^{39}$ & H \\ 
+  \hline
+  0 & iMrg & [T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]] C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]] C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]] C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [DP1 C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   0 & 100 \\ 
+    0 & iMrg & [V[V DP1$_{a:case}$] C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]]] &   1 &   1 &   1 & 139 \\ 
+    1 & rMrg & C[C T[T DP2[DP2$_{a:case}$ v[DP1 v[v$_{f:case}$ V[V DP1$_{a:case}$]]]]]] &   1 &   0 &   0 &  70 \\ 
+   \hline
+\end{tabular}
+\endgroup
+
