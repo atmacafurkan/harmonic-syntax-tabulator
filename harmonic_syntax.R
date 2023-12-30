@@ -44,7 +44,7 @@ get_subtrees <- function(input_tree, stash = integer()){
       return(my_nodes)  
     }
     
-  } else {
+  } else { # if it is not a leaf
     if (my_tree$lb %in% stash){
       # do nothing if the label is in stash
     } else {
@@ -52,7 +52,7 @@ get_subtrees <- function(input_tree, stash = integer()){
       stash %<>% append(my_tree$lb)
     }
     
-    if (my_tree$left_arg$lb %in% stash){
+    if (my_tree$left_arg$lb %in% stash){ # go left
       # do nothing if the label is in stash
     } else {
       # update stash
@@ -61,7 +61,7 @@ get_subtrees <- function(input_tree, stash = integer()){
       my_nodes %<>% append(Clone(my_tree$left_arg)$Set(name = "left_arg", filterFun = isRoot))  
     }
     
-    if (my_tree$right_arg$lb %in% stash){
+    if (my_tree$right_arg$lb %in% stash){ # go right
       # do nothing if the label is in stash
     } else {
       # update stash
@@ -69,7 +69,7 @@ get_subtrees <- function(input_tree, stash = integer()){
       # add new node
       my_nodes %<>% append(Clone(my_tree$right_arg)$Set(name = "left_arg", filterFun = isRoot))  
     }
-    return(append(my_nodes, get_subtrees(my_tree$left_arg, stash)) %>% append(get_subtrees(my_tree$right_arg, stash)))
+    return(append(my_nodes, get_subtrees(my_tree$left_arg, stash)) %>% append(get_subtrees(my_tree$right_arg, stash))) # recurse left and right
   }
 }
 
@@ -274,7 +274,7 @@ Agree <- function(input_tree){
 }
 
 # EVAL FUNCTIONS #####
-# merge constraint, do not check downwards, only checks left to right
+# merge constraint, do not check downwards, only checks left and right
 cons_merge <- function(my_tree){
   # check operation
   if(my_tree$isLeaf){ # if the input is a leaf, it cannot violate mc
@@ -307,13 +307,13 @@ cons_merge <- function(my_tree){
 
 # label and exhaust numeration constraints, check after a Merge operation only
 cons_derive <- function(my_tree){
-  violation <- tibble(exnum = ifelse(str_detect(my_tree$gen, "rMerge|iMerge"), 1, 0), # violation of exahust numeration if it is internal or reflexive merge
+  violation <- tibble(exnum = ifelse(str_detect(my_tree$gen, "rMerge|iMerge"), 1, 0), # violation of exhaust numeration if it is internal or reflexive merge
                       lab = ifelse(my_tree$lb == 0 & str_detect(my_tree$gen, "Merge"), 1, 0)) # violation if there is no label after Merge
   # return violation
   return(violation)
 }
 
-# labelling constraints
+# labeling constraints
 cons_label <- function(my_tree){
   label_cons <- tibble(lb_D = 0, lb_V = 0, lb_v = 0, lb_subj = 0, lb_T = 0, lb_C = 0) # default for label constraints is no violation
   if(my_tree$gen == "Label"){ # if the operation is Label
@@ -336,7 +336,7 @@ get_attributes <- function(input_tree){ # a different implementation of get_subt
   return(dt_df)
 }
 
-# markedness constraints, counts agree conditions, empty agreements, and features under domination only works for leaves
+# markedness constraints, counts agree conditions, empty agreements, and features under domination
 cons_marked <- function(my_tree){
   violation <- get_attributes(my_tree) %>%
     tidyr::separate(col = mt_ac, into = c("case_mt","foc_mt","wh_mt"), sep = "-", fill = "right") %>% # separate mt_acs into columns
@@ -354,7 +354,7 @@ cons_marked <- function(my_tree){
 # a function to form evaluation for a tree
 form_evaluation <- function(input_tree){
   my_tree <- Clone(input_tree)
-  if (my_tree$gen == "x"){
+  if (my_tree$gen == "x"){ # eval is called on every tree, including the numeration. "x" is for those.
     my_eval <- tibble(output = draw_tree(my_tree), operation = "x", exnum = 0, lab = 0, 
                       lb_D = 0, lb_V = 0, lb_v = 0, lb_subj = 0, lb_T = 0, lb_C = 0,
                       merge_cond = 0,
@@ -501,4 +501,3 @@ weight_optimize <- function(the_tableaux, constraints){ # turn the optimizing in
   # return the resulting optimization 
   return(optimal_weights)
 }
-

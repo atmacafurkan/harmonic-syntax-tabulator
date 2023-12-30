@@ -23,7 +23,6 @@ frontend <- fluidPage(
 )
 backend <- function(input, output, session) {
   source("./harmonic_syntax.R")
-  
   file_path <- eventReactive(input$numerationFile, {
     my_num <- import_numeration(input$numerationFile$datapath)
     numeration_name <- str_replace(input$numerationFile$name,".csv","")
@@ -58,7 +57,6 @@ backend <- function(input, output, session) {
       my_derivation <- readRDS(file_my_derivation) %>% append(my_outputs[[input$winner]])
       saveRDS(my_derivation, file_my_derivation)
     }
-
     if (input$winner == length(my_outputs)){
       my_eval2 <- readRDS(file_last_cycle) %>% compose_eval()
     } else {
@@ -94,6 +92,3 @@ backend <- function(input, output, session) {
   output$export <- renderPrint({export_me()})
 }
 shinyApp(ui = frontend, server = backend)
-
-
-

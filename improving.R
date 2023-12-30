@@ -57,6 +57,7 @@ if(!file.exists(my_file)){
   writeLines("\n", my_con)
   close(my_con)
 } 
+
 my_con <- file(my_file, "a")
 writeLines(my_lines,"\n", con = my_con) 
 close(my_con)
